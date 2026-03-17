@@ -1,0 +1,1366 @@
+- generic [active] [ref=e1]:
+  - list [ref=e2]:
+    - listitem [ref=e3]:
+      - link "Skip to content" [ref=e4] [cursor=pointer]:
+        - /url: "#title-heading"
+    - listitem [ref=e5]:
+      - link "Skip to breadcrumbs" [ref=e6] [cursor=pointer]:
+        - /url: "#breadcrumbs"
+    - listitem [ref=e7]:
+      - link "Skip to header menu" [ref=e8] [cursor=pointer]:
+        - /url: "#header-menu-bar"
+    - listitem [ref=e9]:
+      - link "Skip to action menu" [ref=e10] [cursor=pointer]:
+        - /url: "#navigation"
+    - listitem [ref=e11]:
+      - link "Skip to quick search" [ref=e12] [cursor=pointer]:
+        - /url: "#quick-search-query"
+  - generic [ref=e14]:
+    - list
+    - banner [ref=e15]:
+      - navigation [ref=e16]:
+        - generic:
+          - generic:
+            - button " Linked Applications" [ref=e17] [cursor=pointer]:
+              - generic [ref=e18]:  Linked Applications
+            - text: 
+          - generic:
+            - heading "FCI Wiki" [level=1] [ref=e19]:
+              - link "FCI Wiki" [ref=e20] [cursor=pointer]:
+                - /url: /
+                - img "FCI Wiki" [ref=e21]
+            - list [ref=e22]:
+              - listitem [ref=e23]:
+                - button "Spaces " [ref=e24] [cursor=pointer]
+              - listitem [ref=e25]:
+                - link "People" [ref=e26] [cursor=pointer]:
+                  - /url: /browsepeople.action
+              - listitem [ref=e27]:
+                - link "Terms" [ref=e28] [cursor=pointer]:
+                  - /url: /terms/all
+                  - generic [ref=e29]: Terms
+              - listitem [ref=e30]:
+                - link "Calendars" [ref=e31] [cursor=pointer]:
+                  - /url: /calendar/mycalendar.action
+              - listitem [ref=e32]:
+                - link "Create" [ref=e33] [cursor=pointer]:
+                  - /url: /pages/createpage.action?spaceKey=NCPP&fromPageId=97104183&src=quick-create
+                - link " Create" [ref=e34] [cursor=pointer]:
+                  - /url: /pages/createpage.action?spaceKey=NCPP&fromPageId=97104183
+                  - generic [ref=e35]:  Create
+          - list [ref=e36]:
+            - listitem [ref=e37]:
+              - generic [ref=e38]:
+                - textbox "Search" [ref=e39]
+                - text: 
+            - listitem [ref=e40]:
+              - link " Help" [ref=e41] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e42]:  Help
+            - listitem
+            - listitem [ref=e43]:
+              - link " 9+" [ref=e44] [cursor=pointer]:
+                - /url: "#"
+                - generic: 
+                - generic:
+                  - generic: 9+
+            - listitem [ref=e45]:
+              - link "Lưu Thị Thuần 11" [ref=e46] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e49]
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - link "NCP Product" [ref=e58] [cursor=pointer]:
+              - /url: /display/NCPP/AI+Factory?src=sidebar
+              - img "NCP Product" [ref=e59]
+            - generic [ref=e60]:
+              - link "NCP Product" [ref=e62] [cursor=pointer]:
+                - /url: /display/NCPP/AI+Factory?src=sidebar
+              - text: 
+              - generic:
+                - button "" [ref=e63] [cursor=pointer]
+                - text: 
+          - generic [ref=e64]:
+            - list [ref=e69]:
+              - listitem [ref=e70]:
+                - link "Pages" [ref=e71] [cursor=pointer]:
+                  - /url: /collector/pages.action?key=NCPP&src=sidebar-pages
+                  - text: Pages
+              - listitem [ref=e73]:
+                - link "Blog" [ref=e74] [cursor=pointer]:
+                  - /url: /pages/viewrecentblogposts.action?key=NCPP&src=sidebar-blogs
+                  - text: Blog
+              - listitem [ref=e76]:
+                - link "Terms" [ref=e77] [cursor=pointer]:
+                  - /url: /display/NCPP/terms/all?src=sidebar
+                  - text: Terms
+              - listitem [ref=e79]:
+                - link "Calendars" [ref=e80] [cursor=pointer]:
+                  - /url: /display/NCPP/calendars?src=sidebar
+                  - text: Calendars
+              - listitem [ref=e82]:
+                - link "Document Report" [ref=e83] [cursor=pointer]:
+                  - /url: /spaces/workflowreport.action?key=NCPP&src=sidebar
+                  - text: Document Report
+              - listitem [ref=e85]:
+                - link "Requirements" [ref=e86] [cursor=pointer]:
+                  - /url: /requirementyogi/list.action?key=NCPP&src=sidebar
+                  - text: Requirements
+            - generic [ref=e88]:
+              - heading "Page tree" [level=5] [ref=e90]: Page tree
+              - list [ref=e93]:
+                - list [ref=e95]:
+                  - listitem [ref=e96]:
+                    - link "" [ref=e98] [cursor=pointer]:
+                      - /url: ""
+                    - link "FPT NCP - Product Roadmap" [ref=e101] [cursor=pointer]:
+                      - /url: /display/NCPP/FPT+NCP+-+Product+Roadmap?src=contextnavpagetreemode
+                  - listitem [ref=e102]:
+                    - link "" [ref=e104] [cursor=pointer]:
+                      - /url: ""
+                    - link "General Concept" [ref=e107] [cursor=pointer]:
+                      - /url: /display/NCPP/General+Concept?src=contextnavpagetreemode
+                  - listitem [ref=e108]:
+                    - link "" [ref=e110] [cursor=pointer]:
+                      - /url: ""
+                    - link "Guideline & Workflow" [ref=e113] [cursor=pointer]:
+                      - /url: /pages/viewpage.action?pageId=65051043&src=contextnavpagetreemode
+                  - listitem [ref=e114]:
+                    - link "" [ref=e116] [cursor=pointer]:
+                      - /url: ""
+                    - link "Onboarding & Training" [ref=e119] [cursor=pointer]:
+                      - /url: /pages/viewpage.action?pageId=65051191&src=contextnavpagetreemode
+                  - listitem [ref=e120]:
+                    - link "" [ref=e122] [cursor=pointer]:
+                      - /url: ""
+                    - link "Product Business" [ref=e125] [cursor=pointer]:
+                      - /url: /display/NCPP/Product+Business?src=contextnavpagetreemode
+                  - listitem [ref=e126]:
+                    - link "" [ref=e128] [cursor=pointer]:
+                      - /url: ""
+                    - link "Product Development" [ref=e131] [cursor=pointer]:
+                      - /url: /display/NCPP/Product+Development?src=contextnavpagetreemode
+                    - list [ref=e133]:
+                      - listitem [ref=e134]:
+                        - link "" [ref=e136] [cursor=pointer]:
+                          - /url: ""
+                        - link "1. AI Factory General" [ref=e139] [cursor=pointer]:
+                          - /url: /display/NCPP/1.+AI+Factory+General?src=contextnavpagetreemode
+                      - listitem [ref=e140]:
+                        - link "" [ref=e142] [cursor=pointer]:
+                          - /url: ""
+                        - link "2. AI Infrastructure" [ref=e145] [cursor=pointer]:
+                          - /url: /display/NCPP/2.+AI+Infrastructure?src=contextnavpagetreemode
+                      - listitem [ref=e146]:
+                        - link "" [ref=e148] [cursor=pointer]:
+                          - /url: ""
+                        - link "3. AI Studio" [ref=e151] [cursor=pointer]:
+                          - /url: /display/NCPP/3.+AI+Studio?src=contextnavpagetreemode
+                      - listitem [ref=e152]:
+                        - link "" [ref=e154] [cursor=pointer]:
+                          - /url: ""
+                        - link "4. AI Inference" [ref=e157] [cursor=pointer]:
+                          - /url: /display/NCPP/4.+AI+Inference?src=contextnavpagetreemode
+                        - list [ref=e159]:
+                          - listitem [ref=e160]:
+                            - link "" [ref=e162] [cursor=pointer]:
+                              - /url: ""
+                            - link "FPT Model as a service" [ref=e165] [cursor=pointer]:
+                              - /url: /display/NCPP/FPT+Model+as+a+service?src=contextnavpagetreemode
+                          - listitem [ref=e166]:
+                            - link "" [ref=e168] [cursor=pointer]:
+                              - /url: ""
+                            - link "FPT Model Serving Services" [ref=e171] [cursor=pointer]:
+                              - /url: /display/NCPP/FPT+Model+Serving+Services?src=contextnavpagetreemode
+                          - listitem [ref=e172]:
+                            - link "" [ref=e174] [cursor=pointer]:
+                              - /url: ""
+                            - link "[OS] FPT Model as a service" [ref=e177] [cursor=pointer]:
+                              - /url: /display/NCPP/%5BOS%5D+FPT+Model+as+a+service?src=contextnavpagetreemode
+                            - list [ref=e179]:
+                              - listitem [ref=e180]:
+                                - link "" [ref=e182] [cursor=pointer]:
+                                  - /url: ""
+                                - link "[Modas] - Roadmap Q1.2025" [ref=e185] [cursor=pointer]:
+                                  - /url: /display/NCPP/%5BModas%5D+-+Roadmap+Q1.2025?src=contextnavpagetreemode
+                              - listitem [ref=e186]:
+                                - link "" [ref=e188] [cursor=pointer]:
+                                  - /url: ""
+                                - link "[OS] Specification" [ref=e191] [cursor=pointer]:
+                                  - /url: /display/NCPP/%5BOS%5D+Specification?src=contextnavpagetreemode
+                                - list [ref=e193]:
+                                  - listitem [ref=e194]:
+                                    - link "" [ref=e196] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[Admin portal] AI Factory Admin" [ref=e199] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BAdmin+portal%5D+AI+Factory+Admin?src=contextnavpagetreemode
+                                  - listitem [ref=e200]:
+                                    - link "[BA][Design] Product convention/ Common rules" [ref=e205] [cursor=pointer]:
+                                      - /url: /pages/viewpage.action?pageId=71615639&src=contextnavpagetreemode
+                                  - listitem [ref=e206]:
+                                    - link "" [ref=e208] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS] [ADMIN PORTAL]" [ref=e211] [cursor=pointer]:
+                                      - /url: /pages/viewpage.action?pageId=97095474&src=contextnavpagetreemode
+                                  - listitem [ref=e212]:
+                                    - link "[OS] [ADMIN PORTAL V2.0]" [ref=e217] [cursor=pointer]:
+                                      - /url: /pages/viewpage.action?pageId=99965558&src=contextnavpagetreemode
+                                  - listitem [ref=e218]:
+                                    - link "[OS] [Buyer portal] Contact us" [ref=e223] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D+%5BBuyer+portal%5D+Contact+us?src=contextnavpagetreemode
+                                  - listitem [ref=e224]:
+                                    - link "" [ref=e226] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS] [Buyer portal] Home page" [ref=e229] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D+%5BBuyer+portal%5D+Home+page?src=contextnavpagetreemode
+                                  - listitem [ref=e230]:
+                                    - link "" [ref=e232] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS][Buyer Portal] Integrate Billing & PAYG" [ref=e235] [cursor=pointer]:
+                                      - /url: /pages/viewpage.action?pageId=77866080&src=contextnavpagetreemode
+                                  - listitem [ref=e236]:
+                                    - link "[OS][Buyer portal] Playground" [ref=e241] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D%5BBuyer+portal%5D+Playground?src=contextnavpagetreemode
+                                  - listitem [ref=e242]:
+                                    - link "" [ref=e244] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS] [Buyer portal] Product Detail page" [ref=e247] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D+%5BBuyer+portal%5D+Product+Detail+page?src=contextnavpagetreemode
+                                  - listitem [ref=e248]:
+                                    - link "" [ref=e250] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS] [Buyer Portal] Sign in/ Sign up" [ref=e253] [cursor=pointer]:
+                                      - /url: /pages/viewpage.action?pageId=68121167&src=contextnavpagetreemode
+                                  - listitem [ref=e254]:
+                                    - link "[OS] [Buyer Portal] User profile - My account & API Key" [ref=e259] [cursor=pointer]:
+                                      - /url: /pages/viewpage.action?pageId=68121166&src=contextnavpagetreemode
+                                  - listitem [ref=e260]:
+                                    - link "[OS] [Buyer Portal] User profile - My usage" [ref=e265] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D+%5BBuyer+Portal%5D+User+profile+-+My+usage?src=contextnavpagetreemode
+                                  - listitem [ref=e266]:
+                                    - link "" [ref=e268] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS] Bảng mã lỗi" [ref=e271] [cursor=pointer]:
+                                      - /url: /pages/viewpage.action?pageId=75333638&src=contextnavpagetreemode
+                                  - listitem [ref=e272]:
+                                    - link "" [ref=e274] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS] Dedicated Inference" [ref=e277] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D+Dedicated+Inference?src=contextnavpagetreemode
+                                    - list [ref=e279]:
+                                      - listitem [ref=e280]:
+                                        - link "[OS] Dedicated Inference v1.0" [ref=e285] [cursor=pointer]:
+                                          - /url: /display/NCPP/%5BOS%5D+Dedicated+Inference+v1.0?src=contextnavpagetreemode
+                                      - listitem [ref=e286]:
+                                        - link "Danh sách Dedicated models" [ref=e291] [cursor=pointer]:
+                                          - /url: /pages/viewpage.action?pageId=84010157&src=contextnavpagetreemode
+                                      - listitem [ref=e292]:
+                                        - link "Integration with Model Hub & Model Finetuning" [ref=e297] [cursor=pointer]:
+                                          - /url: /pages/viewpage.action?pageId=84009966&src=contextnavpagetreemode
+                                      - listitem [ref=e298]:
+                                        - link "Tích hợp Billing" [ref=e303] [cursor=pointer]:
+                                          - /url: /pages/viewpage.action?pageId=84010155&src=contextnavpagetreemode
+                                  - listitem [ref=e304]:
+                                    - link "[OS] Deployment v1.0" [ref=e309] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D+Deployment+v1.0?src=contextnavpagetreemode
+                                  - listitem [ref=e310]:
+                                    - link "" [ref=e312] [cursor=pointer]:
+                                      - /url: ""
+                                    - link "[OS] Fine-tune with LoRA 1.1" [ref=e315] [cursor=pointer]:
+                                      - /url: /display/NCPP/%5BOS%5D+Fine-tune+with+LoRA+1.1?src=contextnavpagetreemode
+                                  - listitem [ref=e316]:
+                                    - link "Automation email" [ref=e321] [cursor=pointer]:
+                                      - /url: /display/NCPP/Automation+email?src=contextnavpagetreemode
+                                  - listitem [ref=e322]:
+                                    - link "Fine-tune with LoRA v1.0" [ref=e327] [cursor=pointer]:
+                                      - /url: /display/NCPP/Fine-tune+with+LoRA+v1.0?src=contextnavpagetreemode
+                              - listitem [ref=e328]:
+                                - link "" [ref=e330] [cursor=pointer]:
+                                  - /url: ""
+                                - link "[OS] Specification v2.0" [ref=e333] [cursor=pointer]:
+                                  - /url: /display/NCPP/%5BOS%5D+Specification+v2.0?src=contextnavpagetreemode
+                              - listitem [ref=e334]:
+                                - link "" [ref=e336] [cursor=pointer]:
+                                  - /url: ""
+                                - link "[OS] Tech docs" [ref=e339] [cursor=pointer]:
+                                  - /url: /display/NCPP/%5BOS%5D+Tech+docs?src=contextnavpagetreemode
+                              - listitem [ref=e340]:
+                                - link "Model listing" [ref=e345] [cursor=pointer]:
+                                  - /url: /display/NCPP/Model+listing?src=contextnavpagetreemode
+                              - listitem [ref=e346]:
+                                - link "" [ref=e348] [cursor=pointer]:
+                                  - /url: ""
+                                - link "Operation procedure" [ref=e351] [cursor=pointer]:
+                                  - /url: /display/NCPP/Operation+procedure?src=contextnavpagetreemode
+                          - listitem [ref=e352]:
+                            - link "Enterprise Customers" [ref=e357] [cursor=pointer]:
+                              - /url: /display/NCPP/Enterprise+Customers?src=contextnavpagetreemode
+                      - listitem [ref=e358]:
+                        - link "5. AI Notebook" [ref=e363] [cursor=pointer]:
+                          - /url: /display/NCPP/5.+AI+Notebook?src=contextnavpagetreemode
+                      - listitem [ref=e364]:
+                        - link "" [ref=e366] [cursor=pointer]:
+                          - /url: ""
+                        - link "8. Other projects" [ref=e369] [cursor=pointer]:
+                          - /url: /display/NCPP/8.+Other+projects?src=contextnavpagetreemode
+                      - listitem [ref=e370]:
+                        - link "" [ref=e372] [cursor=pointer]:
+                          - /url: ""
+                        - link "NCP Environments" [ref=e375] [cursor=pointer]:
+                          - /url: /display/NCPP/NCP+Environments?src=contextnavpagetreemode
+                      - listitem [ref=e376]:
+                        - link "Tổng Quan Kiến Trúc & Đề Xuất Cải thiện" [ref=e381] [cursor=pointer]:
+                          - /url: /pages/viewpage.action?pageId=93609778&src=contextnavpagetreemode
+                  - listitem [ref=e382]:
+                    - link "" [ref=e384] [cursor=pointer]:
+                      - /url: ""
+                    - link "Testing" [ref=e387] [cursor=pointer]:
+                      - /url: /display/NCPP/Testing?src=contextnavpagetreemode
+                  - listitem [ref=e388]:
+                    - link "" [ref=e390] [cursor=pointer]:
+                      - /url: ""
+                    - link "Meeting Notes" [ref=e393] [cursor=pointer]:
+                      - /url: /display/NCPP/Meeting+Notes?src=contextnavpagetreemode
+                  - listitem [ref=e394]:
+                    - link "" [ref=e396] [cursor=pointer]:
+                      - /url: ""
+                    - link "Product Delivery" [ref=e399] [cursor=pointer]:
+                      - /url: /display/NCPP/Product+Delivery?src=contextnavpagetreemode
+                  - listitem [ref=e400]:
+                    - link "" [ref=e402] [cursor=pointer]:
+                      - /url: ""
+                    - link "WIP" [ref=e405] [cursor=pointer]:
+                      - /url: /display/NCPP/WIP?src=contextnavpagetreemode
+                  - listitem [ref=e406]:
+                    - link "" [ref=e408] [cursor=pointer]:
+                      - /url: ""
+                    - link "Other Documents" [ref=e411] [cursor=pointer]:
+                      - /url: /display/NCPP/Other+Documents?src=contextnavpagetreemode
+                  - listitem [ref=e412]:
+                    - link "" [ref=e414] [cursor=pointer]:
+                      - /url: ""
+                    - link "Health Report" [ref=e417] [cursor=pointer]:
+                      - /url: /display/NCPP/Health+Report?src=contextnavpagetreemode
+        - generic [ref=e418]:
+          - button " Configure Space tools" [ref=e419] [cursor=pointer]:
+            - generic [ref=e420]:  Configure
+            - text: Space tools
+          - generic [ref=e422]: 
+        - generic "(Type '[')" [ref=e423]
+      - generic [ref=e425]:
+        - generic [ref=e426]:
+          - generic [ref=e427]:
+            - list:
+              - listitem [ref=e428]:
+                - link " Edit" [ref=e429] [cursor=pointer]:
+                  - /url: /pages/editpage.action?pageId=97104183
+                  - generic [ref=e430]:
+                    - generic [ref=e431]: 
+                    - text: Edit
+              - listitem [ref=e432]:
+                - link " Save for later" [ref=e433] [cursor=pointer]:
+                  - /url: "#"
+                  - generic [ref=e434]:
+                    - generic [ref=e435]: 
+                    - text: Save for later
+              - listitem [ref=e436]:
+                - link " Watching" [ref=e437] [cursor=pointer]:
+                  - /url: "#"
+                  - generic [ref=e438]:
+                    - generic [ref=e439]: 
+                    - text: Watching
+              - listitem [ref=e440]:
+                - link " Share" [ref=e441] [cursor=pointer]:
+                  - /url: "#"
+                  - generic [ref=e442]:
+                    - generic [ref=e443]: 
+                    - text: Share
+              - listitem [ref=e444]:
+                - link "More options" [ref=e445] [cursor=pointer]:
+                  - /url: "#"
+                  - generic "More options" [ref=e447]: 
+          - generic [ref=e448]:
+            - generic:
+              - list:
+                - listitem [ref=e449]:
+                  - link "Dashboard" [ref=e451] [cursor=pointer]:
+                    - /url: /collector/pages.action?key=NCPP&src=breadcrumbs-collector
+                - listitem "Show all breadcrumbs" [ref=e452] [cursor=pointer]:
+                  - text: /
+                  - strong [ref=e454]: …
+                - text: / / / / /
+                - listitem [ref=e455]:
+                  - text: /
+                  - link "[OS] Dedicated Inference" [ref=e457] [cursor=pointer]:
+                    - /url: /display/NCPP/%5BOS%5D+Dedicated+Inference?src=breadcrumbs-parent
+            - link "Skip to end of banner" [ref=e458] [cursor=pointer]:
+              - /url: "#page-banner-end"
+            - generic:
+              - list:
+                - listitem [ref=e460]:
+                  - link "" [ref=e461] [cursor=pointer]:
+                    - /url: ""
+                  - link "" [ref=e462] [cursor=pointer]:
+                    - /url: /pages/viewpageattachments.action?pageId=97104183&metadataLink=true
+                - listitem
+                - listitem [ref=e463]
+                - listitem [ref=e464]
+                - listitem
+                - listitem [ref=e465]
+            - link "Go to start of banner" [ref=e466] [cursor=pointer]:
+              - /url: "#page-banner-start"
+            - heading "[OS] Dedicated Inference v1.0" [level=1] [ref=e468]:
+              - link "[OS] Dedicated Inference v1.0" [ref=e469] [cursor=pointer]:
+                - /url: /display/NCPP/%5BOS%5D+Dedicated+Inference+v1.0
+        - generic [ref=e470]:
+          - link "Skip to end of metadata" [ref=e471] [cursor=pointer]:
+            - /url: "#page-metadata-end"
+          - generic [ref=e473]:
+            - list [ref=e474]:
+              - listitem [ref=e475]:
+                - text: Created by
+                - link "Nguyễn Phương Thảo 114" [ref=e477] [cursor=pointer]:
+                  - /url: "    /display/~thaonp114@fpt.com\n"
+                - text: ", last modified on"
+                - link "Feb 26, 2026" [ref=e478] [cursor=pointer]:
+                  - /url: /pages/diffpagesbyversion.action?pageId=97104183&selectedPageVersions=12&selectedPageVersions=13
+            - list:
+              - listitem
+              - listitem
+              - listitem
+              - listitem
+          - link "Go to start of metadata" [ref=e479] [cursor=pointer]:
+            - /url: "#page-metadata-start"
+          - generic [ref=e481]:
+            - 'heading "FEATURE: Add model deployment type: Dedicated Inference" [level=2] [ref=e482]':
+              - strong [ref=e483]: "FEATURE: Add model deployment type: Dedicated Inference"
+            - table [ref=e485]:
+              - rowgroup [ref=e489]:
+                - row "Approved by" [ref=e490]:
+                  - cell "Approved by" [ref=e491]:
+                    - strong [ref=e492]: Approved by
+                  - cell [ref=e493]
+                - row "Author BA @ Nguyễn Phương Thảo 114" [ref=e494]:
+                  - cell "Author" [ref=e495]:
+                    - strong [ref=e496]: Author
+                  - cell "BA @ Nguyễn Phương Thảo 114" [ref=e497]:
+                    - paragraph [ref=e499]:
+                      - text: BA
+                      - link "@ Nguyễn Phương Thảo 114" [ref=e500] [cursor=pointer]:
+                        - /url: /display/~thaonp114@fpt.com
+                - 'row "Purpose/ User story User: Là user, tôi muốn sử dụng dedicated inference để: Hiệu năng ổn định và có thể dự đoán được, không bị ảnh hưởng bởi tài nguyên của người dùng khác Tối ưu chi phí hơn khi sử dụng ở mức độ cao Đa dạng model, hỗ trợ các custom model Về phía FPT AI marketplace: Là người vận hành AI Marketplace tôi muốn cung cấp dedicated endpoint để tăng doanh thu và mở rộng dịch vụ cung cấp cho khách hàng" [ref=e501]':
+                  - cell "Purpose/ User story" [ref=e502]:
+                    - strong [ref=e503]: Purpose/ User story
+                  - 'cell "User: Là user, tôi muốn sử dụng dedicated inference để: Hiệu năng ổn định và có thể dự đoán được, không bị ảnh hưởng bởi tài nguyên của người dùng khác Tối ưu chi phí hơn khi sử dụng ở mức độ cao Đa dạng model, hỗ trợ các custom model Về phía FPT AI marketplace: Là người vận hành AI Marketplace tôi muốn cung cấp dedicated endpoint để tăng doanh thu và mở rộng dịch vụ cung cấp cho khách hàng" [ref=e504]':
+                    - generic [ref=e505]:
+                      - paragraph [ref=e506]:
+                        - strong [ref=e507]: "User:"
+                        - strong
+                        - text: "Là user, tôi muốn sử dụng dedicated inference để:"
+                      - list [ref=e508]:
+                        - listitem [ref=e509]: Hiệu năng ổn định và có thể dự đoán được, không bị ảnh hưởng bởi tài nguyên của người dùng khác
+                        - listitem [ref=e510]: Tối ưu chi phí hơn khi sử dụng ở mức độ cao
+                        - listitem [ref=e511]: Đa dạng model, hỗ trợ các custom model
+                      - paragraph [ref=e512]:
+                        - strong [ref=e513]: Về phía FPT AI marketplace
+                        - text: ": Là người vận hành AI Marketplace tôi muốn cung cấp dedicated endpoint để tăng doanh thu và mở rộng dịch vụ cung cấp cho khách hàng"
+                - row "Version V1.0" [ref=e514]:
+                  - cell "Version" [ref=e515]:
+                    - strong [ref=e516]: Version
+                  - cell "V1.0" [ref=e517]:
+                    - paragraph [ref=e519]: V1.0
+                - row "Link tài liệu liên quan Model Card Label Management" [ref=e520]:
+                  - cell "Link tài liệu liên quan" [ref=e521]:
+                    - emphasis [ref=e522]:
+                      - strong [ref=e523]: Link tài liệu liên quan
+                  - cell "Model Card Label Management" [ref=e524]:
+                    - link "Model Card Label Management" [ref=e525] [cursor=pointer]:
+                      - /url: /display/NCPP/Model+Card+Label+Management
+            - heading "1/ Description" [level=2] [ref=e526]:
+              - strong [ref=e527]: 1/ Description
+            - table [ref=e529]:
+              - rowgroup [ref=e533]:
+                - row "ID - Name Dedicated Inference" [ref=e534]:
+                  - cell "ID - Name" [ref=e535]:
+                    - paragraph [ref=e536]:
+                      - strong [ref=e537]: ID - Name
+                  - cell "Dedicated Inference" [ref=e538]:
+                    - paragraph [ref=e539]:
+                      - strong [ref=e540]: Dedicated Inference
+                - 'row "Description Tính năng này quản lý cơ chế hiển thị và quyền truy cập vào các AI Model trên Marketplace dựa trên hai hình thức triển khai (Deployment Type): Serverless và Dedicated. Hệ thống sẽ tự động kiểm tra trạng thái model và định danh người dùng để: Hiển thị nhãn (Label) phù hợp trên trang chủ. Quyết định việc cho phép sử dụng \"Try in Playground\" và Get \"API Key\". Cung cấp luồng \"Request Dedicated Inference\" cho khách hàng có nhu cầu sử dụng hạ tầng riêng. Đảm bảo user được phân quyền (Whitelisted User) có thể truy cập đầy đủ tính năng của model Dedicated, trong khi user thường bị giới hạn." [ref=e541]':
+                  - cell "Description" [ref=e542]:
+                    - paragraph [ref=e543]:
+                      - strong [ref=e544]: Description
+                  - 'cell "Tính năng này quản lý cơ chế hiển thị và quyền truy cập vào các AI Model trên Marketplace dựa trên hai hình thức triển khai (Deployment Type): Serverless và Dedicated. Hệ thống sẽ tự động kiểm tra trạng thái model và định danh người dùng để: Hiển thị nhãn (Label) phù hợp trên trang chủ. Quyết định việc cho phép sử dụng \"Try in Playground\" và Get \"API Key\". Cung cấp luồng \"Request Dedicated Inference\" cho khách hàng có nhu cầu sử dụng hạ tầng riêng. Đảm bảo user được phân quyền (Whitelisted User) có thể truy cập đầy đủ tính năng của model Dedicated, trong khi user thường bị giới hạn." [ref=e545]':
+                    - paragraph [ref=e546]:
+                      - text: "Tính năng này quản lý cơ chế hiển thị và quyền truy cập vào các AI Model trên Marketplace dựa trên hai hình thức triển khai (Deployment Type):"
+                      - strong [ref=e547]: Serverless
+                      - text: và
+                      - strong [ref=e548]: Dedicated
+                      - text: ". Hệ thống sẽ tự động kiểm tra trạng thái model và định danh người dùng để:"
+                    - list [ref=e549]:
+                      - listitem [ref=e550]:
+                        - paragraph [ref=e551]: Hiển thị nhãn (Label) phù hợp trên trang chủ.
+                      - listitem [ref=e552]:
+                        - paragraph [ref=e553]: Quyết định việc cho phép sử dụng "Try in Playground" và Get "API Key".
+                      - listitem [ref=e554]:
+                        - paragraph [ref=e555]: Cung cấp luồng "Request Dedicated Inference" cho khách hàng có nhu cầu sử dụng hạ tầng riêng.
+                      - listitem [ref=e556]:
+                        - paragraph [ref=e557]: Đảm bảo user được phân quyền (Whitelisted User) có thể truy cập đầy đủ tính năng của model Dedicated, trong khi user thường bị giới hạn.
+                - 'row "Actor Standard User (Người dùng thường): User chưa đăng nhập/ đã đăng nhập nhưng chưa được cấp quyền truy cập model Dedicated. Whitelisted User (Người dùng được cấp quyền): User đã được Admin gán quyền truy cập cho một model Dedicated cụ thể. System (Hệ thống): Thực hiện logic kiểm tra quyền (Authorization Check) và render giao diện. Sales Team: Nhận thông tin từ form đăng ký của khách hàng (Actor thụ động trong use case này)." [ref=e558]':
+                  - cell "Actor" [ref=e559]:
+                    - paragraph [ref=e560]:
+                      - strong [ref=e561]: Actor
+                  - 'cell "Standard User (Người dùng thường): User chưa đăng nhập/ đã đăng nhập nhưng chưa được cấp quyền truy cập model Dedicated. Whitelisted User (Người dùng được cấp quyền): User đã được Admin gán quyền truy cập cho một model Dedicated cụ thể. System (Hệ thống): Thực hiện logic kiểm tra quyền (Authorization Check) và render giao diện. Sales Team: Nhận thông tin từ form đăng ký của khách hàng (Actor thụ động trong use case này)." [ref=e562]':
+                    - list [ref=e563]:
+                      - listitem [ref=e564]:
+                        - paragraph [ref=e565]:
+                          - strong [ref=e566]: "Standard User (Người dùng thường):"
+                          - text: User chưa đăng nhập/ đã đăng nhập nhưng chưa được cấp quyền truy cập model Dedicated.
+                      - listitem [ref=e567]:
+                        - paragraph [ref=e568]:
+                          - strong [ref=e569]: "Whitelisted User (Người dùng được cấp quyền):"
+                          - text: User đã được Admin gán quyền truy cập cho một model Dedicated cụ thể.
+                      - listitem [ref=e570]:
+                        - paragraph [ref=e571]:
+                          - strong [ref=e572]: "System (Hệ thống):"
+                          - text: Thực hiện logic kiểm tra quyền (Authorization Check) và render giao diện.
+                      - listitem [ref=e573]:
+                        - paragraph [ref=e574]:
+                          - strong [ref=e575]: "Sales Team:"
+                          - text: Nhận thông tin từ form đăng ký của khách hàng (Actor thụ động trong use case này).
+                - 'row "Trigger Use case này được kích hoạt khi xảy ra một trong các sự kiện sau: Page Load: User truy cập vào Homepage hoặc trang chi tiết (Product Page) của một Model. Filter Interaction: User thao tác với bộ lọc \"Deployment Type\" (Serverless/Dedicated) trên Homepage. Action Click: User nhấn vào nút \"Request Dedicated Inference\"." [ref=e576]':
+                  - cell "Trigger" [ref=e577]:
+                    - strong [ref=e578]: Trigger
+                  - 'cell "Use case này được kích hoạt khi xảy ra một trong các sự kiện sau: Page Load: User truy cập vào Homepage hoặc trang chi tiết (Product Page) của một Model. Filter Interaction: User thao tác với bộ lọc \"Deployment Type\" (Serverless/Dedicated) trên Homepage. Action Click: User nhấn vào nút \"Request Dedicated Inference\"." [ref=e579]':
+                    - paragraph [ref=e580]: "Use case này được kích hoạt khi xảy ra một trong các sự kiện sau:"
+                    - list [ref=e581]:
+                      - listitem [ref=e582]:
+                        - paragraph [ref=e583]:
+                          - strong [ref=e584]: "Page Load:"
+                          - text: User truy cập vào Homepage hoặc trang chi tiết (Product Page) của một Model.
+                      - listitem [ref=e585]:
+                        - paragraph [ref=e586]:
+                          - strong [ref=e587]: "Filter Interaction:"
+                          - text: User thao tác với bộ lọc "Deployment Type" (Serverless/Dedicated) trên Homepage.
+                      - listitem [ref=e588]:
+                        - paragraph [ref=e589]:
+                          - strong [ref=e590]: "Action Click:"
+                          - text: User nhấn vào nút "Request Dedicated Inference".
+                - row "Pre-conditions Model đã được khởi tạo trong hệ thống với trường dữ liệu deployment_type được gán là Serverless hoặc Dedicated. Hệ thống phân quyền (RBAC) đã có sẵn logic check quyền truy cập model" [ref=e591]:
+                  - cell "Pre-conditions" [ref=e592]:
+                    - strong [ref=e593]: Pre-conditions
+                  - cell "Model đã được khởi tạo trong hệ thống với trường dữ liệu deployment_type được gán là Serverless hoặc Dedicated. Hệ thống phân quyền (RBAC) đã có sẵn logic check quyền truy cập model" [ref=e594]:
+                    - list [ref=e595]:
+                      - listitem [ref=e596]:
+                        - paragraph [ref=e597]:
+                          - text: Model đã được khởi tạo trong hệ thống với trường dữ liệu
+                          - code [ref=e599]: deployment_type
+                          - text: được gán là
+                          - code [ref=e601]: Serverless
+                          - text: hoặc
+                          - generic [ref=e602]:
+                            - code [ref=e603]: Dedicated
+                            - text: .
+                      - listitem [ref=e604]:
+                        - paragraph [ref=e605]: Hệ thống phân quyền (RBAC) đã có sẵn logic check quyền truy cập model
+            - separator [ref=e606]
+            - heading "2/ Business Rules" [level=2] [ref=e607]:
+              - strong [ref=e608]: 2/ Business Rules
+            - table [ref=e610]:
+              - rowgroup [ref=e618]:
+                - row "NO Status Deployment Type Homepage Display Product Page UI Playground, API Key & My Usage" [ref=e619]:
+                  - cell "NO" [ref=e620]:
+                    - strong [ref=e621]: "NO"
+                  - cell "Status" [ref=e622]:
+                    - strong [ref=e623]: Status
+                  - cell "Deployment Type" [ref=e624]:
+                    - strong [ref=e625]: Deployment Type
+                  - cell "Homepage Display" [ref=e626]:
+                    - strong [ref=e627]: Homepage Display
+                  - cell "Product Page UI" [ref=e628]:
+                    - strong [ref=e629]: Product Page UI
+                  - cell "Playground, API Key & My Usage" [ref=e630]:
+                    - strong [ref=e631]: Playground, API Key & My Usage
+              - rowgroup [ref=e632]:
+                - 'row "1 ON Serverless - Hiển thị Model card. - Có nhãn (Label): Serverless. - Button \"Try in Playground\": Hiển thị với ALL Users. - Button \"Request Dedicated Inference\": Hiển thị với ALL Users. ✅ Enable: Cho phép tất cả User sử dụng Playground & lấy API Key." [ref=e633]':
+                  - cell "1" [ref=e634]:
+                    - strong [ref=e636]: "1"
+                  - cell "ON" [ref=e637]:
+                    - strong [ref=e639]: "ON"
+                  - cell "Serverless" [ref=e640]:
+                    - strong [ref=e642]: Serverless
+                  - 'cell "- Hiển thị Model card. - Có nhãn (Label): Serverless." [ref=e643]':
+                    - paragraph [ref=e644]:
+                      - text: "-"
+                      - strong [ref=e645]: Hiển thị
+                      - text: Model card.
+                    - paragraph [ref=e646]:
+                      - text: "- Có nhãn (Label):"
+                      - code [ref=e647]: Serverless
+                      - text: .
+                  - 'cell "- Button \"Try in Playground\": Hiển thị với ALL Users. - Button \"Request Dedicated Inference\": Hiển thị với ALL Users." [ref=e648]':
+                    - paragraph [ref=e649]:
+                      - text: "- Button"
+                      - strong [ref=e650]: "\"Try in Playground\""
+                      - text: ": Hiển thị với ALL Users."
+                    - paragraph [ref=e651]:
+                      - text: "- Button"
+                      - strong [ref=e652]: "\"Request Dedicated Inference\""
+                      - text: ": Hiển thị với ALL Users."
+                  - 'cell "✅ Enable: Cho phép tất cả User sử dụng Playground & lấy API Key." [ref=e653]':
+                    - generic [ref=e654]:
+                      - text: ✅
+                      - strong [ref=e655]: "Enable:"
+                      - text: Cho phép tất cả User sử dụng Playground & lấy API Key.
+                - row [ref=e656]:
+                  - cell "2" [ref=e657]:
+                    - strong [ref=e659]: "2"
+                  - cell "ON" [ref=e660]:
+                    - strong [ref=e662]: "ON"
+                  - cell "Dedicated" [ref=e663]:
+                    - strong [ref=e665]: Dedicated
+                  - 'cell "- Hiển thị Model card (A). - Có nhãn (label): Dedicated." [ref=e666]':
+                    - paragraph [ref=e667]:
+                      - text: "-"
+                      - strong [ref=e668]: Hiển thị
+                      - text: Model card (A).
+                    - paragraph [ref=e669]:
+                      - text: "- Có nhãn (label): D"
+                      - code [ref=e670]: edicated
+                      - text: .
+                  - 'cell "User bình thường: - Chỉ thấy model card (A) - Chỉ hiện button \"Request Dedicated Inference\" tại model card gốc (A). - Ẩn button Playground. User có quyền (Access Control là dedicated): - Sẽ thấy thêm 1 hoặc nhiều model card dedicated mới của riêng họ tại \"portal của FPT AI Marketplace\" tuỳ vào số lượng user đó request thành công với Modas => User có thể có nhiều model card dedicated (A+), (A++)... từ model card gốc là (A) nếu request thành công. ví dụ: user request dedicated model (A) thành công thì trên giao diện họ sẽ có thêm 1 model card mới xuất hiện (A+)_chính là model dedicated của riêng họ (\"user bình thường\" sẽ chỉ thấy (A) và không thấy được (A+)). - Hiện thị button \"Try in Playground\" tại model card dedicated mới (A+). - Tại model card gốc (A) thì vẫn hiển thị button \"Request Dedicated Inference\" như ban đầu." [ref=e671]':
+                    - paragraph [ref=e672]:
+                      - strong [ref=e673]: "User bình thường:"
+                    - paragraph [ref=e674]: "- Chỉ thấy model card (A)"
+                    - paragraph [ref=e675]:
+                      - text: "- Chỉ hiện button"
+                      - strong [ref=e676]: "\"Request Dedicated Inference\""
+                      - text: tại model card gốc (A).
+                    - paragraph [ref=e677]: "- Ẩn button Playground."
+                    - paragraph [ref=e678]:
+                      - strong [ref=e679]:
+                        - text: User có quyền (
+                        - strong [ref=e680]: Access Control là dedicated
+                        - text: "):"
+                      - text: "- Sẽ thấy thêm 1 hoặc nhiều model card dedicated mới của riêng họ tại \"portal của FPT AI Marketplace\" tuỳ vào số lượng user đó request thành công với Modas"
+                      - generic [ref=e682]: => User có thể có nhiều model card dedicated (A+), (A++)... từ model card gốc là (A) nếu request thành công.
+                    - paragraph [ref=e683]:
+                      - text: "ví dụ: user request dedicated model (A) thành công thì trên giao diện họ sẽ có thêm 1 model card mới xuất hiện (A+)_chính là model dedicated của riêng họ"
+                      - emphasis [ref=e684]: ("user bình thường" sẽ chỉ thấy (A) và không thấy được
+                      - generic [ref=e685]:
+                        - emphasis [ref=e686]: (A+)
+                        - generic [ref=e687]:
+                          - emphasis [ref=e688]: )
+                          - text: .
+                    - paragraph [ref=e689]:
+                      - text: "- Hiện thị button"
+                      - strong [ref=e690]: "\"Try in Playground\""
+                      - text: tại model card dedicated mới (A+).
+                      - text: "- Tại model card gốc (A) thì vẫn hiển thị button"
+                      - strong [ref=e691]: "\"Request Dedicated Inference\""
+                      - text: như ban đầu.
+                  - 'cell "⛔ User thường: Disable/Ẩn. ✅ User có quyền (Access Control là dedicated): Enable Playground & API Key." [ref=e692]':
+                    - paragraph [ref=e693]:
+                      - text: ⛔
+                      - strong [ref=e694]: "User thường:"
+                      - text: Disable/Ẩn.
+                    - paragraph [ref=e695]:
+                      - text: ✅
+                      - strong [ref=e696]:
+                        - text: User có quyền (
+                        - strong [ref=e697]: Access Control là dedicated
+                        - text: "):"
+                      - text: Enable Playground & API Key.
+                - row "3 OFF Serverless ⛔ Không hiển thị. ⛔ Không hiển thị. ⛔ Không truy cập được." [ref=e698]:
+                  - cell "3" [ref=e699]:
+                    - strong [ref=e701]: "3"
+                  - cell "OFF" [ref=e702]:
+                    - strong [ref=e704]: "OFF"
+                  - cell "Serverless" [ref=e705]:
+                    - strong [ref=e707]: Serverless
+                  - cell "⛔ Không hiển thị." [ref=e708]:
+                    - generic [ref=e709]:
+                      - text: ⛔
+                      - strong [ref=e710]: Không hiển thị
+                      - text: .
+                  - cell "⛔ Không hiển thị." [ref=e711]:
+                    - generic [ref=e712]:
+                      - text: ⛔
+                      - strong [ref=e713]: Không hiển thị
+                      - text: .
+                  - cell "⛔ Không truy cập được." [ref=e714]:
+                    - generic [ref=e715]:
+                      - text: ⛔
+                      - strong [ref=e716]: Không truy cập được
+                      - text: .
+                - 'row "4 OFF Dedicated User thường: ⛔ Không hiển thị. User có quyền (Access Control là dedicated): ✅ Hiển thị bình thường. User thường: ⛔ Không truy cập được. User có quyền (Access Control là dedicated): ✅ Hiển thị button Playground. - Trên giao diện thì model card (A) gốc sẽ bị ẩn đi và model card dedicated (A+) (A++) ... không bị ẩn để tiếp tục sử dụng. User thường: ⛔ Disable. User có quyền (Access Control là dedicated): ✅ Enable." [ref=e717]':
+                  - cell "4" [ref=e718]:
+                    - strong [ref=e720]: "4"
+                  - cell "OFF" [ref=e721]:
+                    - strong [ref=e723]: "OFF"
+                  - cell "Dedicated" [ref=e724]:
+                    - strong [ref=e726]: Dedicated
+                  - 'cell "User thường: ⛔ Không hiển thị. User có quyền (Access Control là dedicated): ✅ Hiển thị bình thường." [ref=e727]':
+                    - paragraph [ref=e728]:
+                      - strong [ref=e729]: "User thường:"
+                    - paragraph [ref=e730]: ⛔ Không hiển thị.
+                    - paragraph [ref=e731]:
+                      - strong [ref=e732]:
+                        - text: User có quyền (
+                        - strong [ref=e733]: Access Control là dedicated
+                        - text: "):"
+                    - paragraph [ref=e734]: ✅ Hiển thị bình thường.
+                  - 'cell "User thường: ⛔ Không truy cập được. User có quyền (Access Control là dedicated): ✅ Hiển thị button Playground. - Trên giao diện thì model card (A) gốc sẽ bị ẩn đi và model card dedicated (A+) (A++) ... không bị ẩn để tiếp tục sử dụng." [ref=e735]':
+                    - paragraph [ref=e736]:
+                      - strong [ref=e737]: "User thường:"
+                    - paragraph [ref=e738]: ⛔ Không truy cập được.
+                    - paragraph [ref=e739]:
+                      - strong [ref=e740]:
+                        - text: User có quyền (
+                        - strong [ref=e741]: Access Control là dedicated
+                        - text: "):"
+                    - paragraph [ref=e742]:
+                      - text: ✅ Hiển thị button Playground.
+                      - text: "- Trên giao diện thì model card (A) gốc sẽ"
+                      - strong [ref=e743]: bị ẩn
+                      - text: đi và model card dedicated (A+) (A++) ...
+                      - strong [ref=e744]: không bị ẩn
+                      - text: để tiếp tục sử dụng.
+                  - 'cell "User thường: ⛔ Disable. User có quyền (Access Control là dedicated): ✅ Enable." [ref=e745]':
+                    - paragraph [ref=e746]:
+                      - strong [ref=e747]: "User thường:"
+                    - paragraph [ref=e748]: ⛔ Disable.
+                    - paragraph [ref=e749]:
+                      - strong [ref=e750]:
+                        - text: User có quyền (
+                        - strong [ref=e751]: Access Control là dedicated
+                        - text: "):"
+                    - paragraph [ref=e752]: ✅ Enable.
+            - separator [ref=e753]
+            - paragraph [ref=e754]:
+              - img [ref=e756]
+            - paragraph [ref=e757]:
+              - img [ref=e759]
+            - heading "3/ Validate" [level=2] [ref=e760]:
+              - strong [ref=e761]: 3/ Validate
+            - table [ref=e763]:
+              - rowgroup [ref=e772]:
+                - 'row "A. Homepage (End-user portal) 1.Filter: Thêm bộ lọc \"Deployment Type\" với 2 tùy chọn: Serverless và Dedicated. 2. Model Card (Thumbnail): Nếu type = Serverless → Hiển thị Badge \"Serverless\" Nếu type = Dedicated → không có Badge \"Dedicated\"" [ref=e773]':
+                  - 'cell "A. Homepage (End-user portal) 1.Filter: Thêm bộ lọc \"Deployment Type\" với 2 tùy chọn: Serverless và Dedicated. 2. Model Card (Thumbnail): Nếu type = Serverless → Hiển thị Badge \"Serverless\" Nếu type = Dedicated → không có Badge \"Dedicated\"" [ref=e774]':
+                    - heading "A. Homepage (End-user portal)" [level=3] [ref=e775]:
+                      - strong [ref=e776]: A. Homepage (End-user portal)
+                    - paragraph [ref=e777]:
+                      - strong [ref=e778]: "1.Filter:"
+                    - paragraph [ref=e779]:
+                      - text: "Thêm bộ lọc \"Deployment Type\" với 2 tùy chọn:"
+                      - code [ref=e780]: Serverless
+                      - text: và
+                      - code [ref=e781]: Dedicated
+                      - text: .
+                    - paragraph [ref=e782]:
+                      - strong [ref=e783]: "2. Model Card (Thumbnail):"
+                    - list [ref=e784]:
+                      - listitem [ref=e785]:
+                        - paragraph [ref=e786]:
+                          - text: Nếu
+                          - code [ref=e787]: type = Serverless
+                          - text: → Hiển thị Badge "Serverless"
+                      - listitem [ref=e788]:
+                        - paragraph [ref=e789]:
+                          - text: Nếu
+                          - code [ref=e790]: type = Dedicated
+                          - text: →
+                          - strong [ref=e791]: không
+                          - text: có Badge "Dedicated"
+                - 'row "Link Figma: https://www.figma.com/design/61CGWbGbl48CBP3cQc6Khk/-DES--Model-as-a-service---AI-Marketplace---Ver-1.1?node-id=6229-119760&t=oQMySnWq7pPH8QNF-1" [ref=e792]':
+                  - 'cell "Link Figma: https://www.figma.com/design/61CGWbGbl48CBP3cQc6Khk/-DES--Model-as-a-service---AI-Marketplace---Ver-1.1?node-id=6229-119760&t=oQMySnWq7pPH8QNF-1" [ref=e793]':
+                    - text: "Link Figma:"
+                    - link "https://www.figma.com/design/61CGWbGbl48CBP3cQc6Khk/-DES--Model-as-a-service---AI-Marketplace---Ver-1.1?node-id=6229-119760&t=oQMySnWq7pPH8QNF-1" [ref=e794] [cursor=pointer]:
+                      - /url: https://www.figma.com/design/61CGWbGbl48CBP3cQc6Khk/-DES--Model-as-a-service---AI-Marketplace---Ver-1.1?node-id=6229-119760&t=oQMySnWq7pPH8QNF-1
+                - row [ref=e795]:
+                  - cell [ref=e796]:
+                    - img [ref=e798]
+                - row "No. Main Item Sortable Required UI Description Value" [ref=e799]:
+                  - cell "No." [ref=e800]:
+                    - strong [ref=e801]: No.
+                  - cell "Main Item" [ref=e802]:
+                    - strong [ref=e803]: Main Item
+                  - cell "Sortable" [ref=e804]:
+                    - strong [ref=e805]: Sortable
+                  - cell "Required" [ref=e806]:
+                    - strong [ref=e807]: Required
+                  - cell "UI" [ref=e808]:
+                    - strong [ref=e809]: UI
+                  - cell "Description" [ref=e810]:
+                    - strong [ref=e811]: Description
+                  - cell "Value" [ref=e812]:
+                    - strong [ref=e813]: Value
+              - rowgroup [ref=e814]:
+                - 'row "1 Filter Group Container No Yes Chip Group / Tab List Khu vực chứa các nút lọc nằm ngang (Horizontal layout). Cơ chế chọn: Single Select (Chỉ chọn 1 giá trị tại 1 thời điểm). Default: \"All\"" [ref=e815]':
+                  - cell "1" [ref=e816]:
+                    - strong [ref=e818]: "1"
+                  - cell "Filter Group Container" [ref=e819]:
+                    - strong [ref=e821]: Filter Group Container
+                  - cell "No" [ref=e822]
+                  - cell "Yes" [ref=e823]
+                  - cell "Chip Group / Tab List" [ref=e824]:
+                    - strong [ref=e826]: Chip Group / Tab List
+                  - 'cell "Khu vực chứa các nút lọc nằm ngang (Horizontal layout). Cơ chế chọn: Single Select (Chỉ chọn 1 giá trị tại 1 thời điểm)." [ref=e827]':
+                    - paragraph [ref=e828]: Khu vực chứa các nút lọc nằm ngang (Horizontal layout).
+                    - paragraph [ref=e829]:
+                      - text: "Cơ chế chọn:"
+                      - strong [ref=e830]: Single Select
+                      - text: (Chỉ chọn 1 giá trị tại 1 thời điểm).
+                  - 'cell "Default: \"All\"" [ref=e831]':
+                    - code [ref=e833]: "Default: \"All\""
+                - 'row "2 Option: All No - Filter Chip Logic: Hiển thị toàn bộ Model (bỏ qua các điều kiện lọc type/capability). filter=null hoặc filter=all" [ref=e834]':
+                  - cell "2" [ref=e835]:
+                    - strong [ref=e837]: "2"
+                  - 'cell "Option: All" [ref=e838]':
+                    - strong [ref=e840]: "Option: All"
+                  - cell "No" [ref=e841]
+                  - cell "-" [ref=e842]
+                  - cell "Filter Chip" [ref=e843]:
+                    - strong [ref=e845]: Filter Chip
+                  - 'cell "Logic: Hiển thị toàn bộ Model (bỏ qua các điều kiện lọc type/capability)." [ref=e846]':
+                    - paragraph [ref=e847]:
+                      - strong [ref=e848]: "Logic:"
+                      - text: Hiển thị toàn bộ Model (bỏ qua các điều kiện lọc type/capability).
+                  - cell "filter=null hoặc filter=all" [ref=e849]:
+                    - generic [ref=e850]:
+                      - code [ref=e851]: filter=null
+                      - text: hoặc
+                      - code [ref=e852]: filter=all
+                - 'row "3 Option: Serverless No - Filter Chip Lọc các model thuộc loại Serverless. Logic: Khi chọn, Chip \"All\" mất active. Danh sách reload chỉ hiện model có deployment_type = serverless. filter=serverless" [ref=e853]':
+                  - cell "3" [ref=e854]:
+                    - strong [ref=e856]: "3"
+                  - 'cell "Option: Serverless" [ref=e857]':
+                    - strong [ref=e859]: "Option: Serverless"
+                  - cell "No" [ref=e860]
+                  - cell "-" [ref=e861]
+                  - cell "Filter Chip" [ref=e862]:
+                    - strong [ref=e864]: Filter Chip
+                  - 'cell "Lọc các model thuộc loại Serverless. Logic: Khi chọn, Chip \"All\" mất active. Danh sách reload chỉ hiện model có deployment_type = serverless." [ref=e865]':
+                    - paragraph [ref=e866]: Lọc các model thuộc loại Serverless.
+                    - paragraph [ref=e867]:
+                      - strong [ref=e868]: "Logic:"
+                      - text: Khi chọn, Chip "All" mất active. Danh sách reload chỉ hiện model có
+                      - code [ref=e869]: deployment_type = serverless
+                      - text: .
+                  - cell "filter=serverless" [ref=e870]:
+                    - code [ref=e872]: filter=serverless
+                - 'row "4 Option: Dedicated No - Filter Chip Lọc các model thuộc loại Dedicated. Logic: Khi chọn, danh sách reload chỉ hiện model có deployment_type = dedicated. filter=dedicated" [ref=e873]':
+                  - cell "4" [ref=e874]:
+                    - strong [ref=e876]: "4"
+                  - 'cell "Option: Dedicated" [ref=e877]':
+                    - strong [ref=e879]: "Option: Dedicated"
+                  - cell "No" [ref=e880]
+                  - cell "-" [ref=e881]
+                  - cell "Filter Chip" [ref=e882]:
+                    - strong [ref=e884]: Filter Chip
+                  - 'cell "Lọc các model thuộc loại Dedicated. Logic: Khi chọn, danh sách reload chỉ hiện model có deployment_type = dedicated." [ref=e885]':
+                    - paragraph [ref=e886]: Lọc các model thuộc loại Dedicated.
+                    - paragraph [ref=e887]:
+                      - strong [ref=e888]: "Logic:"
+                      - text: Khi chọn, danh sách reload chỉ hiện model có
+                      - code [ref=e889]: deployment_type = dedicated
+                      - text: .
+                  - cell "filter=dedicated" [ref=e890]:
+                    - code [ref=e892]: filter=dedicated
+                - 'row "5 Option: Fintunable No - Filter Chip Lọc các model có khả năng Fine-tuning. Logic: Khi chọn, danh sách reload chỉ hiện model có cờ is_finetunable = true. filter=finetunable" [ref=e893]':
+                  - cell "5" [ref=e894]:
+                    - strong [ref=e896]: "5"
+                  - 'cell "Option: Fintunable" [ref=e897]':
+                    - strong [ref=e899]: "Option: Fintunable"
+                  - cell "No" [ref=e900]
+                  - cell "-" [ref=e901]
+                  - cell "Filter Chip" [ref=e902]:
+                    - strong [ref=e904]: Filter Chip
+                  - 'cell "Lọc các model có khả năng Fine-tuning. Logic: Khi chọn, danh sách reload chỉ hiện model có cờ is_finetunable = true." [ref=e905]':
+                    - paragraph [ref=e906]: Lọc các model có khả năng Fine-tuning.
+                    - paragraph [ref=e907]:
+                      - strong [ref=e908]: "Logic:"
+                      - text: Khi chọn, danh sách reload chỉ hiện model có cờ
+                      - code [ref=e909]: is_finetunable = true
+                      - text: .
+                  - cell "filter=finetunable" [ref=e910]:
+                    - code [ref=e912]: filter=finetunable
+                - 'row "B. Product Detail Page Nút \"Request Dedicated Inference\": Luôn hiển thị ở cả model Serverless và Dedicated (Status ON). Hành động: Mở Pop-up Form thu thập thông tin khách hàng (name, emial, phone number, use case) để Sales liên hệ. Nút \"Try in Playground\": Hiển thị linh hoạt dựa trên bảng logic tại mục 2. Business rule Nếu User không có quyền truy cập Playground (trường hợp Dedicated), hệ thống có thể hiển thị nút này ở trạng thái Disabled (Xám)." [ref=e913]':
+                  - 'cell "B. Product Detail Page Nút \"Request Dedicated Inference\": Luôn hiển thị ở cả model Serverless và Dedicated (Status ON). Hành động: Mở Pop-up Form thu thập thông tin khách hàng (name, emial, phone number, use case) để Sales liên hệ. Nút \"Try in Playground\": Hiển thị linh hoạt dựa trên bảng logic tại mục 2. Business rule Nếu User không có quyền truy cập Playground (trường hợp Dedicated), hệ thống có thể hiển thị nút này ở trạng thái Disabled (Xám)." [ref=e914]':
+                    - heading "B. Product Detail Page" [level=3] [ref=e915]:
+                      - strong [ref=e917]: B. Product Detail Page
+                    - list [ref=e918]:
+                      - listitem [ref=e919]:
+                        - paragraph [ref=e920]:
+                          - strong [ref=e921]: "Nút \"Request Dedicated Inference\":"
+                        - list [ref=e922]:
+                          - listitem [ref=e923]:
+                            - paragraph [ref=e924]:
+                              - strong [ref=e925]: Luôn hiển thị
+                              - text: ở cả model Serverless và Dedicated (Status ON).
+                          - listitem [ref=e926]:
+                            - paragraph [ref=e927]:
+                              - strong [ref=e928]: "Hành động:"
+                              - text: Mở Pop-up Form thu thập thông tin khách hàng (name, emial, phone number, use case) để Sales liên hệ.
+                      - listitem [ref=e929]:
+                        - paragraph [ref=e930]:
+                          - strong [ref=e931]: "Nút \"Try in Playground\":"
+                        - list [ref=e932]:
+                          - listitem [ref=e933]:
+                            - paragraph [ref=e934]: Hiển thị linh hoạt dựa trên bảng logic tại mục 2. Business rule
+                          - listitem [ref=e935]:
+                            - paragraph [ref=e936]: Nếu User không có quyền truy cập Playground (trường hợp Dedicated), hệ thống có thể hiển thị nút này ở trạng thái Disabled (Xám).
+                - row [ref=e937]:
+                  - cell [ref=e938]:
+                    - paragraph [ref=e940]:
+                      - img [ref=e942]
+                - row "No. Main Item Sortable Required UI Description Value" [ref=e943]:
+                  - cell "No." [ref=e944]:
+                    - strong [ref=e945]: No.
+                  - cell "Main Item" [ref=e946]:
+                    - strong [ref=e947]: Main Item
+                  - cell "Sortable" [ref=e948]:
+                    - strong [ref=e949]: Sortable
+                  - cell "Required" [ref=e950]:
+                    - strong [ref=e951]: Required
+                  - cell "UI" [ref=e952]:
+                    - strong [ref=e953]: UI
+                  - cell "Description" [ref=e954]:
+                    - strong [ref=e955]: Description
+                  - cell "Value" [ref=e956]:
+                    - strong [ref=e957]: Value
+                - 'row "4 Button: Request Dedicated No Yes (Always visible) Primary/Secondary Button Nút CTA hiển thị ở tất cả các model (Serverless & Dedicated). Click vào sẽ mở Pop-up Request (#6). Label: \"Request Dedicated Inference\"" [ref=e958]':
+                  - cell "4" [ref=e959]:
+                    - strong [ref=e961]: "4"
+                  - 'cell "Button: Request Dedicated" [ref=e962]':
+                    - strong [ref=e964]: "Button: Request Dedicated"
+                  - cell "No" [ref=e965]
+                  - cell "Yes (Always visible)" [ref=e966]
+                  - cell "Primary/Secondary Button" [ref=e967]
+                  - cell "Nút CTA hiển thị ở tất cả các model (Serverless & Dedicated). Click vào sẽ mở Pop-up Request (#6)." [ref=e968]
+                  - 'cell "Label: \"Request Dedicated Inference\"" [ref=e969]'
+                - 'row "5 Button: Try in Playground No Conditional Primary Button Hiển thị theo logic phân quyền (Permission mục 2. Business rule). - Serverless: Enable all. - Dedicated: Enable chỉ user đã được cấp quyền. Label: \"Try in Playground\"" [ref=e970]':
+                  - cell "5" [ref=e971]:
+                    - strong [ref=e973]: "5"
+                  - 'cell "Button: Try in Playground" [ref=e974]':
+                    - strong [ref=e976]: "Button: Try in Playground"
+                  - cell "No" [ref=e977]
+                  - cell "Conditional" [ref=e978]
+                  - cell "Primary Button" [ref=e979]
+                  - 'cell "Hiển thị theo logic phân quyền (Permission mục 2. Business rule). - Serverless: Enable all. - Dedicated: Enable chỉ user đã được cấp quyền." [ref=e980]':
+                    - paragraph [ref=e981]: Hiển thị theo logic phân quyền (Permission mục 2. Business rule).
+                    - paragraph [ref=e982]:
+                      - text: "-"
+                      - strong [ref=e983]: "Serverless:"
+                      - text: Enable all.
+                    - paragraph [ref=e984]:
+                      - text: "-"
+                      - strong [ref=e985]: "Dedicated:"
+                      - text: Enable chỉ user đã được cấp quyền.
+                  - 'cell "Label: \"Try in Playground\"" [ref=e986]'
+                - row "(star) Pop-up request model dedicated" [ref=e987]:
+                  - cell "(star) Pop-up request model dedicated" [ref=e988]:
+                    - heading "(star) Pop-up request model dedicated" [level=4] [ref=e990]:
+                      - strong [ref=e991]:
+                        - img "(star)" [ref=e992]
+                        - text: Pop-up request model dedicated
+                        - img [ref=e994]
+                - row "No. Main Item Sortable Required UI Description Value / Validation" [ref=e995]:
+                  - cell "No." [ref=e996]:
+                    - strong [ref=e997]: No.
+                  - cell "Main Item" [ref=e998]:
+                    - strong [ref=e999]: Main Item
+                  - cell "Sortable" [ref=e1000]:
+                    - strong [ref=e1001]: Sortable
+                  - cell "Required" [ref=e1002]:
+                    - strong [ref=e1003]: Required
+                  - cell "UI" [ref=e1004]:
+                    - strong [ref=e1005]: UI
+                  - cell "Description" [ref=e1006]:
+                    - strong [ref=e1007]: Description
+                  - cell "Value / Validation" [ref=e1008]:
+                    - strong [ref=e1009]: Value / Validation
+                - 'row "1 Modal Title No Yes Text Header Tiêu đề của cửa sổ Pop-up. Text: Request Dedicated Inference" [ref=e1010]':
+                  - cell "1" [ref=e1011]:
+                    - strong [ref=e1013]: "1"
+                  - cell "Modal Title" [ref=e1014]:
+                    - strong [ref=e1016]: Modal Title
+                  - cell "No" [ref=e1017]
+                  - cell "Yes" [ref=e1018]
+                  - cell "Text Header" [ref=e1019]:
+                    - strong [ref=e1021]: Text Header
+                  - cell "Tiêu đề của cửa sổ Pop-up." [ref=e1022]
+                  - 'cell "Text: Request Dedicated Inference" [ref=e1023]':
+                    - generic [ref=e1024]:
+                      - text: "Text:"
+                      - code [ref=e1025]: Request Dedicated Inference
+                - 'row "2 Instruction Text No Yes Text Label Dòng mô tả hướng dẫn người dùng mục đích của form. Text: \"Please provide your details to request dedicated resources for this model. Our sales team will contact you shortly.\"" [ref=e1026]':
+                  - cell "2" [ref=e1027]:
+                    - strong [ref=e1029]: "2"
+                  - cell "Instruction Text" [ref=e1030]:
+                    - strong [ref=e1032]: Instruction Text
+                  - cell "No" [ref=e1033]
+                  - cell "Yes" [ref=e1034]
+                  - cell "Text Label" [ref=e1035]:
+                    - strong [ref=e1037]: Text Label
+                  - cell "Dòng mô tả hướng dẫn người dùng mục đích của form." [ref=e1038]
+                  - 'cell "Text: \"Please provide your details to request dedicated resources for this model. Our sales team will contact you shortly.\"" [ref=e1039]'
+                - 'row "3 Model Context Info No Yes Text Display Hiển thị tên Model và Nhà cung cấp mà khách hàng đang muốn được cấp quyền. Logic: Lấy tự động từ trang Product Page hiện tại. Format: Model name: [Name] Provider: [Provider] (VD: Model name: QwQ-32B Provider: QWEN)" [ref=e1040]':
+                  - cell "3" [ref=e1041]:
+                    - strong [ref=e1043]: "3"
+                  - cell "Model Context Info" [ref=e1044]:
+                    - strong [ref=e1046]: Model Context Info
+                  - cell "No" [ref=e1047]
+                  - cell "Yes" [ref=e1048]
+                  - cell "Text Display" [ref=e1049]:
+                    - strong [ref=e1051]: Text Display
+                  - 'cell "Hiển thị tên Model và Nhà cung cấp mà khách hàng đang muốn được cấp quyền. Logic: Lấy tự động từ trang Product Page hiện tại." [ref=e1052]':
+                    - paragraph [ref=e1053]: Hiển thị tên Model và Nhà cung cấp mà khách hàng đang muốn được cấp quyền.
+                    - paragraph [ref=e1054]:
+                      - strong [ref=e1055]: "Logic:"
+                      - text: Lấy tự động từ trang Product Page hiện tại.
+                  - 'cell "Format: Model name: [Name] Provider: [Provider] (VD: Model name: QwQ-32B Provider: QWEN)" [ref=e1056]':
+                    - paragraph [ref=e1057]:
+                      - text: "Format:"
+                      - code [ref=e1058]: "Model name: [Name] Provider: [Provider]"
+                    - paragraph [ref=e1059]:
+                      - emphasis [ref=e1060]: "(VD: Model name: QwQ-32B Provider: QWEN)"
+                - 'row "4 Name No Yes Input Text Tên đầy đủ của người yêu cầu. Có dấu * đỏ biểu thị bắt buộc. Prefill: Tự động điền nếu user đã đăng nhập. Type: String Placeholder: \"Enter name\" Max-length: 50 chars." [ref=e1061]':
+                  - cell "4" [ref=e1062]:
+                    - strong [ref=e1064]: "4"
+                  - cell "Name" [ref=e1065]:
+                    - strong [ref=e1067]: Name
+                  - cell "No" [ref=e1068]
+                  - cell "Yes" [ref=e1069]:
+                    - strong [ref=e1071]: "Yes"
+                  - cell "Input Text" [ref=e1072]:
+                    - strong [ref=e1074]: Input Text
+                  - 'cell "Tên đầy đủ của người yêu cầu. Có dấu * đỏ biểu thị bắt buộc. Prefill: Tự động điền nếu user đã đăng nhập." [ref=e1075]':
+                    - paragraph [ref=e1076]: Tên đầy đủ của người yêu cầu.
+                    - paragraph [ref=e1077]:
+                      - text: Có dấu
+                      - code [ref=e1078]: "*"
+                      - text: đỏ biểu thị bắt buộc.
+                    - paragraph [ref=e1079]:
+                      - strong [ref=e1080]: "Prefill:"
+                      - text: Tự động điền nếu user đã đăng nhập.
+                  - 'cell "Type: String Placeholder: \"Enter name\" Max-length: 50 chars." [ref=e1081]':
+                    - paragraph [ref=e1082]: "Type: String"
+                    - paragraph [ref=e1083]: "Placeholder: \"Enter name\""
+                    - paragraph [ref=e1084]: "Max-length: 50 chars."
+                - 'row "5 Email No Yes Input Text Địa chỉ email liên hệ. Có dấu * đỏ biểu thị bắt buộc. Prefill: Tự động điền nếu user đã đăng nhập. Type: String (Email format) Placeholder: \"Enter email address\" Validation: Check valid email syntax." [ref=e1085]':
+                  - cell "5" [ref=e1086]:
+                    - strong [ref=e1088]: "5"
+                  - cell "Email" [ref=e1089]:
+                    - strong [ref=e1091]: Email
+                  - cell "No" [ref=e1092]
+                  - cell "Yes" [ref=e1093]:
+                    - strong [ref=e1095]: "Yes"
+                  - cell "Input Text" [ref=e1096]:
+                    - strong [ref=e1098]: Input Text
+                  - 'cell "Địa chỉ email liên hệ. Có dấu * đỏ biểu thị bắt buộc. Prefill: Tự động điền nếu user đã đăng nhập." [ref=e1099]':
+                    - paragraph [ref=e1100]: Địa chỉ email liên hệ.
+                    - paragraph [ref=e1101]:
+                      - text: Có dấu
+                      - code [ref=e1102]: "*"
+                      - text: đỏ biểu thị bắt buộc.
+                    - paragraph [ref=e1103]:
+                      - strong [ref=e1104]: "Prefill:"
+                      - text: Tự động điền nếu user đã đăng nhập.
+                  - 'cell "Type: String (Email format) Placeholder: \"Enter email address\" Validation: Check valid email syntax." [ref=e1105]':
+                    - paragraph [ref=e1106]: "Type: String (Email format)"
+                    - paragraph [ref=e1107]: "Placeholder: \"Enter email address\""
+                    - paragraph [ref=e1108]: "Validation: Check valid email syntax."
+                - 'row "6 Phone number No Yes Input Text Số điện thoại liên hệ. Có dấu * đỏ biểu thị bắt buộc. Type: Numeric String Placeholder: \"Enter phone number\" Validation: Chỉ cho phép nhập số, độ dài 10-15 ký tự." [ref=e1109]':
+                  - cell "6" [ref=e1110]:
+                    - strong [ref=e1112]: "6"
+                  - cell "Phone number" [ref=e1113]:
+                    - strong [ref=e1115]: Phone number
+                  - cell "No" [ref=e1116]
+                  - cell "Yes" [ref=e1117]:
+                    - strong [ref=e1119]: "Yes"
+                  - cell "Input Text" [ref=e1120]:
+                    - strong [ref=e1122]: Input Text
+                  - cell "Số điện thoại liên hệ. Có dấu * đỏ biểu thị bắt buộc." [ref=e1123]:
+                    - paragraph [ref=e1124]: Số điện thoại liên hệ.
+                    - paragraph [ref=e1125]:
+                      - text: Có dấu
+                      - code [ref=e1126]: "*"
+                      - text: đỏ biểu thị bắt buộc.
+                  - 'cell "Type: Numeric String Placeholder: \"Enter phone number\" Validation: Chỉ cho phép nhập số, độ dài 10-15 ký tự." [ref=e1127]':
+                    - paragraph [ref=e1128]: "Type: Numeric String"
+                    - paragraph [ref=e1129]: "Placeholder: \"Enter phone number\""
+                    - paragraph [ref=e1130]: "Validation: Chỉ cho phép nhập số, độ dài 10-15 ký tự."
+                - 'row "7 Use case No No Text Area Mô tả nhu cầu sử dụng (tùy chọn). Không có dấu * (Optional). Type: String (Multi-line) Placeholder: \"Enter use case\" Max-length: 500 chars." [ref=e1131]':
+                  - cell "7" [ref=e1132]:
+                    - strong [ref=e1134]: "7"
+                  - cell "Use case" [ref=e1135]:
+                    - strong [ref=e1137]: Use case
+                  - cell "No" [ref=e1138]
+                  - cell "No" [ref=e1139]
+                  - cell "Text Area" [ref=e1140]:
+                    - strong [ref=e1142]: Text Area
+                  - cell "Mô tả nhu cầu sử dụng (tùy chọn). Không có dấu * (Optional)." [ref=e1143]:
+                    - paragraph [ref=e1144]: Mô tả nhu cầu sử dụng (tùy chọn).
+                    - paragraph [ref=e1145]:
+                      - text: Không có dấu
+                      - code [ref=e1146]: "*"
+                      - text: (Optional).
+                  - 'cell "Type: String (Multi-line) Placeholder: \"Enter use case\" Max-length: 500 chars." [ref=e1147]':
+                    - paragraph [ref=e1148]: "Type: String (Multi-line)"
+                    - paragraph [ref=e1149]: "Placeholder: \"Enter use case\""
+                    - paragraph [ref=e1150]: "Max-length: 500 chars."
+                - 'row "8 Action: Cancel No Yes Button Nút hủy bỏ thao tác và đóng Pop-up. Label: \"Cancel\" Style: Text button (Ghost/Secondary)." [ref=e1151]':
+                  - cell "8" [ref=e1152]:
+                    - strong [ref=e1154]: "8"
+                  - 'cell "Action: Cancel" [ref=e1155]':
+                    - strong [ref=e1157]: "Action: Cancel"
+                  - cell "No" [ref=e1158]
+                  - cell "Yes" [ref=e1159]
+                  - cell "Button" [ref=e1160]:
+                    - strong [ref=e1162]: Button
+                  - cell "Nút hủy bỏ thao tác và đóng Pop-up." [ref=e1163]
+                  - 'cell "Label: \"Cancel\" Style: Text button (Ghost/Secondary)." [ref=e1164]':
+                    - paragraph [ref=e1165]: "Label: \"Cancel\""
+                    - paragraph [ref=e1166]: "Style: Text button (Ghost/Secondary)."
+                - 'row "9 Action: Submit No Yes Button Nút gửi yêu cầu. State: - Disabled: Nếu các trường Required (Name, Email, Phone) chưa được điền. - Active: Khi điền đủ thông tin hợp lệ. Label: \"Submit\" Style: Solid Button (Primary Color - Purple)." [ref=e1167]':
+                  - cell "9" [ref=e1168]:
+                    - strong [ref=e1170]: "9"
+                  - 'cell "Action: Submit" [ref=e1171]':
+                    - strong [ref=e1173]: "Action: Submit"
+                  - cell "No" [ref=e1174]
+                  - cell "Yes" [ref=e1175]
+                  - cell "Button" [ref=e1176]:
+                    - strong [ref=e1178]: Button
+                  - 'cell "Nút gửi yêu cầu. State: - Disabled: Nếu các trường Required (Name, Email, Phone) chưa được điền. - Active: Khi điền đủ thông tin hợp lệ." [ref=e1179]':
+                    - paragraph [ref=e1180]: Nút gửi yêu cầu.
+                    - paragraph [ref=e1181]:
+                      - strong [ref=e1182]: "State:"
+                    - paragraph [ref=e1183]:
+                      - text: "-"
+                      - strong [ref=e1184]: "Disabled:"
+                      - text: Nếu các trường Required (Name, Email, Phone) chưa được điền.
+                    - paragraph [ref=e1185]:
+                      - text: "-"
+                      - strong [ref=e1186]: "Active:"
+                      - text: Khi điền đủ thông tin hợp lệ.
+                  - 'cell "Label: \"Submit\" Style: Solid Button (Primary Color - Purple)." [ref=e1187]':
+                    - paragraph [ref=e1188]: "Label: \"Submit\""
+                    - paragraph [ref=e1189]: "Style: Solid Button (Primary Color - Purple)."
+            - separator [ref=e1190]
+            - heading "4/ Technical Notes" [level=2] [ref=e1191]:
+              - strong [ref=e1192]: 4/ Technical Notes
+            - heading "Quy định về Model Record (Data Constraint)" [level=3] [ref=e1193]
+            - list [ref=e1194]:
+              - listitem [ref=e1195]:
+                - paragraph [ref=e1196]:
+                  - strong [ref=e1197]: "Nguyên tắc 1-1:"
+                  - text: Một bản ghi Model (Record) trong Database
+                  - strong [ref=e1198]: không thể
+                  - text: vừa là
+                  - strong [ref=e1199]: Serverless
+                  - text: vừa là
+                  - strong [ref=e1201]: Dedicated
+                  - text: cùng lúc.
+              - listitem [ref=e1202]:
+                - paragraph [ref=e1203]:
+                  - strong [ref=e1204]: "Quy tắc đặt tên (Naming Convention):"
+                - list [ref=e1205]:
+                  - listitem [ref=e1206]:
+                    - paragraph [ref=e1207]:
+                      - text: "Nếu cùng một mã nguồn model (VD:"
+                      - code [ref=e1208]: gemma3-27b-it
+                      - text: ) nhưng muốn deploy cả 2 hình thức, cần tạo 2 bản ghi riêng biệt.
+                  - listitem [ref=e1209]:
+                    - paragraph [ref=e1210]: Bản Dedicated cần thêm hậu tố (suffix) vào định danh để phân biệt.
+                  - listitem [ref=e1211]:
+                    - paragraph [ref=e1212]:
+                      - emphasis [ref=e1213]: "Ví dụ:"
+                    - list [ref=e1214]:
+                      - listitem [ref=e1215]:
+                        - paragraph [ref=e1216]:
+                          - text: "Serverless:"
+                          - code [ref=e1217]: gemma3-27b-it
+                      - listitem [ref=e1218]:
+                        - paragraph [ref=e1219]:
+                          - text: "Dedicated:"
+                          - code [ref=e1220]: gemma3-27b-it-dedicated
+                          - text: (hoặc
+                          - code [ref=e1221]: gemma3-27b-it-private
+                          - text: )
+            - paragraph [ref=e1222]
+            - separator [ref=e1223]
+            - heading "5. Tích hợp & Thông báo (System Integration & Notification)" [level=2] [ref=e1224]:
+              - strong [ref=e1225]: 5. Tích hợp & Thông báo (System Integration & Notification)
+            - heading "5.1. Tổng quan (Overview)" [level=3] [ref=e1226]
+            - list [ref=e1227]:
+              - listitem [ref=e1228]:
+                - paragraph [ref=e1229]:
+                  - strong [ref=e1230]: "Mục tiêu:"
+                  - text: Đảm bảo đội ngũ Sales nhận được thông tin khách hàng (Lead) ngay lập tức khi có yêu cầu thuê Model Dedicated (Dedicated Inference Request).
+              - listitem [ref=e1231]:
+                - paragraph [ref=e1232]:
+                  - strong [ref=e1233]: "Cơ chế:"
+                  - text: Sử dụng
+                  - strong [ref=e1234]: Incoming Webhook
+                  - text: để đẩy thông báo về Channel Microsoft Teams của bộ phận Kinh doanh.
+              - listitem [ref=e1235]:
+                - paragraph [ref=e1236]:
+                  - strong [ref=e1237]: "Yêu cầu kỹ thuật:"
+                  - text: Tái sử dụng (Reuse) cơ chế notification hiện có của module "Contact Us", chỉ thay đổi cấu trúc tin nhắn (Message Payload).
+            - heading "5.2. Luồng dữ liệu (Data Flow)" [level=3] [ref=e1238]
+            - list [ref=e1239]:
+              - listitem [ref=e1240]:
+                - paragraph [ref=e1241]:
+                  - strong [ref=e1242]: "Trigger:"
+                  - text: User nhấn nút
+                  - strong [ref=e1243]: Submit
+                  - text: trên Pop-up "Request Dedicated Inference".
+              - listitem [ref=e1244]:
+                - paragraph [ref=e1245]:
+                  - strong [ref=e1246]: "Server-side Validation:"
+                  - text: Hệ thống kiểm tra tính hợp lệ của dữ liệu.
+              - listitem [ref=e1247]:
+                - paragraph [ref=e1248]:
+                  - strong [ref=e1249]: "Persistence:"
+                  - text: "Lưu dữ liệu vào Database/CRM (trạng thái:"
+                  - code [ref=e1250]: New Request
+                  - text: ).
+              - listitem [ref=e1251]:
+                - paragraph [ref=e1252]:
+                  - strong [ref=e1253]: "Notification:"
+                  - text: Hệ thống kích hoạt Webhook gửi bản tin đến Microsoft Teams.
+            - heading "5.3. Đặc tả cấu trúc tin nhắn (Message Payload Specification)" [level=3] [ref=e1254]
+            - paragraph [ref=e1255]:
+              - text: Hệ thống cần map các trường dữ liệu từ Form (mục UI Specs
+              - strong [ref=e1256]:
+                - img "(star)" [ref=e1257]
+                - text: Pop-up request model dedicated
+              - text: ) sang các trường hiển thị trên Teams Card.
+            - table [ref=e1259]:
+              - rowgroup [ref=e1266]:
+                - row "No. Form Field ID Data Source Hiển thị trên Teams (Display Label) Định dạng / Ghi chú" [ref=e1267]:
+                  - cell "No." [ref=e1268]:
+                    - strong [ref=e1269]: No.
+                  - cell "Form Field ID" [ref=e1270]:
+                    - strong [ref=e1271]: Form Field ID
+                  - cell "Data Source" [ref=e1272]:
+                    - strong [ref=e1273]: Data Source
+                  - cell "Hiển thị trên Teams (Display Label)" [ref=e1274]:
+                    - strong [ref=e1275]: Hiển thị trên Teams (Display Label)
+                  - cell "Định dạng / Ghi chú" [ref=e1276]:
+                    - strong [ref=e1277]: Định dạng / Ghi chú
+              - rowgroup [ref=e1278]:
+                - 'row "1 - System Subject / Title [NEW LEAD] REQUEST DEDICATED INFERENCE (Định dạng: In đậm, text size lớn, màu cảnh báo)" [ref=e1279]':
+                  - cell "1" [ref=e1280]:
+                    - strong [ref=e1282]: "1"
+                  - cell "-" [ref=e1283]
+                  - cell "System" [ref=e1284]
+                  - cell "Subject / Title" [ref=e1285]:
+                    - strong [ref=e1287]: Subject / Title
+                  - 'cell "[NEW LEAD] REQUEST DEDICATED INFERENCE (Định dạng: In đậm, text size lớn, màu cảnh báo)" [ref=e1288]':
+                    - paragraph [ref=e1289]:
+                      - strong [ref=e1290]: "[NEW LEAD] REQUEST DEDICATED INFERENCE"
+                    - paragraph [ref=e1291]:
+                      - emphasis [ref=e1292]: "(Định dạng: In đậm, text size lớn, màu cảnh báo)"
+                - 'row "2 #3 Model Context Model Interest Hiển thị: {Model Name} - {Provider} (VD: Llama 3 70B - Meta)" [ref=e1293]':
+                  - cell "2" [ref=e1294]:
+                    - strong [ref=e1296]: "2"
+                  - cell "#3" [ref=e1297]
+                  - cell "Model Context" [ref=e1298]
+                  - cell "Model Interest" [ref=e1299]:
+                    - strong [ref=e1301]: Model Interest
+                  - 'cell "Hiển thị: {Model Name} - {Provider} (VD: Llama 3 70B - Meta)" [ref=e1302]':
+                    - paragraph [ref=e1303]:
+                      - text: "Hiển thị:"
+                      - code [ref=e1304]: "{Model Name} - {Provider}"
+                    - paragraph [ref=e1305]:
+                      - emphasis [ref=e1306]: "(VD: Llama 3 70B - Meta)"
+                - 'row "3 #4 User Input Customer Name {Name}" [ref=e1307]':
+                  - cell "3" [ref=e1308]:
+                    - strong [ref=e1310]: "3"
+                  - cell "#4" [ref=e1311]
+                  - cell "User Input" [ref=e1312]
+                  - cell "Customer Name" [ref=e1313]:
+                    - strong [ref=e1315]: Customer Name
+                  - 'cell "{Name}" [ref=e1316]':
+                    - code [ref=e1318]: "{Name}"
+                - 'row "4 #5 User Input Email {Work Email}" [ref=e1319]':
+                  - cell "4" [ref=e1320]:
+                    - strong [ref=e1321]: "4"
+                  - cell "#5" [ref=e1322]
+                  - cell "User Input" [ref=e1323]
+                  - cell "Email" [ref=e1324]:
+                    - strong [ref=e1326]: Email
+                  - 'cell "{Work Email}" [ref=e1327]':
+                    - code [ref=e1329]: "{Work Email}"
+                - 'row "5 #6 User Input Phone {Phone Number} (Cần làm nổi bật để Sales dễ nhìn)" [ref=e1330]':
+                  - cell "5" [ref=e1331]:
+                    - strong [ref=e1332]: "5"
+                  - cell "#6" [ref=e1333]
+                  - cell "User Input" [ref=e1334]
+                  - cell "Phone" [ref=e1335]:
+                    - strong [ref=e1337]: Phone
+                  - 'cell "{Phone Number} (Cần làm nổi bật để Sales dễ nhìn)" [ref=e1338]':
+                    - paragraph [ref=e1339]:
+                      - code [ref=e1340]: "{Phone Number}"
+                    - paragraph [ref=e1341]:
+                      - emphasis [ref=e1342]: (Cần làm nổi bật để Sales dễ nhìn)
+                - 'row "6 #7 User Input Note / Use case {Specific Needs}" [ref=e1343]':
+                  - cell "6" [ref=e1344]:
+                    - strong [ref=e1345]: "6"
+                  - cell "#7" [ref=e1346]
+                  - cell "User Input" [ref=e1347]
+                  - cell "Note / Use case" [ref=e1348]:
+                    - strong [ref=e1350]: Note / Use case
+                  - 'cell "{Specific Needs}" [ref=e1351]':
+                    - code [ref=e1353]: "{Specific Needs}"
+                - row "7 - System Timestamp Thời gian gửi request (DD/MM/YYYY HH:mm)" [ref=e1354]:
+                  - cell "7" [ref=e1355]:
+                    - strong [ref=e1356]: "7"
+                  - cell "-" [ref=e1357]
+                  - cell "System" [ref=e1358]
+                  - cell "Timestamp" [ref=e1359]:
+                    - strong [ref=e1361]: Timestamp
+                  - cell "Thời gian gửi request (DD/MM/YYYY HH:mm)" [ref=e1362]
+          - generic [ref=e1363]:
+            - generic [ref=e1364]:
+              - link " Like" [ref=e1365] [cursor=pointer]:
+                - /url: ""
+                - generic [ref=e1366]: 
+                - text: Like
+              - text: Be the first to like this
+            - list [ref=e1370]:
+              - listitem [ref=e1371]: No labels
+              - listitem [ref=e1372]:
+                - link " Edit Labels" [ref=e1373] [cursor=pointer]:
+                  - /url: "#"
+                  - generic [ref=e1374]:  Edit Labels
+          - generic [ref=e1377]:
+            - paragraph [ref=e1378]:
+              - 'link "User icon: Add a picture of yourself" [ref=e1379] [cursor=pointer]':
+                - /url: /users/profile/editmyprofilepicture.action
+                - 'img "User icon: Add a picture of yourself" [ref=e1380]'
+            - generic "Add a Comment (Type 'm')" [ref=e1383]: Write a comment…
+      - contentinfo [ref=e1384]:
+        - generic [ref=e1385]:
+          - list [ref=e1386]:
+            - listitem [ref=e1387]:
+              - text: Powered by
+              - link "Atlassian Confluence" [ref=e1388] [cursor=pointer]:
+                - /url: http://www.atlassian.com/software/confluence
+              - text: 7.4.3·
+            - text: ·
+            - listitem [ref=e1389]:
+              - link "Report a bug" [ref=e1390] [cursor=pointer]:
+                - /url: https://support.atlassian.com/help/confluence
+              - text: ·
+            - listitem [ref=e1391]:
+              - link "Atlassian News" [ref=e1392] [cursor=pointer]:
+                - /url: https://www.atlassian.com/company
+          - link "Atlassian" [ref=e1394] [cursor=pointer]:
+            - /url: http://www.atlassian.com/
+  - text:                              

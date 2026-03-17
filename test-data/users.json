@@ -1,0 +1,11 @@
+{
+  "fptCloud": {
+    "description": "FPT Cloud credentials — loaded from .env (FPT_USERNAME, FPT_PASSWORD)",
+    "username": "${FPT_USERNAME}",
+    "password": "${FPT_PASSWORD}"
+  },
+  "invalid": {
+    "wrongPassword": "WrongPassword!999",
+    "nonExistentEmail": "notexist_user@fake-domain.xyz"
+  }
+}

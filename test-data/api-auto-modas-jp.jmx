@@ -1,0 +1,1213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <stringProp name="TestPlan.comments">You can run me using: jmeter -Jthreads=&lt;Number of threads&gt; -Jrampup=&lt;rampup in seconds&gt; -Jduration=&lt;duration in seconds&gt; -Jiterations=&lt;Number of iterations, -1 means infinite&gt; -e -o &lt;report output folder&gt;</stringProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <Summariser guiclass="SummariserGui" testclass="Summariser" testname="Generate Summary Results" enabled="true"/>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Modas_SiteJP_v1_backup">
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <stringProp name="ThreadGroup.duration">${__P(duration,3600)}</stringProp>
+        <longProp name="ThreadGroup.delay">5</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="Content-Type" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <elementProp name="Authorization" elementType="Header">
+              <stringProp name="Header.name">Authorization</stringProp>
+              <stringProp name="Header.value">Bearer sk-gI0d1qD7lU91hUBNie1A_tpBFLM-bs-UvqxkQfc40G8=</stringProp>
+            </elementProp>
+          </collectionProp>
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Kimi-K2.5">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-03-13T18:18:01.055</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Kimi-K2.5</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{   &quot;model&quot;: &quot;Kimi-K2.5&quot;,   &quot;messages&quot;: [     {       &quot;role&quot;: &quot;system&quot;,       &quot;content&quot;: &quot;You are Kimi, an AI assistant created by Moonshot AI.&quot;     },     {       &quot;role&quot;: &quot;user&quot;,       &quot;content&quot;: [         {           &quot;type&quot;: &quot;text&quot;,           &quot;text&quot;: &quot;which one is bigger, 9.11 or 9.9? think carefully.&quot;         }       ]     }   ],   &quot;stream&quot;: false,   &quot;max_tokens&quot;: 4096 }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="SaoLa4-medium">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-03-05T09:11:27.498</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=SaoLa4-medium_jp</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;SaoLa4-medium&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Can you tell me about the creation of blackholes?&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="SaoLa4-small">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-03-05T09:11:27.498</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=SaoLa4-small_jp</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;SaoLa4-small&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Can you tell me about the creation of blackholes?&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FPT.AI-whisper-medium">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-01-28T15:55:50.096</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/audio/transcriptions?from=thuanlt9&amp;model=FPT.AI-whisper-large-v3-turbo</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+          <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
+            <collectionProp name="HTTPFileArgs.files">
+              <elementProp name="C:/Users/ThuanLT11/Downloads/honlecuae.mp3" elementType="HTTPFileArg">
+                <stringProp name="File.mimetype">audio/vnd.wave</stringProp>
+                <stringProp name="File.path">C:/Users/ThuanLT11/Downloads/honlecuae.mp3</stringProp>
+                <stringProp name="File.paramname">file</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="model" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.name">model</stringProp>
+                <stringProp name="Argument.value">FPT.AI-whisper-medium</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+              <elementProp name="language" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.name">language</stringProp>
+                <stringProp name="Argument.value">en</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+              <elementProp name="response_format" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.name">response_format</stringProp>
+                <stringProp name="Argument.value">json</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FPT.AI-whisper-large-v3-turbo">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-01-28T15:55:50.096</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/audio/transcriptions?from=thuanlt9&amp;model=FPT.AI-whisper-large-v3-turbo</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+          <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
+            <collectionProp name="HTTPFileArgs.files">
+              <elementProp name="C:/Users/ThuanLT11/Downloads/honlecuae.mp3" elementType="HTTPFileArg">
+                <stringProp name="File.mimetype">audio/vnd.wave</stringProp>
+                <stringProp name="File.path">C:/Users/ThuanLT11/Downloads/honlecuae.mp3</stringProp>
+                <stringProp name="File.paramname">file</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="model" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.name">model</stringProp>
+                <stringProp name="Argument.value">FPT.AI-whisper-large-v3-turbo</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+              <elementProp name="language" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.name">language</stringProp>
+                <stringProp name="Argument.value">en</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+              <elementProp name="response_format" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.name">response_format</stringProp>
+                <stringProp name="Argument.value">json</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Qwen3-VL-8B-Instruct" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-01-28T15:38:38.203</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Qwen3-VL-8B-Instruct</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{ &quot;model&quot;: &quot;Qwen3-VL-8B-Instruct&quot;, &quot;messages&quot;: [ {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;what your name and your version?&quot;} ], &quot;max_tokens&quot;: 500, &quot;temperature&quot;: 0.4, &quot;top_p&quot;: 1.0, &quot;stream&quot;: false }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="gte-multilingual-base">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-26T13:30:33.801</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/embeddings?from=thuanlt9&amp;model=gte-multilingual-base</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{     &quot;model&quot;: &quot;gte-multilingual-base&quot;,     &quot;input&quot;: [         &quot;input 1&quot;,         &quot;input 2&quot;     ],     &quot;dimensions&quot;: 768,     &quot;encoding_format&quot;: &quot;float&quot;,     &quot;input_text_truncate&quot;: &quot;none&quot;,     &quot;input_type&quot;: &quot;passage&quot; }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DeepSeek-V3.2-Speciale">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T17:08:59.818</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=DeepSeek-V3.2-Speciale</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;DeepSeek-V3.2-Speciale&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;DeepSeek-V3.2-Speciale có đặc điểm gì nổi bật?&quot;&#xd;
+            &#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DeepSeek-OCR">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=DeepSeek-OCR</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;DeepSeek-OCR&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: [&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;text&quot;,&#xd;
+                    &quot;text&quot;: &quot;What is this a picture of? Be specific.&quot;&#xd;
+                },&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;image_url&quot;,&#xd;
+                    &quot;image_url&quot;: {&#xd;
+                        &quot;url&quot;: &quot;https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg&quot;&#xd;
+                    }&#xd;
+                }&#xd;
+            ]&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;system_prompt&quot;: &quot;&quot;,&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GLM-4.5" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=GLM-4.5</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;GLM-4.5&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GLM-4.7" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=GLM-4.7</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;GLM-4.7&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="gpt-oss-120b" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=gpt-oss-120b</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;gpt-oss-120b&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="gpt-oss-20b" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=gpt-oss-20b</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;gpt-oss-20b&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Qwen2.5-Coder-32B-Instruct" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Qwen2.5-Coder-32B-Instruct</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;Qwen2.5-Coder-32B-Instruct&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Qwen3-32B" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Qwen3-32B</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;Qwen3-32B&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Qwen3-Coder-480B-A35B-Instruct" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Qwen3-Coder-480B-A35B-Instruct</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;Qwen3-Coder-480B-A35B-Instruct&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="bge-reranker-v2-m3">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T11:02:58.117</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/rerank?from=thuanlt9&amp;model=bge-reranker-v2-m3</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{     &quot;model&quot;: &quot;bge-reranker-v2-m3&quot;,     &quot;query&quot;: &quot;What is the capital of the United States?&quot;,     &quot;documents&quot;: [         &quot;Carson City is the capital city of the American state of Nevada.&quot;,         &quot;The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan.&quot;,         &quot;Washington, D.C. is the capital of the United States.&quot;,         &quot;Capital punishment has existed in the United States since before it was a country.&quot;     ],     &quot;top_n&quot;: 2 }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="gemma-3-27b-it" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=gemma-3-27b-it</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;gemma-3-27b-it&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: [&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;text&quot;,&#xd;
+                    &quot;text&quot;: &quot;What is this a picture of? Be specific.&quot;&#xd;
+                },&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;image_url&quot;,&#xd;
+                    &quot;image_url&quot;: {&#xd;
+                        &quot;url&quot;: &quot;https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg&quot;&#xd;
+                    }&#xd;
+                }&#xd;
+            ]&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;system_prompt&quot;: &quot;&quot;,&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FPT.AI-Table-Parsing-v1.1" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=FPT.AI-Table-Parsing-v1.1</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;FPT.AI-Table-Parsing-v1.1&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: [&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;text&quot;,&#xd;
+                    &quot;text&quot;: &quot;What is this a picture of? Be specific.&quot;&#xd;
+                },&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;image_url&quot;,&#xd;
+                    &quot;image_url&quot;: {&#xd;
+                        &quot;url&quot;: &quot;https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg&quot;&#xd;
+                    }&#xd;
+                }&#xd;
+            ]&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;system_prompt&quot;: &quot;&quot;,&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FPT.AI-KIE-v1.7" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=FPT.AI-KIE-v1.7</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;FPT.AI-KIE-v1.7&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: [&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;text&quot;,&#xd;
+                    &quot;text&quot;: &quot;What is this a picture of? Be specific.&quot;&#xd;
+                },&#xd;
+                {&#xd;
+                    &quot;type&quot;: &quot;image_url&quot;,&#xd;
+                    &quot;image_url&quot;: {&#xd;
+                        &quot;url&quot;: &quot;https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg&quot;&#xd;
+                    }&#xd;
+                }&#xd;
+            ]&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;system_prompt&quot;: &quot;&quot;,&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Llama-3.3-70B-Instruct" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Llama-3.3-70B-Instruct</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;Llama-3.3-70B-Instruct&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Llama-3.3-Swallow-70B-Instruct-v0.4" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T09:54:55.155</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Llama-3.3-Swallow-70B-Instruct-v0.4</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;Llama-3.3-Swallow-70B-Instruct-v0.4&quot;,&#xd;
+    &quot;messages&quot;: [&#xd;
+        {&#xd;
+            &quot;role&quot;: &quot;user&quot;,&#xd;
+            &quot;content&quot;: &quot;Hi! My name is Ethan. I am 7 years old. My family has 4 members: my father, my mother, my younger sister and me. My father is an engineer. He is 40 years old. Currently, he works in the factory near my house so he doesn’t have to go so far to work. And my mother is 37 years old now. She is a literature teacher at Amsterdam high school, it’s also the old school where she studied a few years ago. Her students love her so much because she is a kind teacher. My younger sister is named Lisa. She is 2 years old, she is just a baby. Everyone in my family loves her very much because she is very lovely and obedient. She is very cute and I always take care of her whenever I finish my homework. I love my family very much&quot;&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;streaming&quot;: true,&#xd;
+    &quot;temperature&quot;: 1,&#xd;
+    &quot;max_tokens&quot;: 1024,&#xd;
+    &quot;top_p&quot;: 1,&#xd;
+    &quot;top_k&quot;: 40,&#xd;
+    &quot;presence_penalty&quot;: 0,&#xd;
+    &quot;frequency_penalty&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="multilingual-e5-large">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T11:04:07.527</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/embeddings?from=thuanlt9&amp;model=multilingual-e5-large</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;multilingual-e5-large&quot;,&#xd;
+    &quot;input&quot;: [&#xd;
+        &quot;input 1&quot;,&#xd;
+        &quot;input 2&quot;&#xd;
+    ],&#xd;
+    &quot;encoding_format&quot;: &quot;float&quot;,&#xd;
+    &quot;input_text_truncate&quot;: &quot;none&quot;,&#xd;
+    &quot;input_type&quot;: &quot;passage&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Qwen2.5-VL-7B-Instruct">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-25T17:07:20.755</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=Qwen2.5-VL-7B-Instruct</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{     &quot;model&quot;: &quot;Qwen2.5-VL-7B-Instruct&quot;,     &quot;messages&quot;: [         {             &quot;role&quot;: &quot;user&quot;,             &quot;content&quot;: [                 {                     &quot;type&quot;: &quot;text&quot;,                     &quot;text&quot;: &quot;What is this a picture of? Be specific.&quot;                 },                 {                     &quot;type&quot;: &quot;image_url&quot;,                     &quot;image_url&quot;: {                         &quot;url&quot;: &quot;https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg&quot;                     }                 }             ]         }     ],     &quot;system_prompt&quot;: &quot;&quot;,     &quot;streaming&quot;: true,     &quot;temperature&quot;: 1,     &quot;max_tokens&quot;: 1024,     &quot;top_p&quot;: 1,     &quot;top_k&quot;: 40,     &quot;presence_penalty&quot;: 0,     &quot;frequency_penalty&quot;: 0 }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="bge-m3">
+          <stringProp name="TestPlan.comments">Created from cURL on 2025-12-26T13:27:14.811</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/embeddings?from=thuanlt9&amp;model=bge-m3</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;model&quot;: &quot;bge-m3&quot;,&#xd;
+    &quot;input&quot;: [&#xd;
+        &quot;input 1&quot;,&#xd;
+        &quot;input 2&quot;&#xd;
+    ],&#xd;
+    &quot;encoding_format&quot;: &quot;float&quot;,&#xd;
+    &quot;input_text_truncate&quot;: &quot;none&quot;,&#xd;
+    &quot;input_type&quot;: &quot;passage&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FCI-Document-Parsing-V1.0">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-03-13T18:28:42.685</stringProp>
+          <stringProp name="HTTPSampler.proxyHost">10.36.252.45</stringProp>
+          <intProp name="HTTPSampler.proxyPort">8080</intProp>
+          <stringProp name="HTTPSampler.domain">mkp-api.fptcloud.jp</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/v1/chat/completions?from=thuanlt9&amp;model=FCI-Document-Parsing-V1.0</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{
+    &quot;model&quot;: &quot;FCI-Document-Parsing-V1.0&quot;,
+    &quot;messages&quot;: [
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: [
+                {
+                    &quot;type&quot;: &quot;text&quot;,
+                    &quot;text&quot;: &quot;What is this a picture of? Be specific.&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;image_url&quot;,
+                    &quot;image_url&quot;: {
+                        &quot;url&quot;: &quot;https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg&quot;
+                    }
+                }
+            ]
+        }
+    ],
+    &quot;temperature&quot;: 1,
+    &quot;max_tokens&quot;: 1024,
+    &quot;top_p&quot;: 1,
+    &quot;top_k&quot;: 40,
+    &quot;presence_penalty&quot;: 0,
+    &quot;frequency_penalty&quot;: 0,
+    &quot;stream&quot;: true
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

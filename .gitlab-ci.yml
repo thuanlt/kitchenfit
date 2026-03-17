@@ -1,0 +1,29 @@
+variables:
+  DEPLOY_ENV: "production"
+  APP_VERSION: ""
+
+stages:
+  - regression
+
+regression:
+  stage: regression
+  tags:
+    - playwright         # runner trên máy Windows đã cài Playwright
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger"   # chỉ chạy khi được trigger từ app repo
+    - if: $CI_PIPELINE_SOURCE == "web"       # hoặc chạy thủ công từ GitLab UI
+  script:
+    - echo "=== Regression triggered by $DEPLOY_ENV deploy (version $APP_VERSION) ==="
+    - npm ci
+    - npx playwright install chromium --with-deps
+    - npm run test:regression
+    - npx ts-node utils/post-regression-result.ts
+  after_script:
+    - echo "=== Regression done ==="
+  artifacts:
+    when: always
+    paths:
+      - reports/playwright-report/
+      - reports/testcases/
+    expire_in: 14 days
+  timeout: 30 minutes

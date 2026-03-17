@@ -1,0 +1,56 @@
+{
+  "name": "mcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --project=smoke",
+    "test:regression": "playwright test --project=regression",
+    "test:api": "playwright test --project=api",
+    "test:ai": "playwright test --project=ai-chromium",
+    "test:all": "playwright test --project=smoke --project=regression --project=api --project=ai-chromium",
+    "test:report": "playwright show-report reports/test/playwright-report --port 9323",
+    "test:env:test": "cross-env APP_ENV=test playwright test",
+    "test:env:stg": "cross-env APP_ENV=stg playwright test",
+    "test:env:prod": "cross-env APP_ENV=prod playwright test",
+    "test:env:test:smoke": "cross-env APP_ENV=test playwright test --project=smoke",
+    "test:env:stg:smoke": "cross-env APP_ENV=stg playwright test --project=smoke",
+    "test:env:prod:smoke": "cross-env APP_ENV=prod playwright test --project=smoke",
+    "test:env:test:regression": "cross-env APP_ENV=test playwright test --project=regression",
+    "test:env:stg:regression": "cross-env APP_ENV=stg playwright test --project=regression",
+    "test:env:prod:regression": "cross-env APP_ENV=prod playwright test --project=regression",
+    "report:test": "playwright show-report reports/test/playwright-report --port 9323",
+    "report:stg": "playwright show-report reports/stg/playwright-report --port 9324",
+    "report:prod": "playwright show-report reports/prod/playwright-report --port 9325",
+    "glm:generate": "npx ts-node utils/glm-generate-tests.ts",
+    "glm:analyze": "npx ts-node utils/glm-analyze-results.ts",
+    "jira:report": "npx ts-node utils/jira-reporter.ts",
+    "jira:dry-run": "npx ts-node utils/jira-reporter.ts --dry-run",
+    "jira:testcase": "npx ts-node utils/jira-to-testcase.ts",
+    "agent": "npx ts-node utils/claude-glm-agent.ts",
+    "glm:direct": "npx ts-node utils/glm-direct.ts",
+    "vlm:analyze": "npx ts-node utils/vlm-ui-analyzer.ts",
+    "vlm:mockup": "npx ts-node utils/vlm-mockup-analyze.ts",
+    "browser:inspect": "npx ts-node utils/browser-inspect-gen.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "cross-env": "^10.1.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "dotenv": "^17.3.1",
+    "https-proxy-agent": "^8.0.0",
+    "openai": "^6.29.0",
+    "undici": "^7.24.2"
+  },
+  "directories": {
+    "test": "tests"
+  }
+}

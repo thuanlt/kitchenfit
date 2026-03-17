@@ -1,0 +1,13 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "headless": true,
+    "viewport": { "width": 1280, "height": 720 }
+  },
+  "llm": {
+    "provider": "openai",
+    "base_url": "https://mkp-api.fptcloud.com",
+    "api_key": "${FPT_API_KEY}",
+    "model": "GLM-4.7"
+  }
+}

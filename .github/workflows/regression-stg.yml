@@ -1,0 +1,120 @@
+name: Regression Tests — STG
+
+# Triggers:
+#   1. Schedule: tự động Mon–Fri 08:00 ICT
+#   2. Manual: workflow_dispatch với optional filter
+#   3. Push to main: khi có thay đổi trong test files
+on:
+  schedule:
+    - cron: '0 1 * * 1-5'   # Mon–Fri 08:00 ICT (01:00 UTC)
+  workflow_dispatch:
+    inputs:
+      test_grep:
+        description: 'Filter tests by name (e.g. TC_APIKEY, TC_NEMOTRON)'
+        required: false
+        default: ''
+  push:
+    branches: [main, master]
+    paths:
+      - 'tests/regression/**'
+      - 'utils/config.ts'
+      - 'playwright.config.ts'
+      - 'fixtures/**'
+
+env:
+  APP_ENV: stg
+
+jobs:
+  regression:
+    name: Regression — STG
+
+    # Self-hosted runner trong mạng nội bộ FPT
+    # Setup: https://github.com/<org>/<repo>/settings/actions/runners
+    runs-on: [self-hosted, fpt-internal]
+
+    timeout-minutes: 30
+
+    steps:
+      # ── 1. Checkout ────────────────────────────────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ── 2. Install npm dependencies ────────────────────────────────────────
+      # Self-hosted runner đã có Node.js — chỉ cần install packages
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 3. Install Playwright browsers ────────────────────────────────────
+      # Chỉ cần Chromium cho regression
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      # ── 4. Inject secrets vào .env files ──────────────────────────────────
+      # .env và .env.stg KHÔNG commit vào repo — inject từ GitHub Secrets
+      - name: Create .env files
+        run: |
+          cat > .env << EOF
+          FPT_GEN_API_URL=${{ secrets.FPT_GEN_API_URL }}
+          FPT_GEN_API_KEY=${{ secrets.FPT_GEN_API_KEY }}
+          FPT_FROM=${{ secrets.FPT_FROM }}
+          ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
+          EOF
+
+          cat > .env.stg << EOF
+          APP_ENV=stg
+          BASE_URL=${{ secrets.STG_BASE_URL }}
+          AI_BASE_URL=${{ secrets.STG_AI_BASE_URL }}
+          FPT_USERNAME=${{ secrets.STG_FPT_USERNAME }}
+          FPT_PASSWORD=${{ secrets.STG_FPT_PASSWORD }}
+          FPT_API_URL=${{ secrets.STG_FPT_API_URL }}
+          FPT_API_KEY=${{ secrets.STG_FPT_API_KEY }}
+          HTTPS_PROXY=${{ secrets.HTTPS_PROXY }}
+          HTTP_PROXY=${{ secrets.HTTPS_PROXY }}
+          EOF
+
+      # ── 5. Run regression ──────────────────────────────────────────────────
+      - name: Run regression tests
+        run: |
+          GREP_OPT=""
+          if [ -n "${{ github.event.inputs.test_grep }}" ]; then
+            GREP_OPT="--grep ${{ github.event.inputs.test_grep }}"
+          fi
+          npx playwright test --project=regression $GREP_OPT
+        env:
+          APP_ENV: stg
+          CI: true
+
+      # ── 6. Upload report artifact ──────────────────────────────────────────
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-report-stg-${{ github.run_number }}
+          path: reports/stg/
+          retention-days: 14
+
+      # ── 7. Job summary ─────────────────────────────────────────────────────
+      - name: Write job summary
+        if: always()
+        run: |
+          RESULT_FILE="reports/stg/test-results.json"
+          if [ -f "$RESULT_FILE" ]; then
+            PASSED=$(python3 -c "import json,sys; d=json.load(open('$RESULT_FILE')); print(d.get('stats',{}).get('expected',0))" 2>/dev/null || echo "?")
+            FAILED=$(python3 -c "import json,sys; d=json.load(open('$RESULT_FILE')); print(d.get('stats',{}).get('unexpected',0))" 2>/dev/null || echo "?")
+            TOTAL=$(python3 -c  "import json,sys; d=json.load(open('$RESULT_FILE')); print(d.get('stats',{}).get('total',0))"    2>/dev/null || echo "?")
+            STATUS=$([ "$FAILED" = "0" ] && echo "PASSED" || echo "FAILED")
+            echo "## Regression Tests — STG — $STATUS" >> $GITHUB_STEP_SUMMARY
+            echo "| | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+            echo "| ✅ Passed | $PASSED |" >> $GITHUB_STEP_SUMMARY
+            echo "| ❌ Failed | $FAILED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Total    | $TOTAL  |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Run #${{ github.run_number }} · ${{ github.ref_name }} · $(date '+%Y-%m-%d %H:%M ICT')" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ── 8. Cleanup .env (bảo mật — xóa file secrets sau khi chạy) ─────────
+      - name: Cleanup secrets
+        if: always()
+        run: |
+          rm -f .env .env.stg

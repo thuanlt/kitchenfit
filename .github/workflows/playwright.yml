@@ -1,0 +1,61 @@
+name: Smoke Tests — STG
+
+# Chạy smoke test nhanh khi push/PR để phát hiện regression sớm
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - '**.md'
+      - 'reports/**'
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  smoke:
+    name: Smoke — STG
+    runs-on: [self-hosted, fpt-internal]
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Create .env from secrets
+        run: |
+          cat > .env << 'EOF'
+          FPT_GEN_API_URL=${{ secrets.FPT_GEN_API_URL }}
+          FPT_GEN_API_KEY=${{ secrets.FPT_GEN_API_KEY }}
+          EOF
+
+          cat > .env.stg << 'EOF'
+          APP_ENV=stg
+          BASE_URL=${{ secrets.STG_BASE_URL }}
+          FPT_USERNAME=${{ secrets.STG_FPT_USERNAME }}
+          FPT_PASSWORD=${{ secrets.STG_FPT_PASSWORD }}
+          FPT_API_URL=${{ secrets.STG_FPT_API_URL }}
+          FPT_API_KEY=${{ secrets.STG_FPT_API_KEY }}
+          HTTPS_PROXY=${{ secrets.HTTPS_PROXY }}
+          EOF
+
+      - name: Run smoke tests
+        run: npx playwright test --project=smoke
+        env:
+          APP_ENV: stg
+          CI: true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-report-${{ github.run_number }}
+          path: reports/stg/
+          retention-days: 7
