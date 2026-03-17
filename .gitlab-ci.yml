@@ -6,6 +6,8 @@ stages:
 
 regression:
   stage: regression
+  tags:
+    - playwright
   rules:
     - if: $CI_PIPELINE_SOURCE == "trigger"   # trigger từ app repo khi deploy
     - if: $CI_PIPELINE_SOURCE == "web"       # chạy thủ công từ GitLab UI
