@@ -23,7 +23,7 @@
     "report:test": "playwright show-report reports/test/playwright-report --port 9323",
     "report:stg": "playwright show-report reports/stg/playwright-report --port 9324",
     "report:prod": "playwright show-report reports/prod/playwright-report --port 9325",
-    "glm:generate": "npx ts-node utils/glm-generate-tests.ts",
+    "glm:generate": "npx ts-node utils/glm-direct.ts --api-models",
     "glm:analyze": "npx ts-node utils/glm-analyze-results.ts",
     "jira:report": "npx ts-node utils/jira-reporter.ts",
     "jira:dry-run": "npx ts-node utils/jira-reporter.ts --dry-run",
@@ -32,7 +32,10 @@
     "glm:direct": "npx ts-node utils/glm-direct.ts",
     "vlm:analyze": "npx ts-node utils/vlm-ui-analyzer.ts",
     "vlm:mockup": "npx ts-node utils/vlm-mockup-analyze.ts",
-    "browser:inspect": "npx ts-node utils/browser-inspect-gen.ts"
+    "browser:inspect": "npx ts-node utils/browser-inspect-gen.ts",
+    "webhook": "npx ts-node utils/webhook-server.ts",
+    "openclaw": "npx ts-node utils/openclaw-agent.ts",
+    "openclaw:dry": "npx ts-node utils/openclaw-agent.ts"
   },
   "keywords": [],
   "author": "",

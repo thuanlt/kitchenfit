@@ -37,3 +37,7 @@ test_results.txt
 # Debug
 debug-*.png
 .playwright-mcp/
+
+# OpenClaw — generated test specs (do not commit)
+tests/api/generated/*.spec.ts
+reports/openclaw/
