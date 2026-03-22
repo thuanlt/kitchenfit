@@ -29,25 +29,37 @@ regression:
     expire_in: 14 days
   timeout: 30 minutes
 
-api-inference-prod:
+api-inference-vn-jp:
   stage: api
   tags:
     - playwright
   rules:
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-    - if: $CI_PIPELINE_SOURCE == "web"
-    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"  # chạy định kỳ
+    - if: $CI_PIPELINE_SOURCE == "web"       # chạy thủ công từ GitLab UI
+    - if: $CI_PIPELINE_SOURCE == "trigger"   # trigger từ app repo
   script:
-    - echo "=== API Inference PROD — triggered by $CI_PIPELINE_SOURCE ==="
+    - echo "=== API Inference VN + JP — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
     - npx playwright install chromium --with-deps
+
+    # ── VN site (mkp-api.fptcloud.com) ──────────────────────────────────────
+    - echo "--- Running VN site ---"
     - npx cross-env APP_ENV=prod npx playwright test --project=api tests/api/api-inference.spec.ts
+    - npx cross-env APP_ENV=prod npx ts-node utils/post-api-inference-result.ts
+
+    # ── JP site (mkp-api.fptcloud.jp) ───────────────────────────────────────
+    - echo "--- Running JP site ---"
+    - npx cross-env APP_ENV=prod npx playwright test --project=api tests/api/api-inference-jp.spec.ts
+    - cp reports/prod/test-results.json reports/jp/test-results.json || true
+    - npx cross-env APP_ENV=jp npx ts-node utils/post-api-inference-result.ts
+
   after_script:
-    - echo "=== API Inference done — exit code $CI_JOB_STATUS ==="
+    - echo "=== API Inference VN+JP done — exit code $CI_JOB_STATUS ==="
   artifacts:
     when: always
     paths:
       - reports/prod/playwright-report/
       - reports/prod/test-results.json
+      - reports/jp/test-results.json
     expire_in: 14 days
   timeout: 30 minutes
