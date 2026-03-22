@@ -1,14 +1,26 @@
 variables:
   APP_ENV: "stg"
+  PLAYWRIGHT_BROWSERS_PATH: "$CI_PROJECT_DIR/.playwright-browsers"
 
 stages:
   - regression
   - api
 
+.cache_config: &cache_config
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+      - .playwright-browsers/
+    policy: pull-push
+
 regression:
   stage: regression
   tags:
     - playwright
+  <<: *cache_config
   rules:
     - if: $CI_PIPELINE_SOURCE == "trigger"   # trigger từ app repo khi deploy
     - if: $CI_PIPELINE_SOURCE == "web"       # chạy thủ công từ GitLab UI
@@ -32,6 +44,7 @@ api-inference-vn-jp:
   stage: api
   tags:
     - playwright
+  <<: *cache_config
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"  # chạy định kỳ
     - if: $CI_PIPELINE_SOURCE == "web"       # chạy thủ công từ GitLab UI
