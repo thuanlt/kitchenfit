@@ -61,8 +61,7 @@ api-inference-vn-jp:
 
     # ── JP site (mkp-api.fptcloud.jp) ───────────────────────────────────────
     - echo "--- Running JP site ---"
-    - npx cross-env APP_ENV=prod npx playwright test --project=api tests/api/api-inference-jp.spec.ts || true
-    - cp reports/prod/test-results.json reports/jp/test-results.json || true
+    - npx cross-env APP_ENV=jp npx playwright test --project=api tests/api/api-inference-jp.spec.ts || true
     - npx cross-env APP_ENV=jp npx ts-node utils/post-api-inference-result.ts
 
   after_script:
