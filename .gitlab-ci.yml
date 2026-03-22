@@ -3,6 +3,7 @@ variables:
 
 stages:
   - regression
+  - api
 
 regression:
   stage: regression
@@ -25,5 +26,28 @@ regression:
     paths:
       - reports/stg/playwright-report/
       - reports/stg/test-results.json
+    expire_in: 14 days
+  timeout: 30 minutes
+
+api-inference-prod:
+  stage: api
+  tags:
+    - playwright
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - echo "=== API Inference PROD — triggered by $CI_PIPELINE_SOURCE ==="
+    - npm ci
+    - npx playwright install chromium --with-deps
+    - npx cross-env APP_ENV=prod npx playwright test --project=api tests/api/api-inference.spec.ts
+  after_script:
+    - echo "=== API Inference done — exit code $CI_JOB_STATUS ==="
+  artifacts:
+    when: always
+    paths:
+      - reports/prod/playwright-report/
+      - reports/prod/test-results.json
     expire_in: 14 days
   timeout: 30 minutes
