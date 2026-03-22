@@ -9,39 +9,12 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
-import { fetch, ProxyAgent } from 'undici';
+import { callFptModel } from './fpt-agent';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const API_BASE = process.env.FPT_API_URL!;
-const API_KEY  = process.env.FPT_API_KEY!;
-const API_FROM = process.env.FPT_FROM!;
-
-const PROXY = process.env.https_proxy || process.env.HTTPS_PROXY || process.env.http_proxy || process.env.HTTP_PROXY;
-const dispatcher = PROXY ? new ProxyAgent(PROXY) : undefined;
-if (PROXY) console.log(`🔌 Using proxy: ${PROXY}`);
-
 async function callGLM(prompt: string, maxTokens = 1024): Promise<{ content: string; usage: any }> {
-  const res = await fetch(
-    `${API_BASE}/v1/chat/completions?from=${API_FROM}&model=GLM-4.7`,
-    {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
-      body:    JSON.stringify({
-        model:       'GLM-4.7',
-        messages:    [{ role: 'user', content: prompt }],
-        streaming:   false,
-        temperature: 0.3,
-        max_tokens:  maxTokens,
-      }),
-      dispatcher,
-    } as any
-  );
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-  const body: any = await res.json();
-  const msg = body.choices[0].message;
-  const content = msg.content ?? msg.reasoning_content ?? '';
-  return { content, usage: body.usage };
+  return callFptModel('GLM-4.7', [{ role: 'user', content: prompt }], { maxTokens, temperature: 0.3 });
 }
 
 interface TestResult {

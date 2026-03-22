@@ -87,6 +87,17 @@ export default defineConfig({
       },
     },
 
+    // ── Exploration tests (sandbox — chưa vào regression) ───────
+    {
+      name: 'exploration',
+      testMatch: '**/tests/exploration/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
     // ── AI Factory tests (ai.fptcloud.com) ──────────────────────
     {
       name: 'ai-chromium',

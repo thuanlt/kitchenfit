@@ -1,50 +1,36 @@
 /**
  * glm-direct.ts
  *
- * GLM-4.7 (FPT API) trực tiếp generate Playwright test code — không cần Claude.
- * Fallback chain: GLM-4.7 → Qwen2.5-Coder-32B → Kimi-K2.5 → DeepSeek-V3.2-Speciale
+ * Generate Playwright test code via FPT fallback chain — no Claude needed.
+ *
+ * Modes:
+ *   Default — task description → any test code (saves to tests/regression/)
+ *   --api-models <ModelA> <ModelB> → API test cases (saves to tests/api/api-generated.spec.ts)
  *
  * Usage:
- *   npx ts-node utils/glm-direct.ts "Viết TC_NEMOTRON_007 test stream..."
- *   npx ts-node utils/glm-direct.ts --save "Viết test..."   # save ra file
+ *   npx ts-node utils/glm-direct.ts "Viết TC_007 test stream..."
+ *   npx ts-node utils/glm-direct.ts --save "Viết test..."
+ *   npx ts-node utils/glm-direct.ts --api-models "Qwen3-VL-72B" "GLM-Z1-Air"
  */
 
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
-import { fetch, ProxyAgent } from 'undici';
+import { callFptWithFallback } from './fpt-agent';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
-// Also load APP_ENV-specific overrides
 const appEnv = process.env.APP_ENV ?? 'stg';
 dotenv.config({ path: path.resolve(__dirname, `../.env.${appEnv}`), override: true } as any);
 
-// glm-direct uses PROD API for code generation (GLM-4.7 not on STG)
-// but reads BASE_URL / auth from APP_ENV for test context.
-const API_BASE = process.env.FPT_GEN_API_URL  // explicit override
-  ?? 'https://mkp-api.fptcloud.com';           // default: PROD
-const API_KEY  = process.env.FPT_GEN_API_KEY  // explicit override
-  ?? process.env.FPT_API_KEY!;                 // fallback: env key
-const API_FROM = process.env.FPT_FROM ?? '';
-
-// ─── Proxy (corporate network) ───────────────────────────────────────────────
-const PROXY = process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://10.36.252.45:8080';
-const dispatcher = new ProxyAgent({ uri: PROXY, requestTls: { rejectUnauthorized: false } });
-
-// ─── Models fallback chain (PROD API) ────────────────────────────────────────
-const CODE_MODELS = [
-  'Kimi-K2.5',
-  'GLM-4.7',
-  'Qwen2.5-Coder-32B-Instruct',
-  'DeepSeek-V3.2-Speciale',
-];
+// ─── System prompt ────────────────────────────────────────────────────────────
 
 const SYSTEM_PROMPT =
   'You are an expert TypeScript/Playwright test engineer for FPT AI Marketplace. ' +
   'Generate clean, production-ready Playwright test code. ' +
   'Output ONLY valid TypeScript code — no markdown fences, no explanations, no preamble.';
 
-// ─── Playwright test context (injected into prompt) ───────────────────────────
+// ─── Playwright project context (injected into every prompt) ──────────────────
+
 const TEST_CONTEXT = `
 ## Project config
 - BASE_URL (STG): https://marketplace-stg.fptcloud.net/en
@@ -84,61 +70,94 @@ test.describe('Nemotron — Regression STG', () => {
 });
 `.trim();
 
-// ─── Call a single FPT model ──────────────────────────────────────────────────
-async function callModel(model: string, task: string): Promise<string> {
-  const fromParam = API_FROM ? `?from=${API_FROM}` : '';
-  const url = `${API_BASE}/v1/chat/completions${fromParam}`;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`,
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: `${TEST_CONTEXT}\n\n## Task\n${task}` },
-      ],
-      temperature: 0.2,
-      max_tokens: 3000,
-      streaming: false,
-    }),
-    dispatcher,
-  } as any);
+// ─── API test mode (merged from glm-generate-tests.ts) ───────────────────────
 
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`HTTP ${res.status}: ${body.substring(0, 200)}`);
-  }
+const ALREADY_TESTED = [
+  'DeepSeek-V3.2-Speciale', 'GLM-4.5', 'GLM-4.7', 'gpt-oss-120b', 'gpt-oss-20b',
+  'Qwen2.5-Coder-32B-Instruct', 'Qwen3-32B', 'Qwen3-Coder-480B-A35B-Instruct',
+  'gemma-3-27b-it', 'SaoLa3.1-medium', 'SaoLa-Llama3.1-planner',
+  'Llama-3.3-70B-Instruct', 'Llama-3.3-Swallow-70B-Instruct-v0.4',
+  'Kimi-K2.5', 'SaoLa4-medium', 'SaoLa4-small',
+  'Qwen3-VL-8B-Instruct', 'Qwen2.5-VL-7B-Instruct',
+  'DeepSeek-OCR', 'FPT.AI-Table-Parsing-v1.1', 'FPT.AI-KIE-v1.7',
+  'Nemotron-3-Super-120B-A12B', 'Alpamayo-R1-10B',
+];
 
-  const json: any = await res.json();
-  const content = json.choices?.[0]?.message?.content ?? '';
-  if (!content) throw new Error('Empty response from model');
-
-  const usage = json.usage ?? {};
-  console.log(`   tokens — prompt: ${usage.prompt_tokens ?? '?'}, completion: ${usage.completion_tokens ?? '?'}`);
-
-  return content;
+const API_TEST_PATTERN = `
+function chatUrl(model: string) {
+  return \`\${BASE}/v1/chat/completions?from=\${FROM}&model=\${model}\`;
+}
+function chatBody(model: string, content: string, extra: object = {}) {
+  return { model, messages: [{ role: 'user', content }], streaming: false,
+    temperature: 1, max_tokens: 512, top_p: 1, top_k: 40,
+    presence_penalty: 0, frequency_penalty: 0, ...extra };
+}
+async function assertChat(res: any, model: string) {
+  expect(res.status(), \`\${model} should return 200\`).toBe(200);
+  const body = await res.json();
+  expect(body).toHaveProperty('choices');
+  const content = body.choices[0].message?.content ?? '';
+  expect(content.length).toBeGreaterThan(0);
 }
 
-// ─── Fallback chain ────────────────────────────────────────────────────────────
-async function generateCode(task: string): Promise<{ code: string; model: string }> {
-  for (const model of CODE_MODELS) {
-    try {
-      console.log(`\n🤖 [${model}] Generating...`);
-      const code = await callModel(model, task);
-      console.log(`✅ [${model}] Done — ${code.length} chars`);
-      return { code, model };
-    } catch (err: any) {
-      const status = err?.message?.match(/HTTP (\d+)/)?.[1] ?? '?';
-      console.warn(`⚠️  [${model}] Failed (${status}) — trying next...`);
-    }
-  }
-  throw new Error('All models in fallback chain failed.');
+const MSG_SHORT  = 'Hi, what is your name and version?';
+const MSG_FAMILY = "Hi! My name is Ethan, I'm 7. My family: father (engineer, 40), mother (teacher, 37), baby sister Lisa (2).";
+
+// Text model example:
+test('TC_API_003 — GLM-4.7', async ({ request }) => {
+  const res = await request.post(chatUrl('GLM-4.7'), { headers: HEADERS, data: chatBody('GLM-4.7', MSG_FAMILY) });
+  await assertChat(res, 'GLM-4.7');
+});
+
+// Vision model example:
+test('TC_API_020 — DeepSeek-OCR', async ({ request }) => {
+  const res = await request.post(chatUrl('DeepSeek-OCR'), { headers: HEADERS, data: {
+    model: 'DeepSeek-OCR',
+    messages: [{ role: 'user', content: [
+      { type: 'text', text: 'What is this a picture of?' },
+      { type: 'image_url', image_url: { url: 'https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg' } },
+    ]}],
+    streaming: false, temperature: 1, max_tokens: 512,
+  }});
+  await assertChat(res, 'DeepSeek-OCR');
+});
+`.trim();
+
+const API_FILE_HEADER = (models: string[], generatedBy: string) =>
+  `// AUTO-GENERATED by glm-direct.ts --api-models using ${generatedBy}\n` +
+  `// Date: ${new Date().toISOString()}\n` +
+  `// Models: ${models.join(', ')}\n` +
+  `import { test, expect } from '@playwright/test';\n` +
+  `import dotenv from 'dotenv';\n` +
+  `dotenv.config();\n\n` +
+  `const BASE    = process.env.FPT_API_URL!;\n` +
+  `const KEY     = process.env.FPT_API_KEY!;\n` +
+  `const FROM    = process.env.FPT_FROM!;\n` +
+  `const HEADERS = { 'Content-Type': 'application/json', 'Authorization': \`Bearer \${KEY}\` };\n\n`;
+
+function buildApiModelsPrompt(models: string[]): string {
+  return `You are a senior QA engineer writing Playwright TypeScript API tests for FPT AI Marketplace.
+
+## Existing test pattern (follow exactly):
+\`\`\`typescript
+${API_TEST_PATTERN}
+\`\`\`
+
+## Models already covered: ${ALREADY_TESTED.join(', ')}
+
+## Task:
+Generate Playwright test cases for these NEW models: **${models.join(', ')}**
+
+Rules:
+1. Use TC_API_100+ numbering (increment for each test)
+2. Text-only models → use MSG_FAMILY or MSG_SHORT
+3. Vision/multimodal models → use image_url pattern (use the Det.jpg URL from example)
+4. Wrap all tests in: test.describe('Chat Completions — Generated', () => { ... })
+5. Output ONLY valid TypeScript code — no markdown fences, no explanations`;
 }
 
-// ─── Strip markdown fences if model added them anyway ─────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
 function stripMarkdown(code: string): string {
   return code
     .replace(/^```(?:typescript|ts)?\n?/m, '')
@@ -147,8 +166,36 @@ function stripMarkdown(code: string): string {
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
+
 async function main() {
   const args = process.argv.slice(2);
+
+  // ── Mode: --api-models ModelA ModelB ────────────────────────────────────────
+  if (args[0] === '--api-models') {
+    const models = args.slice(1);
+    if (!models.length) {
+      console.error('Usage: glm-direct.ts --api-models "ModelA" "ModelB"');
+      process.exit(1);
+    }
+
+    console.log(`\n📋 Generating API tests for: ${models.join(', ')}`);
+    console.log('─'.repeat(60));
+
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'user',   content: buildApiModelsPrompt(models) },
+    ];
+
+    const { content: raw, model } = await callFptWithFallback(messages, { maxTokens: 2048, temperature: 0.2 });
+    const code = stripMarkdown(raw);
+
+    const outFile = path.resolve(__dirname, '../tests/api/api-generated.spec.ts');
+    fs.writeFileSync(outFile, API_FILE_HEADER(models, model) + code, 'utf-8');
+    console.log(`\n💾 Saved to: ${outFile}`);
+    return;
+  }
+
+  // ── Mode: default task description ──────────────────────────────────────────
   const saveFlag = args.includes('--save');
   const taskArgs = args.filter(a => a !== '--save');
 
@@ -160,7 +207,12 @@ async function main() {
   console.log('\n📋 Task:', task);
   console.log('─'.repeat(60));
 
-  const { code: raw, model } = await generateCode(task);
+  const messages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'user',   content: `${TEST_CONTEXT}\n\n## Task\n${task}` },
+  ];
+
+  const { content: raw, model } = await callFptWithFallback(messages, { maxTokens: 3000, temperature: 0.2 });
   const code = stripMarkdown(raw);
 
   console.log('\n' + '═'.repeat(60));
@@ -170,8 +222,8 @@ async function main() {
 
   if (saveFlag) {
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19);
-    const outFile = path.resolve(__dirname, `../tests/regression/glm-generated-${timestamp}.spec.ts`);
-    const header =
+    const outFile   = path.resolve(__dirname, `../tests/regression/glm-generated-${timestamp}.spec.ts`);
+    const header    =
       `// AUTO-GENERATED by glm-direct.ts using ${model}\n` +
       `// Date: ${new Date().toISOString()}\n` +
       `// Task: ${task.substring(0, 100)}\n\n`;

@@ -224,6 +224,14 @@ test.describe('JP — Chat Completions (Text Models)', () => {
     await assertChat(res, 'Llama-3.3-Swallow-70B-Instruct-v0.4');
   });
 
+  test('TC_JP_027 — Nemotron-3-Super-120B-A12B', async ({ request }) => {
+    const res = await request.post(chatUrl('Nemotron-3-Super-120B-A12B'), {
+      headers: HEADERS,
+      data: chatBody('Nemotron-3-Super-120B-A12B', MSG_BLACKHOLE, { max_tokens: 1024 }),
+    });
+    await assertChat(res, 'Nemotron-3-Super-120B-A12B');
+  });
+
 });
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -278,6 +286,38 @@ test.describe('JP — Chat Completions (Vision Models)', () => {
       data: visionBody('FPT.AI-KIE-v1.7', IMG_URL),
     });
     await assertChat(res, 'FPT.AI-KIE-v1.7');
+  });
+
+  test('TC_JP_028 — Alpamayo-R1-10B', async ({ request }) => {
+    const res = await request.post(chatUrl('Alpamayo-R1-10B'), {
+      headers: HEADERS,
+      data: {
+        model: 'Alpamayo-R1-10B',
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'text', text: 'Predict trajectory for autonomous vehicle' },
+            { type: 'image_url', image_url: { url: IMG_URL } },
+          ],
+        }],
+        ego_history: {
+          timestamps_us: [3600000,3700000,3800000,3900000,4000000,4100000,4200000,4300000,4400000,4500000,4600000,4700000,4800000,4900000,5000000,5100000],
+          positions: [
+            {x:0,y:0,z:0},{x:-0.625,y:0.148,z:0},{x:-1.25,y:0.288,z:0},{x:-1.875,y:0.414,z:0},
+            {x:-2.5,y:0.521,z:0},{x:-3.125,y:0.603,z:0},{x:-3.75,y:0.656,z:0},{x:-4.375,y:0.671,z:0},
+            {x:-5,y:0.645,z:0},{x:-5.625,y:0.573,z:0},{x:-6.25,y:0.451,z:0},{x:-6.875,y:0.276,z:0},
+            {x:-7.5,y:0.05,z:0},{x:-8.125,y:-0.227,z:0},{x:-8.75,y:-0.555,z:0},{x:-9.375,y:-0.925,z:0},
+          ],
+          rotations: [
+            {qw:1,qx:0,qy:0,qz:0},{qw:0.993,qx:0,qy:0,qz:0.118},{qw:0.975,qx:0,qy:0,qz:0.225},{qw:0.946,qx:0,qy:0,qz:0.325},
+            {qw:0.906,qx:0,qy:0,qz:0.423},{qw:0.857,qx:0,qy:0,qz:0.515},{qw:0.799,qx:0,qy:0,qz:0.602},{qw:0.735,qx:0,qy:0,qz:0.678},
+            {qw:0.668,qx:0,qy:0,qz:0.745},{qw:0.601,qx:0,qy:0,qz:0.799},{qw:0.536,qx:0,qy:0,qz:0.844},{qw:0.475,qx:0,qy:0,qz:0.88},
+            {qw:0.421,qx:0,qy:0,qz:0.907},{qw:0.374,qx:0,qy:0,qz:0.927},{qw:0.335,qx:0,qy:0,qz:0.942},{qw:0.304,qx:0,qy:0,qz:0.953},
+          ],
+        },
+      },
+    });
+    await assertChat(res, 'Alpamayo-R1-10B');
   });
 
   test('TC_JP_020 — FCI-Document-Parsing-V1.0', async ({ request }) => {
