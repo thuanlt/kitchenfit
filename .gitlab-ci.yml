@@ -12,7 +12,6 @@ regression:
   rules:
     - if: $CI_PIPELINE_SOURCE == "trigger"   # trigger từ app repo khi deploy
     - if: $CI_PIPELINE_SOURCE == "web"       # chạy thủ công từ GitLab UI
-    - if: $CI_PIPELINE_SOURCE == "schedule"  # chạy theo lịch
   script:
     - echo "=== Regression STG — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
