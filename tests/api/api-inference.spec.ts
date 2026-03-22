@@ -48,9 +48,10 @@ async function assertChat(res: any, model: string) {
   return body;
 }
 
-const MSG_SHORT  = 'Hi, what is your name and version?';
-const MSG_FAMILY = "Hi! My name is Ethan, I'm 7. My family: father (engineer, 40), mother (teacher, 37), baby sister Lisa (2). I love my family!";
-const MSG_VN     = 'DeepSeek-V3.2-Speciale có đặc điểm gì nổi bật?';
+const MSG_SHORT    = 'Hi, what is your name and version?';
+const MSG_FAMILY   = "Hi! My name is Ethan, I'm 7. My family: father (engineer, 40), mother (teacher, 37), baby sister Lisa (2). I love my family!";
+const MSG_VN       = 'DeepSeek-V3.2-Speciale có đặc điểm gì nổi bật?';
+const MSG_BLACKHOLE = 'Can you tell me about the creation of blackholes?';
 
 // ════════════════════════════════════════════════════════════════════════════
 //  CHAT COMPLETIONS — Text Models
@@ -186,6 +187,27 @@ test.describe('Chat Completions — VN Site (Modas_SiteVN_v1)', () => {
     await assertChat(res, 'SaoLa4-small');
   });
 
+  // TC_API_031 — DeepSeek-R1 (skip — chưa test)
+  // test('TC_API_031 — DeepSeek-R1', async ({ request }) => {
+  //   const res = await request.post(chatUrl('DeepSeek-R1'), {
+  //     headers: HEADERS,
+  //     data: chatBody('DeepSeek-R1', MSG_SHORT),
+  //   });
+  //   await assertChat(res, 'DeepSeek-R1');
+  // });
+
+  test('TC_API_017 — Nemotron-3-Super-120B-A12B', async ({ request }) => {
+    const res = await request.post(chatUrl('Nemotron-3-Super-120B-A12B'), {
+      headers: HEADERS,
+      data: chatBody('Nemotron-3-Super-120B-A12B', MSG_BLACKHOLE, {
+        streaming:   false,
+        temperature: 0.5,
+        max_tokens:  1024,
+      }),
+    });
+    await assertChat(res, 'Nemotron-3-Super-120B-A12B');
+  });
+
 });
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -247,6 +269,56 @@ test.describe('Chat Completions — Vision Models', () => {
       },
     });
     await assertChat(res, 'FPT.AI-Table-Parsing-v1.1');
+  });
+
+  test('TC_API_030 — Alpamayo-R1-10B (autonomous vehicle trajectory)', async ({ request }) => {
+    const res = await request.post(chatUrl('Alpamayo-R1-10B'), {
+      headers: HEADERS,
+      data: {
+        model: 'Alpamayo-R1-10B',
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'text', text: 'Predict trajectory for autonomous vehicle' },
+            { type: 'image_url', image_url: { url: 'https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/demo/resources/det.jpg' } },
+          ],
+        }],
+        streaming:   false,
+        temperature: 1,
+        max_tokens:  512,
+        ego_history: {
+          timestamps_us: [3600000,3700000,3800000,3900000,4000000,4100000,4200000,4300000,4400000,4500000,4600000,4700000,4800000,4900000,5000000,5100000],
+          positions: [
+            { x: 0,      y: 0,      z: 0 }, { x: -0.625, y: 0.148,  z: 0 },
+            { x: -1.25,  y: 0.288,  z: 0 }, { x: -1.875, y: 0.414,  z: 0 },
+            { x: -2.5,   y: 0.521,  z: 0 }, { x: -3.125, y: 0.603,  z: 0 },
+            { x: -3.75,  y: 0.656,  z: 0 }, { x: -4.375, y: 0.671,  z: 0 },
+            { x: -5,     y: 0.645,  z: 0 }, { x: -5.625, y: 0.573,  z: 0 },
+            { x: -6.25,  y: 0.451,  z: 0 }, { x: -6.875, y: 0.276,  z: 0 },
+            { x: -7.5,   y: 0.05,   z: 0 }, { x: -8.125, y: -0.227, z: 0 },
+            { x: -8.75,  y: -0.555, z: 0 }, { x: -9.375, y: -0.925, z: 0 },
+          ],
+          rotations: [
+            { qw: 1,     qx: 0, qy: 0, qz: 0     }, { qw: 0.993, qx: 0, qy: 0, qz: 0.118 },
+            { qw: 0.975, qx: 0, qy: 0, qz: 0.225 }, { qw: 0.946, qx: 0, qy: 0, qz: 0.325 },
+            { qw: 0.906, qx: 0, qy: 0, qz: 0.423 }, { qw: 0.857, qx: 0, qy: 0, qz: 0.515 },
+            { qw: 0.799, qx: 0, qy: 0, qz: 0.602 }, { qw: 0.735, qx: 0, qy: 0, qz: 0.678 },
+            { qw: 0.668, qx: 0, qy: 0, qz: 0.745 }, { qw: 0.601, qx: 0, qy: 0, qz: 0.799 },
+            { qw: 0.536, qx: 0, qy: 0, qz: 0.844 }, { qw: 0.475, qx: 0, qy: 0, qz: 0.880 },
+            { qw: 0.421, qx: 0, qy: 0, qz: 0.907 }, { qw: 0.374, qx: 0, qy: 0, qz: 0.927 },
+            { qw: 0.335, qx: 0, qy: 0, qz: 0.942 }, { qw: 0.304, qx: 0, qy: 0, qz: 0.953 },
+          ],
+        },
+      },
+    });
+    console.log(`📡 Alpamayo-R1-10B → HTTP ${res.status()}`);
+    expect(res.status(), 'Alpamayo-R1-10B should return 200').toBe(200);
+    const body = await res.json();
+    // Response may contain trajectory predictions (waypoints) or standard choices
+    const hasChoices    = Array.isArray(body.choices) && body.choices.length > 0;
+    const hasWaypoints  = body.waypoints !== undefined || body.trajectory !== undefined;
+    expect(hasChoices || hasWaypoints, 'Alpamayo-R1-10B: expected choices or trajectory in response').toBe(true);
+    console.log(`✅ Alpamayo-R1-10B: ${JSON.stringify(body).substring(0, 120)}...`);
   });
 
   test('TC_API_022 — FPT.AI-KIE-v1.7 (with image URL)', async ({ request }) => {
