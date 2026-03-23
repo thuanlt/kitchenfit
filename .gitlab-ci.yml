@@ -27,7 +27,6 @@ regression:
   script:
     - echo "=== Regression STG — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
-    - npx playwright install chromium --with-deps
     - npx cross-env APP_ENV=stg npx playwright test --project=regression
     - npx ts-node utils/post-regression-result.ts
   after_script:
@@ -53,7 +52,6 @@ api-inference-vn-jp:
   script:
     - echo "=== API Inference VN + JP — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
-    - npx playwright install chromium --with-deps
 
     # ── VN site (mkp-api.fptcloud.com) ──────────────────────────────────────
     - echo "--- Running VN site ---"
