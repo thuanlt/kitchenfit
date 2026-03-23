@@ -57,12 +57,12 @@ api-inference-vn-jp:
 
     # ── VN site (mkp-api.fptcloud.com) ──────────────────────────────────────
     - echo "--- Running VN site ---"
-    - npx cross-env APP_ENV=prod npx playwright test --project=api tests/api/api-inference.spec.ts || true
+    - npx cross-env APP_ENV=prod npx playwright test --project=api tests/api/api-inference.spec.ts; $global:LASTEXITCODE = 0
     - npx cross-env APP_ENV=prod npx ts-node utils/post-api-inference-result.ts
 
     # ── JP site (mkp-api.fptcloud.jp) ───────────────────────────────────────
     - echo "--- Running JP site ---"
-    - npx cross-env APP_ENV=jp npx playwright test --project=api tests/api/api-inference-jp.spec.ts || true
+    - npx cross-env APP_ENV=jp npx playwright test --project=api tests/api/api-inference-jp.spec.ts; $global:LASTEXITCODE = 0
     - npx cross-env APP_ENV=jp npx ts-node utils/post-api-inference-result.ts
 
   after_script:
