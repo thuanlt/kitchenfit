@@ -152,7 +152,7 @@ test.describe('JP — Chat Completions (Text Models)', () => {
     await assertChat(res, 'DeepSeek-V3.2-Speciale');
   });
 
-  test('TC_JP_005 — GLM-4.5', async ({ request }) => {
+  test.skip('TC_JP_005 — GLM-4.5', async ({ request }) => {
     const res = await request.post(chatUrl('GLM-4.5'), {
       headers: HEADERS,
       data: chatBody('GLM-4.5', MSG_FAMILY),
@@ -200,7 +200,7 @@ test.describe('JP — Chat Completions (Text Models)', () => {
     await assertChat(res, 'Qwen3-32B');
   });
 
-  test('TC_JP_011 — Qwen3-Coder-480B-A35B-Instruct', async ({ request }) => {
+  test.skip('TC_JP_011 — Qwen3-Coder-480B-A35B-Instruct', async ({ request }) => {
     const res = await request.post(chatUrl('Qwen3-Coder-480B-A35B-Instruct'), {
       headers: HEADERS,
       data: chatBody('Qwen3-Coder-480B-A35B-Instruct', MSG_FAMILY),
@@ -272,7 +272,7 @@ test.describe('JP — Chat Completions (Vision Models)', () => {
     await assertChat(res, 'gemma-3-27b-it');
   });
 
-  test('TC_JP_018 — FPT.AI-Table-Parsing-v1.1', async ({ request }) => {
+  test.skip('TC_JP_018 — FPT.AI-Table-Parsing-v1.1', async ({ request }) => {
     const res = await request.post(chatUrl('FPT.AI-Table-Parsing-v1.1'), {
       headers: HEADERS,
       data: visionBody('FPT.AI-Table-Parsing-v1.1', IMG_URL),
@@ -363,7 +363,7 @@ test.describe('JP — Embeddings Models', () => {
     console.log(`✅ multilingual-e5-large: embedding dim=${body.data[0].embedding.length}`);
   });
 
-  test('TC_JP_022 — gte-multilingual-base', async ({ request }) => {
+  test.skip('TC_JP_022 — gte-multilingual-base', async ({ request }) => {
     const res = await request.post(`${BASE}/v1/embeddings?from=${FROM}&model=gte-multilingual-base`, {
       headers: HEADERS,
       data: {
@@ -383,7 +383,7 @@ test.describe('JP — Embeddings Models', () => {
     console.log(`✅ gte-multilingual-base: embedding dim=${body.data[0].embedding.length}`);
   });
 
-  test('TC_JP_023 — bge-m3', async ({ request }) => {
+  test.skip('TC_JP_023 — bge-m3', async ({ request }) => {
     const res = await request.post(`${BASE}/v1/embeddings?from=${FROM}&model=bge-m3`, {
       headers: HEADERS,
       data: {

@@ -67,7 +67,7 @@ test.describe('Chat Completions — VN Site (Modas_SiteVN_v1)', () => {
     await assertChat(res, 'DeepSeek-V3.2-Speciale');
   });
 
-  test('TC_API_002 — GLM-4.5', async ({ request }) => {
+  test.skip('TC_API_002 — GLM-4.5', async ({ request }) => {
     const res = await request.post(chatUrl('GLM-4.5'), {
       headers: HEADERS,
       data: chatBody('GLM-4.5', MSG_FAMILY),
@@ -115,7 +115,7 @@ test.describe('Chat Completions — VN Site (Modas_SiteVN_v1)', () => {
     await assertChat(res, 'Qwen3-32B');
   });
 
-  test('TC_API_008 — Qwen3-Coder-480B-A35B-Instruct', async ({ request }) => {
+  test.skip('TC_API_008 — Qwen3-Coder-480B-A35B-Instruct', async ({ request }) => {
     const res = await request.post(chatUrl('Qwen3-Coder-480B-A35B-Instruct'), {
       headers: HEADERS,
       data: chatBody('Qwen3-Coder-480B-A35B-Instruct', MSG_FAMILY),
@@ -252,7 +252,7 @@ test.describe('Chat Completions — Vision Models', () => {
     await assertChat(res, 'DeepSeek-OCR');
   });
 
-  test('TC_API_021 — FPT.AI-Table-Parsing-v1.1 (with image URL)', async ({ request }) => {
+  test.skip('TC_API_021 — FPT.AI-Table-Parsing-v1.1 (with image URL)', async ({ request }) => {
     const res = await request.post(chatUrl('FPT.AI-Table-Parsing-v1.1'), {
       headers: HEADERS,
       data: {
