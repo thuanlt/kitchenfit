@@ -151,29 +151,35 @@ async function postAdaptiveCard(url: string, label: string) {
   }
 }
 
-// Plain-text payload for Power Automate (AUTO_TEST_MODAS group)
+// ── Collect failed models ─────────────────────────────────────────────────────
+const failedModels: string[] = [];
+if (fileSuite?.suites) {
+  for (const suite of fileSuite.suites as any[]) {
+    for (const spec of (suite.specs ?? []) as any[]) {
+      const status = spec.tests?.[0]?.status ?? 'unexpected';
+      if (status !== 'expected' && status !== 'skipped') {
+        const modelName = spec.title.replace(/^TC_(?:API|JP)_\d+ — /, '');
+        failedModels.push(`❌ ${modelName} (${suite.title})`);
+      }
+    }
+  }
+}
+
+// ── Error-only payload for AUTO_TEST_MODAS ────────────────────────────────────
 const endpoint = `mkp-api.fptcloud${APP_ENV === 'prod' ? '.com' : APP_ENV === 'jp' ? '.jp' : '.stg'}`;
 
-// Mỗi suite trên 1 dòng, mỗi model xuống dòng riêng
-const detailLines = suiteFacts.map(f => {
-  // Tách phần models và status: "model1, model2 — ✅ All 200"
-  const dashIdx = f.value.lastIndexOf(' — ');
-  const modelsPart  = dashIdx >= 0 ? f.value.substring(0, dashIdx) : f.value;
-  const statusPart  = dashIdx >= 0 ? f.value.substring(dashIdx + 3) : '';
-  const modelLines  = modelsPart.split(', ').map((m, i) => `${i + 1}. ${m}`).join('\n\n');
-  return `${f.title}  ${statusPart}\n\n${modelLines}`;
-}).join('\n\n---\n\n');
+const errorDetail = failedModels.map((m, i) => `${i + 1}. ${m}`).join('\n\n');
 
 const groupPayload = {
-  title:    `${overallIcon} API Inference Test Results — ${envLabel}`,
-  env:      APP_ENV === 'prod' ? 'com' : APP_ENV === 'jp' ? 'jp' : 'stg',
+  title:   `❌ API Inference — ${envLabel} có ${failed} model lỗi`,
+  env:     APP_ENV === 'prod' ? 'com' : APP_ENV === 'jp' ? 'jp' : 'stg',
   passed,
   failed,
   total,
   duration,
   passRate,
   runDate,
-  detail:   `🌐 ${endpoint}\n\n${detailLines}`,
+  detail:  `🌐 ${endpoint}\n\n🔴 Models bị lỗi:\n\n${errorDetail}`,
 };
 
 async function postToGroup(url: string) {
@@ -184,15 +190,19 @@ async function postToGroup(url: string) {
     dispatcher: proxy,
   } as any);
   if (res.ok) {
-    console.log(`✅ Posted ${envLabel} results to Teams (AUTO_TEST_MODAS)`);
+    console.log(`✅ Posted ${envLabel} error models to Teams (AUTO_TEST_MODAS)`);
   } else {
     console.error(`❌ [AUTO_TEST_MODAS] HTTP ${res.status}: ${await res.text()}`);
   }
 }
 
 async function main() {
+  // Luôn post full report vào Market Place
   await postAdaptiveCard(WEBHOOK, 'Teams (Market Place)');
-  if (WEBHOOK_GROUP) await postToGroup(WEBHOOK_GROUP);
+  // Chỉ post vào AUTO_TEST_MODAS khi có model lỗi
+  if (WEBHOOK_GROUP && failed > 0) {
+    await postToGroup(WEBHOOK_GROUP);
+  }
 }
 
 main();
