@@ -42,6 +42,7 @@ regression:
 
 api-inference-vn-jp:
   stage: api
+  needs: []
   tags:
     - playwright
   <<: *cache_config
