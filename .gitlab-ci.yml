@@ -1,6 +1,6 @@
 variables:
   APP_ENV: "stg"
-  PLAYWRIGHT_BROWSERS_PATH: "$CI_PROJECT_DIR/.playwright-browsers"
+  PLAYWRIGHT_BROWSERS_PATH: "C:\\playwright-browsers"
 
 stages:
   - regression
