@@ -55,6 +55,13 @@ const stats    = report.stats as {
   expected: number; unexpected: number; skipped: number; flaky: number;
 };
 
+// ── Timestamp freshness check (cảnh báo nếu report cũ hơn 2 giờ) ─────────────
+const reportAge = (Date.now() - new Date(stats.startTime).getTime()) / 1000 / 60;
+if (reportAge > 120) {
+  console.warn(`⚠️  Report is stale! Generated ${Math.round(reportAge)} minutes ago — data may not be fresh.`);
+  process.exit(1);
+}
+
 const total    = stats.expected + stats.unexpected + stats.skipped + stats.flaky;
 const passed   = stats.expected;
 const failed   = stats.unexpected;
@@ -63,7 +70,6 @@ const passRate = total > 0 ? Math.round((passed / total) * 100) : 0;
 const duration = (stats.duration / 1000).toFixed(1);
 const runDate  = new Date(stats.startTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
 
-const overallColor = failed > 0 ? 'Attention' : 'Good';
 const overallIcon  = failed > 0 ? '❌' : '✅';
 const envLabel     = APP_ENV === 'prod' ? 'VN' : APP_ENV === 'jp' ? 'JP' : APP_ENV.toUpperCase();
 
@@ -76,7 +82,7 @@ if (fileSuite?.suites) {
     const tests   = (suite.specs ?? []) as any[];
     const results = tests.map((s: any) => statusEmoji(s.tests?.[0]?.status ?? 'unexpected'));
     const allPass = results.every(r => r === '✅');
-    const models  = tests.map((s: any) => s.title.replace(/^TC_API_\d+ — /, '')).join(', ');
+    const models  = tests.map((s: any) => s.title.replace(/^TC_(?:API|JP)_\d+ — /, '')).join(', ');
     suiteFacts.push({
       title: `${suiteIcon(suite.title)} ${suite.title}`,
       value: `${models} — ${allPass ? '✅ All 200' : results.join(' ')}`,
@@ -84,54 +90,21 @@ if (fileSuite?.suites) {
   }
 }
 
-// ── Build Adaptive Card ───────────────────────────────────────────────────────
+// ── Build MessageCard ─────────────────────────────────────────────────────────
+const endpoint = `mkp-api.fptcloud${APP_ENV === 'prod' ? '.com' : APP_ENV === 'jp' ? '.jp' : '.stg'}`;
+const resultLine = failed > 0
+  ? `**Result: ${passed}/${total} FAILED — ${failed} model lỗi ❌**`
+  : `**Result: ${passed}/${total} PASSED — All models healthy ✅**`;
+
 const card = {
-  type: 'message',
-  attachments: [
+  '@type':    'MessageCard',
+  '@context': 'http://schema.org/extensions',
+  themeColor: failed > 0 ? 'FF0000' : '00B050',
+  title:      `${overallIcon} API Inference Test Results — ${envLabel}`,
+  text:       `🌐 **Endpoint:** ${endpoint}\n📅 **Date:** ${runDate}\n⏱️ **Duration:** ${duration}s\n\n${resultLine}`,
+  sections: [
     {
-      contentType: 'application/vnd.microsoft.card.adaptive',
-      content: {
-        $schema: 'http://adaptivecards.io/schemas/adaptive-card.json',
-        type: 'AdaptiveCard',
-        version: '1.4',
-        body: [
-          {
-            type: 'TextBlock',
-            text: `${overallIcon} API Inference Test Results — ${envLabel}`,
-            weight: 'Bolder',
-            size: 'Large',
-            color: overallColor,
-          },
-          {
-            type: 'TextBlock',
-            text: `🌐 **Endpoint:** mkp-api.fptcloud${APP_ENV === 'prod' ? '.com' : APP_ENV === 'jp' ? '.jp' : '.stg'}  \n📅 **Run:** ${runDate}  \n⏱️ **Duration:** ${duration}s`,
-            wrap: true,
-            spacing: 'Small',
-          },
-          {
-            type: 'ColumnSet',
-            spacing: 'Medium',
-            columns: [
-              { type: 'Column', width: 'auto', items: [{ type: 'TextBlock', text: `**${passed}/${total}**`, color: overallColor, weight: 'Bolder', size: 'ExtraLarge' }] },
-              { type: 'Column', width: 'stretch', items: [
-                { type: 'TextBlock', text: `✅ Passed: **${passed}**  ❌ Failed: **${failed}**  ⏭️ Skipped: **${skipped}**`, wrap: true },
-                { type: 'TextBlock', text: `Pass rate: **${passRate}%**`, color: overallColor },
-              ]},
-            ],
-          },
-          { type: 'Separator' },
-          {
-            type: 'TextBlock',
-            text: 'Detail by Group',
-            weight: 'Bolder',
-            spacing: 'Medium',
-          },
-          {
-            type: 'FactSet',
-            facts: suiteFacts,
-          },
-        ],
-      },
+      facts: suiteFacts.map(f => ({ name: f.title, value: f.value })),
     },
   ],
 };
@@ -166,7 +139,6 @@ if (fileSuite?.suites) {
 }
 
 // ── Error-only payload for AUTO_TEST_MODAS ────────────────────────────────────
-const endpoint = `mkp-api.fptcloud${APP_ENV === 'prod' ? '.com' : APP_ENV === 'jp' ? '.jp' : '.stg'}`;
 
 const errorDetail = failedModels.map((m, i) => `${i + 1}. ${m}`).join('\n\n');
 

@@ -1,0 +1,13 @@
+# CODEOWNERS — Human review bắt buộc trước khi merge
+# Syntax: <pattern> <@user hoặc @group>
+
+# AI-generated tests — cần review kỹ trước khi merge
+tests/api/generated/     @ThuanLT11
+tests/exploration/       @ThuanLT11
+
+# Core test suites — cần review khi thay đổi
+tests/api/               @ThuanLT11
+tests/regression/        @ThuanLT11
+
+# CI/CD pipeline — cần review khi thay đổi
+.gitlab-ci.yml           @ThuanLT11
