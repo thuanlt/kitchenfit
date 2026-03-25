@@ -4,7 +4,8 @@ const path = require('path');
 
 new BrowserCheck('marketplace-homepage-browser', {
   name:      '🖥️  Marketplace — Homepage loads',
-  activated: false,
+  activated: false, // disabled — không dùng
+
   frequency: Frequency.EVERY_30M,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'ui', 'smoke'],

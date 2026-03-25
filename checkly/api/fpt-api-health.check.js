@@ -87,21 +87,3 @@ new ApiCheck('deepseek-v3-health', {
   },
 });
 
-// ── Marketplace Homepage ──────────────────────────────────────────────────────
-new ApiCheck('marketplace-homepage-health', {
-  name:      '🌐 Marketplace Homepage — HTTP 200',
-  activated: true,
-  frequency: Frequency.EVERY_5M,
-  locations: ['ap-southeast-1'],
-  tags:      ['fpt', 'uptime'],
-  degradedResponseTime: 3000,
-  maxResponseTime:      10000,
-  request: {
-    method: 'GET',
-    url:    'https://marketplace.fptcloud.com/en',
-    assertions: [
-      AssertionBuilder.statusCode().equals(200),
-      AssertionBuilder.responseTime().lessThan(10000),
-    ],
-  },
-});
