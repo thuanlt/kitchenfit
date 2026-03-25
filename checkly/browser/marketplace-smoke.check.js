@@ -1,5 +1,4 @@
 const { BrowserCheck, Frequency } = require('checkly/constructs');
-const path = require('path');
 
 new BrowserCheck('marketplace-homepage-browser', {
   name:      '🖥️  Marketplace — Homepage loads',
@@ -8,6 +7,18 @@ new BrowserCheck('marketplace-homepage-browser', {
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'ui', 'smoke'],
   code: {
-    entrypoint: path.join(__dirname, 'homepage.spec.ts'),
+    content: `
+const { expect } = require('@playwright/test');
+
+async function run(page) {
+  await page.goto('https://marketplace.fptcloud.com/en');
+  await page.waitForLoadState('networkidle');
+  await expect(page).toHaveURL(/marketplace\\.fptcloud\\.com/);
+  const modelCard = page.getByRole('link').filter({ hasText: /GLM|Qwen|DeepSeek|SaoLa|Llama/i });
+  await expect(modelCard.first()).toBeVisible({ timeout: 15000 });
+}
+
+module.exports = { run };
+    `.trim(),
   },
 });
