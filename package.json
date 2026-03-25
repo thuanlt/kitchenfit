@@ -35,7 +35,10 @@
     "browser:inspect": "npx ts-node utils/browser-inspect-gen.ts",
     "webhook": "npx ts-node utils/webhook-server.ts",
     "openclaw": "npx ts-node utils/openclaw-agent.ts",
-    "openclaw:dry": "npx ts-node utils/openclaw-agent.ts"
+    "openclaw:dry": "npx ts-node utils/openclaw-agent.ts",
+    "usage": "npx ts-node utils/usage-dashboard.ts",
+    "usage:autotest": "npx ts-node utils/usage-dashboard.ts --autotest",
+    "usage:key": "npx ts-node utils/usage-dashboard.ts --key v1"
   },
   "keywords": [],
   "author": "",
@@ -44,7 +47,9 @@
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0",
-    "cross-env": "^10.1.0"
+    "@zerostep/playwright": "^0.1.5",
+    "cross-env": "^10.1.0",
+    "xlsx": "^0.18.5"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

@@ -414,7 +414,7 @@ test.describe('JP — Rerank Models', () => {
     const res = await request.post(`${BASE}/v1/rerank?from=${FROM}&model=bge-reranker-v2-m3`, {
       headers: HEADERS,
       data: {
-        model: 'bge-reranker-v2-m3_test _sai_ten',
+        model: 'bge-reranker-v2-m3',
         query: 'What is the capital of the United States?',
         documents: [
           'Carson City is the capital city of the American state of Nevada.',

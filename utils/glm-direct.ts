@@ -22,53 +22,23 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const appEnv = process.env.APP_ENV ?? 'stg';
 dotenv.config({ path: path.resolve(__dirname, `../.env.${appEnv}`), override: true } as any);
 
-// ─── System prompt ────────────────────────────────────────────────────────────
+// ─── Load skills from skills/ folder ─────────────────────────────────────────
 
-const SYSTEM_PROMPT =
-  'You are an expert TypeScript/Playwright test engineer for FPT AI Marketplace. ' +
-  'Generate clean, production-ready Playwright test code. ' +
-  'Output ONLY valid TypeScript code — no markdown fences, no explanations, no preamble.';
+function loadSkill(name: string): string {
+  const filePath = path.resolve(__dirname, `../skills/${name}.md`);
+  if (!fs.existsSync(filePath)) {
+    console.warn(`⚠️  Skill not found: ${filePath}`);
+    return '';
+  }
+  return fs.readFileSync(filePath, 'utf-8');
+}
 
-// ─── Playwright project context (injected into every prompt) ──────────────────
-
-const TEST_CONTEXT = `
-## Project config
-- BASE_URL (STG): https://marketplace-stg.fptcloud.net/en
-- FPT_API_URL (STG): https://mkp-api-stg.fptcloud.net
-- storageState: playwright/.auth/stg-user.json
-- import config from: utils/config.ts  →  config.baseUrl, config.fptApiUrl, config.fptApiKey
-
-## Proven Playwright locators (STG)
-- Model card: page.getByRole('link').filter({ hasText: MODEL_API_ID }).first()
-- Search input: page.locator('input[placeholder*="search" i], input[type="search"]').first()
-- Ant Design select: page.locator('.ant-select-selector').first()  →  fill search  →  click option
-- Chat input: page.getByPlaceholder(/type a message/i)
-- Send button: page.locator('button:has(img[alt="send"]), button[aria-label*="send" i], button:has(.anticon-send)').last()
-- AI response area: page.locator('.prose').last()
-- View Code modal: page.getByRole('dialog').filter({ hasText: 'View Code' })
-
-## React controlled input trick (required for send button to enable)
-await page.evaluate((text) => {
-  const el = document.querySelector('textarea[placeholder*="message" i]') as HTMLTextAreaElement;
-  const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
-  if (setter) setter.call(el, text);
-  el.dispatchEvent(new Event('input', { bubbles: true }));
-  el.dispatchEvent(new Event('change', { bubbles: true }));
-}, message);
-
-## Existing test file structure (follow this pattern)
-import { test, expect } from '@playwright/test';
-import { config } from '../../utils/config';
-
-const MODEL_NAME   = 'Nemotron';
-const MODEL_API_ID = 'Nemotron-3-Super-120B-A12B';
-
-test.use({ storageState: 'playwright/.auth/stg-user.json' });
-
-test.describe('Nemotron — Regression STG', () => {
-  test('TC_NEMOTRON_001 — Model card visible', async ({ page }) => { ... });
-});
-`.trim();
+const SYSTEM_PROMPT = loadSkill('system-prompt');
+const TEST_CONTEXT  = [
+  loadSkill('project-context'),
+  loadSkill('playwright-rules'),
+  loadSkill('qa-checklist'),
+].join('\n\n---\n\n');
 
 // ─── API test mode (merged from glm-generate-tests.ts) ───────────────────────
 
