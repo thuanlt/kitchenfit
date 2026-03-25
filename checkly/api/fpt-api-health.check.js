@@ -1,6 +1,6 @@
 /**
  * fpt-api-health.check.js
- * API checks chạy mỗi 10 phút từ Singapore
+ * API checks chạy mỗi 6 tiếng từ Singapore
  */
 
 const { ApiCheck, AssertionBuilder, Frequency } = require('checkly/constructs');
@@ -25,7 +25,7 @@ function chatBody(model) {
 new ApiCheck('glm-47-health', {
   name:      '🤖 GLM-4.7 — Chat Completions',
   activated: true,
-  frequency: Frequency.EVERY_10M,
+  frequency: Frequency.EVERY_6H,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'llm'],
   degradedResponseTime: 5000,
@@ -47,7 +47,7 @@ new ApiCheck('glm-47-health', {
 new ApiCheck('qwen3-32b-health', {
   name:      '🤖 Qwen3-32B — Chat Completions',
   activated: true,
-  frequency: Frequency.EVERY_10M,
+  frequency: Frequency.EVERY_6H,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'llm'],
   degradedResponseTime: 5000,
@@ -69,7 +69,7 @@ new ApiCheck('qwen3-32b-health', {
 new ApiCheck('deepseek-v3-health', {
   name:      '🤖 DeepSeek-V3 — Chat Completions',
   activated: true,
-  frequency: Frequency.EVERY_10M,
+  frequency: Frequency.EVERY_6H,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'llm'],
   degradedResponseTime: 5000,
