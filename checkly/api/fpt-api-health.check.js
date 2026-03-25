@@ -24,7 +24,7 @@ function chatBody(model) {
 // ── GLM-4.7 ──────────────────────────────────────────────────────────────────
 new ApiCheck('glm-47-health', {
   name:      '🤖 GLM-4.7 — Chat Completions',
-  activated: true,
+  activated: false,
   frequency: Frequency.EVERY_10M,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'llm'],
@@ -46,7 +46,7 @@ new ApiCheck('glm-47-health', {
 // ── Qwen3-32B ─────────────────────────────────────────────────────────────────
 new ApiCheck('qwen3-32b-health', {
   name:      '🤖 Qwen3-32B — Chat Completions',
-  activated: true,
+  activated: false,
   frequency: Frequency.EVERY_10M,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'llm'],
@@ -68,7 +68,7 @@ new ApiCheck('qwen3-32b-health', {
 // ── DeepSeek-V3 ───────────────────────────────────────────────────────────────
 new ApiCheck('deepseek-v3-health', {
   name:      '🤖 DeepSeek-V3 — Chat Completions',
-  activated: true,
+  activated: false,
   frequency: Frequency.EVERY_10M,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'llm'],
@@ -90,7 +90,7 @@ new ApiCheck('deepseek-v3-health', {
 // ── Marketplace Homepage ──────────────────────────────────────────────────────
 new ApiCheck('marketplace-homepage-health', {
   name:      '🌐 Marketplace Homepage — HTTP 200',
-  activated: true,
+  activated: false,
   frequency: Frequency.EVERY_5M,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', 'uptime'],
