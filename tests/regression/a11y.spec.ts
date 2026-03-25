@@ -18,7 +18,8 @@ test.describe('Accessibility — FPT AI Marketplace', () => {
     test.setTimeout(60_000);
 
     await page.goto(config.baseUrl);
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('body')).toBeVisible();
 
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa'])
@@ -47,8 +48,8 @@ test.describe('Accessibility — FPT AI Marketplace', () => {
     test.setTimeout(60_000);
 
     await page.goto(`${config.baseUrl}/my-account?tab=my-api-key`);
-    await page.waitForLoadState('domcontentloaded');
-    await page.waitForTimeout(2000); // chờ dynamic content load
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('body')).toBeVisible();
 
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa'])
@@ -74,7 +75,8 @@ test.describe('Accessibility — FPT AI Marketplace', () => {
     test.setTimeout(60_000);
 
     await page.goto(config.baseUrl);
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('body')).toBeVisible();
 
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa'])
