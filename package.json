@@ -12,6 +12,8 @@
     "test:all": "playwright test --project=smoke --project=regression --project=api --project=ai-chromium",
     "test:report": "playwright show-report reports/test/playwright-report --port 9323",
     "dashboard": "ts-node utils/report-server.ts",
+    "test:stg:dashboard": "cross-env APP_ENV=stg playwright test && ts-node utils/report-server.ts",
+    "test:prod:dashboard": "cross-env APP_ENV=prod playwright test && ts-node utils/report-server.ts",
     "test:env:test": "cross-env APP_ENV=test playwright test",
     "test:env:stg": "cross-env APP_ENV=stg playwright test",
     "test:env:prod": "cross-env APP_ENV=prod playwright test",
