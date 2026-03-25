@@ -49,7 +49,16 @@ const MODELS = [
   { id: 'bge-reranker-v2-m3',                  type: 'rerank' },
   // ── TTS ─────────────────────────────────────────────────────────────────────
   { id: 'FPT.AI-VITs',                         type: 'tts' },
-  // ── STT — skip (cần audio file, không thể monitor qua Checkly) ──────────────
+  // ── STT — SKIP trong Checkly vì các lý do sau: ──────────────────────────────
+  // 1. API dùng multipart/form-data với binary file upload
+  //    → Checkly ApiCheck chỉ hỗ trợ JSON body, không hỗ trợ multipart
+  // 2. File audio (test-data/audio/honlecuae.mp3) nằm trên máy local
+  //    → Checkly chạy từ cloud Singapore, không truy cập được file local
+  // 3. Workaround cần thiết nếu muốn monitor STT:
+  //    → Upload audio lên public URL (GitLab Pages / CDN)
+  //    → Dùng Checkly setupScript để fetch + base64 encode audio
+  // 4. Hiện tại: dùng Playwright test (api-inference.spec.ts TC_API_026/027/028)
+  //    để test STT khi chạy local/CI — đủ coverage, không cần Checkly
   { id: 'FPT.AI-whisper-large-v3-turbo',       type: 'stt',       skip: true },
   { id: 'FPT.AI-whisper-medium',               type: 'stt',       skip: true },
   { id: 'whisper-large-v3-turbo',              type: 'stt',       skip: true },
