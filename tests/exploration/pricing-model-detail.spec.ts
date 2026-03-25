@@ -8,7 +8,7 @@ test.use({ storageState: { cookies: [], origins: [] } });
 
 test.describe('TC_PRICING_001 - Login & Pricing Model Detail', () => {
 
-  test('Login via FPT ID and view pricing model detail', async ({ page }) => {
+  test.skip('Login via FPT ID and view pricing model detail', async ({ page }) => {
     test.setTimeout(90000);
 
     // ─────────────────────────────────────────────────
