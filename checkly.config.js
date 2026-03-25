@@ -13,12 +13,16 @@ const emailAlert = new EmailAlertChannel('email-alert', {
   sendDegraded: false,
 });
 
-const slackAlert = new SlackAlertChannel('slack-alert', {
-  url:          process.env.SLACK_WEBHOOK_URL || '',
-  sendRecovery: true,
-  sendFailure:  true,
-  sendDegraded: false,
-});
+// Chỉ tạo Slack alert khi có webhook URL
+const alertChannels = [emailAlert];
+if (process.env.SLACK_WEBHOOK_URL) {
+  alertChannels.push(new SlackAlertChannel('slack-alert', {
+    url:          process.env.SLACK_WEBHOOK_URL,
+    sendRecovery: true,
+    sendFailure:  true,
+    sendDegraded: false,
+  }));
+}
 
 module.exports = defineConfig({
   projectName: 'FPT AI Marketplace',
@@ -31,7 +35,7 @@ module.exports = defineConfig({
     frequency:     Frequency.EVERY_10M,
     locations:     ['ap-southeast-1'],
     tags:          ['fpt', 'api', 'production'],
-    alertChannels: [emailAlert, slackAlert],
+    alertChannels,
 
     browserChecks: {
       testMatch: '**/checkly/browser/**/*.spec.js',
