@@ -12,7 +12,7 @@
     "test:all": "playwright test --project=smoke --project=regression --project=api --project=ai-chromium",
     "test:report": "playwright show-report reports/test/playwright-report --port 9323",
     "checkly:login": "checkly login",
-    "checkly:test": "checkly test --verbose",
+    "checkly:test": "checkly test --config checkly.config.js --verbose",
     "checkly:deploy": "checkly deploy",
     "dashboard": "node utils/report-server.js",
     "test:stg:dashboard": "cross-env APP_ENV=stg playwright test && node utils/report-server.js",
