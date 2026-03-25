@@ -56,20 +56,45 @@ function loadReport(env) {
   return null;
 }
 
-// ── API ───────────────────────────────────────────────────────────────────────
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
-app.get('/api/envs', (_req, res) => {
+function getEnvsWithMtime() {
   const reportsDir = path.resolve(__dirname, '../reports');
   const envs = [];
   try {
     for (const entry of fs.readdirSync(reportsDir, { withFileTypes: true })) {
       if (entry.isDirectory()) {
         const jsonPath = path.join(reportsDir, entry.name, 'test-results.json');
-        if (fs.existsSync(jsonPath)) envs.push(entry.name);
+        if (fs.existsSync(jsonPath)) {
+          const mtime = fs.statSync(jsonPath).mtimeMs;
+          envs.push({ name: entry.name, mtime });
+        }
       }
     }
   } catch (_) { /* empty */ }
+  return envs;
+}
+
+function getLatestEnv() {
+  const envs = getEnvsWithMtime();
+  if (!envs.length) return null;
+  return envs.sort((a, b) => b.mtime - a.mtime)[0].name;
+}
+
+// ── API ───────────────────────────────────────────────────────────────────────
+
+app.get('/api/envs', (_req, res) => {
+  const envs = getEnvsWithMtime().sort((a, b) => b.mtime - a.mtime).map(e => e.name);
   res.json(envs);
+});
+
+// Returns the env that has the most recently modified test-results.json
+app.get('/api/latest', (_req, res) => {
+  const env = getLatestEnv();
+  if (!env) return res.status(404).json({ error: 'No reports found' });
+  const data = loadReport(env);
+  if (!data) return res.status(404).json({ error: 'Failed to load latest report' });
+  res.json(data);
 });
 
 app.get('/api/results/:env', (req, res) => {

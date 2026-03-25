@@ -173,7 +173,7 @@
   <span class="logo">📊</span>
   <h1>Test Report Dashboard — FPT AI Marketplace</h1>
   <select id="envSelect" onchange="loadEnv(this.value)">
-    <option value="">Loading...</option>
+    <option id="latestLabel" value="__latest__">⚡ Latest</option>
   </select>
   <button class="primary" onclick="refresh()">↻ Refresh</button>
   <span class="timestamp" id="timestamp"></span>
@@ -201,15 +201,19 @@ async function init() {
     sel.innerHTML = '<option>No reports found</option>';
     return;
   }
+  // Add "Latest" option at top
+  const latestOpt = document.createElement('option');
+  latestOpt.value = '__latest__';
+  latestOpt.textContent = '⚡ Latest';
+  sel.appendChild(latestOpt);
   for (const e of envs) {
     const opt = document.createElement('option');
     opt.value = e; opt.textContent = e.toUpperCase();
     sel.appendChild(opt);
   }
-  // Prefer 'prod' → 'stg' → first
-  const def = envs.includes('prod') ? 'prod' : envs.includes('stg') ? 'stg' : envs[0];
-  sel.value = def;
-  await loadEnv(def);
+  // Always default to latest
+  sel.value = '__latest__';
+  await loadEnv('__latest__');
 }
 
 async function loadEnv(env) {
@@ -217,8 +221,16 @@ async function loadEnv(env) {
   currentEnv = env;
   document.getElementById('content').innerHTML = '<div class="loading"><div class="spinner"></div><br>Loading…</div>';
   try {
-    const data = await fetch(`/api/results/${env}`).then(r => r.json());
+    const url  = env === '__latest__' ? '/api/latest' : `/api/results/${env}`;
+    const data = await fetch(url).then(r => r.json());
+    if (data.error) throw new Error(data.error);
     allTests = data.tests || [];
+    // Sync selector to actual env returned
+    if (env === '__latest__') {
+      const sel = document.getElementById('envSelect');
+      const label = document.getElementById('latestLabel');
+      if (label) label.textContent = `⚡ Latest (${(data.env || '').toUpperCase()})`;
+    }
     renderDashboard(data);
   } catch(e) {
     document.getElementById('content').innerHTML = `<div class="loading">❌ Failed to load: ${e.message}</div>`;
