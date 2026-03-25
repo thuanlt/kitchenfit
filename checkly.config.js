@@ -34,7 +34,7 @@ module.exports = defineConfig({
     alertChannels: [emailAlert, slackAlert],
 
     browserChecks: {
-      testMatch: '**/checkly/browser/**/*.check.js',
+      testMatch: '**/checkly/browser/**/*.spec.js',
       frequency: Frequency.EVERY_30M,
     },
   },
