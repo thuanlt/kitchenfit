@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Test Report Dashboard — FPT AI Marketplace</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --pass:    #22c55e;
+    --fail:    #ef4444;
+    --skip:    #f59e0b;
+    --flaky:   #a855f7;
+    --bg:      #0f172a;
+    --surface: #1e293b;
+    --border:  #334155;
+    --text:    #f1f5f9;
+    --muted:   #94a3b8;
+    --accent:  #3b82f6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+  /* ── Header ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  header h1 { font-size: 1.25rem; font-weight: 700; color: var(--text); flex: 1; }
+  header .logo { font-size: 1.5rem; }
+
+  select, button {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  select:hover, button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+  button.primary:hover { background: #2563eb; }
+
+  .timestamp { font-size: 0.75rem; color: var(--muted); margin-left: auto; }
+
+  /* ── Layout ── */
+  main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+
+  /* ── Stat cards ── */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .card .value { font-size: 2rem; font-weight: 800; line-height: 1; }
+  .card.pass  .value { color: var(--pass); }
+  .card.fail  .value { color: var(--fail); }
+  .card.skip  .value { color: var(--skip); }
+  .card.flaky .value { color: var(--flaky); }
+  .card.total .value { color: var(--accent); }
+  .card .sub  { font-size: 0.75rem; color: var(--muted); }
+
+  /* ── Charts row ── */
+  .charts-row { display: grid; grid-template-columns: 300px 1fr; gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 900px) { .charts-row { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .chart-card h3 { font-size: 0.875rem; font-weight: 600; color: var(--muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .donut-wrap { position: relative; width: 220px; margin: 0 auto; }
+  .donut-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center; pointer-events: none;
+  }
+  .donut-center .pct { font-size: 1.75rem; font-weight: 800; color: var(--pass); }
+  .donut-center .lbl { font-size: 0.7rem; color: var(--muted); }
+
+  /* ── Duration chart ── */
+  .duration-wrap { height: 240px; position: relative; }
+
+  /* ── File breakdown ── */
+  .file-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-bottom: 24px; }
+
+  /* ── Test table ── */
+  .table-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .table-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .table-header h3 { font-size: 0.875rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; flex: 1; }
+  .filter-btns { display: flex; gap: 6px; }
+  .filter-btn {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+  }
+  .filter-btn.all    { background: rgba(59,130,246,.15); color: var(--accent); border-color: var(--accent); }
+  .filter-btn.pass   { background: rgba(34,197,94,.15);  color: var(--pass);   border-color: var(--pass); }
+  .filter-btn.fail   { background: rgba(239,68,68,.15);  color: var(--fail);   border-color: var(--fail); }
+  .filter-btn.skip   { background: rgba(245,158,11,.15); color: var(--skip);   border-color: var(--skip); }
+  .filter-btn.inactive { background: transparent; color: var(--muted); border-color: var(--border); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  th { padding: 10px 16px; text-align: left; color: var(--muted); font-weight: 500; font-size: 0.7rem; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 16px; border-bottom: 1px solid rgba(51,65,85,.5); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.03); }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .badge.expected   { background: rgba(34,197,94,.15);  color: var(--pass);  }
+  .badge.unexpected { background: rgba(239,68,68,.15);  color: var(--fail);  }
+  .badge.skipped    { background: rgba(245,158,11,.15); color: var(--skip);  }
+  .badge.flaky      { background: rgba(168,85,247,.15); color: var(--flaky); }
+  .file-tag {
+    font-size: 0.65rem;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 4px;
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+  .dur { color: var(--muted); white-space: nowrap; }
+  .error-msg { color: #fca5a5; font-size: 0.7rem; margin-top: 4px; font-family: monospace; opacity: .85; }
+
+  /* ── Progress bar (file breakdown) ── */
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width .5s ease; }
+
+  /* ── Loading/empty ── */
+  .loading { text-align: center; padding: 60px; color: var(--muted); }
+  .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo">📊</span>
+  <h1>Test Report Dashboard — FPT AI Marketplace</h1>
+  <select id="envSelect" onchange="loadEnv(this.value)">
+    <option value="">Loading...</option>
+  </select>
+  <button class="primary" onclick="refresh()">↻ Refresh</button>
+  <span class="timestamp" id="timestamp"></span>
+</header>
+
+<main>
+  <div id="content">
+    <div class="loading"><div class="spinner"></div><br>Loading reports…</div>
+  </div>
+</main>
+
+<script>
+let currentEnv = '';
+let allTests   = [];
+let activeFilter = 'all';
+let durationChart = null;
+let donutChart    = null;
+
+// ── Bootstrap ────────────────────────────────────────────────────────────────
+async function init() {
+  const envs = await fetch('/api/envs').then(r => r.json()).catch(() => []);
+  const sel  = document.getElementById('envSelect');
+  sel.innerHTML = '';
+  if (!envs.length) {
+    sel.innerHTML = '<option>No reports found</option>';
+    return;
+  }
+  for (const e of envs) {
+    const opt = document.createElement('option');
+    opt.value = e; opt.textContent = e.toUpperCase();
+    sel.appendChild(opt);
+  }
+  // Prefer 'prod' → 'stg' → first
+  const def = envs.includes('prod') ? 'prod' : envs.includes('stg') ? 'stg' : envs[0];
+  sel.value = def;
+  await loadEnv(def);
+}
+
+async function loadEnv(env) {
+  if (!env) return;
+  currentEnv = env;
+  document.getElementById('content').innerHTML = '<div class="loading"><div class="spinner"></div><br>Loading…</div>';
+  try {
+    const data = await fetch(`/api/results/${env}`).then(r => r.json());
+    allTests = data.tests || [];
+    renderDashboard(data);
+  } catch(e) {
+    document.getElementById('content').innerHTML = `<div class="loading">❌ Failed to load: ${e.message}</div>`;
+  }
+}
+
+function refresh() { loadEnv(currentEnv); }
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function renderDashboard(data) {
+  const { stats, tests } = data;
+  const pass  = tests.filter(t => t.status === 'expected').length;
+  const fail  = tests.filter(t => t.status === 'unexpected').length;
+  const skip  = tests.filter(t => t.status === 'skipped').length;
+  const flaky = tests.filter(t => t.status === 'flaky').length;
+  const total = tests.length;
+  const pct   = total ? Math.round(pass / total * 100) : 0;
+  const dur   = stats?.duration ? (stats.duration / 1000).toFixed(1) : '—';
+  const runAt = stats?.startTime ? new Date(stats.startTime).toLocaleString() : '';
+
+  document.getElementById('timestamp').textContent = runAt ? `Run: ${runAt}` : '';
+
+  // Group by file
+  const byFile = {};
+  for (const t of tests) {
+    if (!byFile[t.file]) byFile[t.file] = { pass:0, fail:0, skip:0, flaky:0, total:0, duration:0 };
+    byFile[t.file][t.status === 'expected' ? 'pass' : t.status === 'unexpected' ? 'fail' : t.status === 'skipped' ? 'skip' : 'flaky']++;
+    byFile[t.file].total++;
+    byFile[t.file].duration += t.duration;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <!-- Stat Cards -->
+    <div class="stat-grid">
+      <div class="card total"><span class="label">Total</span><span class="value">${total}</span><span class="sub">${dur}s total</span></div>
+      <div class="card pass"><span class="label">Passed</span><span class="value">${pass}</span><span class="sub">${pct}% pass rate</span></div>
+      <div class="card fail"><span class="label">Failed</span><span class="value">${fail}</span><span class="sub">${fail ? '⚠ needs fix' : '✓ all good'}</span></div>
+      <div class="card skip"><span class="label">Skipped</span><span class="value">${skip}</span><span class="sub">skipped</span></div>
+      <div class="card flaky"><span class="label">Flaky</span><span class="value">${flaky}</span><span class="sub">intermittent</span></div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <h3>Pass Rate</h3>
+        <div class="donut-wrap">
+          <canvas id="donutChart"></canvas>
+          <div class="donut-center">
+            <div class="pct" style="color:${fail ? 'var(--fail)' : 'var(--pass)'}">${pct}%</div>
+            <div class="lbl">pass rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Duration per Test (ms)</h3>
+        <div class="duration-wrap"><canvas id="durationChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- File Breakdown -->
+    <div class="file-grid" id="fileGrid"></div>
+
+    <!-- Test Table -->
+    <div class="table-card">
+      <div class="table-header">
+        <h3>Test Results</h3>
+        <div class="filter-btns">
+          <button class="filter-btn all"  onclick="filterTable('all')">All (${total})</button>
+          <button class="filter-btn pass inactive" onclick="filterTable('expected')">✓ Pass (${pass})</button>
+          <button class="filter-btn fail inactive" onclick="filterTable('unexpected')">✗ Fail (${fail})</button>
+          <button class="filter-btn skip inactive" onclick="filterTable('skipped')">⊘ Skip (${skip})</button>
+        </div>
+      </div>
+      <table>
+        <thead><tr>
+          <th>Test</th><th>File</th><th>Status</th><th>Duration</th>
+        </tr></thead>
+        <tbody id="testTableBody"></tbody>
+      </table>
+    </div>
+  `;
+
+  renderDonut(pass, fail, skip, flaky);
+  renderDuration(tests);
+  renderFileCards(byFile);
+  activeFilter = 'all';
+  renderTable(tests);
+}
+
+function renderDonut(pass, fail, skip, flaky) {
+  if (donutChart) { donutChart.destroy(); donutChart = null; }
+  const ctx = document.getElementById('donutChart');
+  if (!ctx) return;
+  donutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Passed', 'Failed', 'Skipped', 'Flaky'],
+      datasets: [{
+        data: [pass, fail, skip, flaky],
+        backgroundColor: ['#22c55e','#ef4444','#f59e0b','#a855f7'],
+        borderWidth: 0,
+        hoverOffset: 6,
+      }]
+    },
+    options: {
+      cutout: '72%',
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw}` } } },
+    }
+  });
+}
+
+function renderDuration(tests) {
+  if (durationChart) { durationChart.destroy(); durationChart = null; }
+  const ctx = document.getElementById('durationChart');
+  if (!ctx) return;
+  const sorted = [...tests].sort((a,b) => b.duration - a.duration).slice(0, 20);
+  durationChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(t => t.title.length > 35 ? t.title.substring(0,33)+'…' : t.title),
+      datasets: [{
+        data: sorted.map(t => t.duration),
+        backgroundColor: sorted.map(t =>
+          t.status === 'unexpected' ? '#ef4444' :
+          t.status === 'skipped'    ? '#f59e0b' :
+          t.status === 'flaky'      ? '#a855f7' : '#3b82f6'
+        ),
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${(c.raw/1000).toFixed(1)}s` } } },
+      scales: {
+        x: { ticks: { color: '#94a3b8', callback: v => (v/1000).toFixed(0)+'s' }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
+      }
+    }
+  });
+}
+
+function renderFileCards(byFile) {
+  const grid = document.getElementById('fileGrid');
+  if (!grid) return;
+  grid.innerHTML = Object.entries(byFile).map(([file, f]) => {
+    const pct = f.total ? Math.round(f.pass / f.total * 100) : 0;
+    const color = f.fail ? '#ef4444' : f.flaky ? '#a855f7' : '#22c55e';
+    const dur = (f.duration / 1000).toFixed(1);
+    return `
+      <div class="chart-card">
+        <h3>${file}</h3>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:4px">
+          <span style="font-size:1.5rem;font-weight:800;color:${color}">${pct}%</span>
+          <div style="flex:1;font-size:.75rem;color:var(--muted)">
+            <span style="color:var(--pass)">✓ ${f.pass}</span>
+            ${f.fail  ? ` &nbsp;<span style="color:var(--fail)">✗ ${f.fail}</span>` : ''}
+            ${f.skip  ? ` &nbsp;<span style="color:var(--skip)">⊘ ${f.skip}</span>` : ''}
+            ${f.flaky ? ` &nbsp;<span style="color:var(--flaky)">~ ${f.flaky}</span>` : ''}
+            <br/><span style="color:var(--muted)">${dur}s · ${f.total} tests</span>
+          </div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
+      </div>`;
+  }).join('');
+}
+
+// ── Table filter ──────────────────────────────────────────────────────────────
+function filterTable(status) {
+  activeFilter = status;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('inactive'));
+  const map = { all:'all', expected:'pass', unexpected:'fail', skipped:'skip' };
+  const cls = map[status] || 'all';
+  document.querySelector(`.filter-btn.${cls}`)?.classList.remove('inactive');
+  const filtered = status === 'all' ? allTests : allTests.filter(t => t.status === status);
+  renderTable(filtered);
+}
+
+function renderTable(tests) {
+  const tbody = document.getElementById('testTableBody');
+  if (!tbody) return;
+  if (!tests.length) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px">No tests</td></tr>'; return; }
+  tbody.innerHTML = tests.map(t => `
+    <tr>
+      <td>
+        <div>${t.title}</div>
+        ${t.error ? `<div class="error-msg">${escHtml(t.error)}</div>` : ''}
+        ${t.retries ? `<div style="font-size:.65rem;color:var(--flaky);margin-top:2px">↻ ${t.retries} retr${t.retries>1?'ies':'y'}</div>` : ''}
+      </td>
+      <td><span class="file-tag">${t.file}</span></td>
+      <td><span class="badge ${t.status}">${t.status === 'expected' ? '✓ pass' : t.status === 'unexpected' ? '✗ fail' : t.status === 'skipped' ? '⊘ skip' : '~ flaky'}</span></td>
+      <td class="dur">${t.duration ? (t.duration/1000).toFixed(1)+'s' : '—'}</td>
+    </tr>
+  `).join('');
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+init();
+</script>
+</body>
+</html>
