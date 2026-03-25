@@ -8,10 +8,10 @@ const { ApiCheck, AssertionBuilder, Frequency } = require('checkly/constructs');
 const BASE    = process.env.FPT_API_URL || 'https://mkp-api.fptcloud.com';
 const KEY     = process.env.FPT_API_KEY || '';
 const FROM    = process.env.FPT_FROM    || 'thuanlt9';
-const HEADERS = {
-  'Content-Type':  'application/json',
-  'Authorization': `Bearer ${KEY}`,
-};
+const HEADERS = [
+  { key: 'Content-Type',  value: 'application/json' },
+  { key: 'Authorization', value: `Bearer ${KEY}` },
+];
 
 function chatBody(model) {
   return JSON.stringify({
