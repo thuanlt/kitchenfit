@@ -1,0 +1,54 @@
+name: CI — FPT Marketplace
+
+on:
+  push:
+    paths:
+      - 'packages/products/fpt-marketplace/**'
+      - 'packages/core/**'
+  pull_request:
+    paths:
+      - 'packages/products/fpt-marketplace/**'
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment'
+        required: true
+        default: 'stg'
+        type: choice
+        options: [test, stg, prod]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: ${{ github.event.inputs.env || 'stg' }}
+      FPT_USERNAME: ${{ secrets.FPT_USERNAME }}
+      FPT_PASSWORD: ${{ secrets.FPT_PASSWORD }}
+      MKP_API_KEY:  ${{ secrets.MKP_API_KEY }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm --filter fpt-marketplace exec playwright install --with-deps chromium
+
+      - name: Run regression tests
+        run: pnpm --filter fpt-marketplace test:regression
+
+      - name: Run API tests
+        run: pnpm --filter fpt-marketplace test:api
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-marketplace
+          path: packages/products/fpt-marketplace/reports/
+          retention-days: 7

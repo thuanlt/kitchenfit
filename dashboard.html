@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPT Automation Dashboard</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#0d1117;--surface:#161b22;--surface2:#21262d;--surface3:#30363d;
+      --border:#30363d;--text:#e6edf3;--text2:#8b949e;--text3:#6e7681;
+      --blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--orange:#db6d28;
+      --red:#f85149;--purple:#bc8cff;--cyan:#39c5cf;
+    }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+         background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+
+    /* ── Header ──────────────────────────────────────────── */
+    header{background:var(--surface);border-bottom:1px solid var(--border);
+           padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
+           position:sticky;top:0;z-index:10}
+    .logo{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700}
+    .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);
+              box-shadow:0 0 0 3px rgba(63,185,80,.25);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(63,185,80,.25)}
+                     50%{box-shadow:0 0 0 6px rgba(63,185,80,.05)}}
+    .logo-badge{background:rgba(88,166,255,.15);color:var(--blue);border:1px solid rgba(88,166,255,.3);
+                font-size:10px;padding:2px 8px;border-radius:999px;font-weight:700;letter-spacing:.5px}
+    .header-meta{font-size:11px;color:var(--text2);text-align:right;line-height:1.7}
+    .header-meta code{background:var(--surface2);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:11px}
+
+    /* ── Layout ──────────────────────────────────────────── */
+    .container{max-width:1380px;margin:0 auto;padding:20px 24px;display:grid;gap:16px}
+
+    /* ── Banner ──────────────────────────────────────────── */
+    .banner{background:rgba(219,109,40,.08);border:1px solid rgba(219,109,40,.25);
+            color:var(--orange);padding:10px 16px;border-radius:8px;font-size:12px;
+            display:none;align-items:center;gap:8px}
+    .banner code{background:rgba(0,0,0,.3);padding:1px 6px;border-radius:3px;font-family:monospace}
+
+    /* ── Cards row ───────────────────────────────────────── */
+    .metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+          padding:18px 20px;display:flex;flex-direction:column;gap:4px;transition:border-color .2s,transform .15s}
+    .card:hover{border-color:var(--blue);transform:translateY(-1px)}
+    .card-label{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.6px}
+    .card-value{font-size:34px;font-weight:800;line-height:1.1}
+    .card-sub{font-size:11px;color:var(--text2);margin-top:2px}
+    .card-sub .g{color:var(--green)}.card-sub .r{color:var(--red)}.card-sub .y{color:var(--yellow)}
+
+    /* ── Panel ───────────────────────────────────────────── */
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+    .panel-head{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;
+                align-items:center;justify-content:space-between;font-weight:600;font-size:13px}
+    .panel-head-sub{font-size:11px;color:var(--text2);font-weight:400}
+    .panel-body{padding:18px}
+
+    /* ── Main 2-col ──────────────────────────────────────── */
+    .main-grid{display:grid;grid-template-columns:1fr 320px;gap:16px}
+
+    /* ── Skill tree ──────────────────────────────────────── */
+    .skill-row{display:grid;grid-template-columns:52px 1fr 110px 52px;
+               align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+    .skill-row:last-child{border-bottom:none}
+    .lvl-badge{border:1.5px solid;border-radius:6px;padding:3px 0;text-align:center;
+               font-weight:800;font-size:11px;letter-spacing:.3px}
+    .skill-name{font-weight:600;font-size:13px}
+    .skill-tags{font-size:11px;color:var(--text2);margin-top:2px;
+                white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .bar-wrap{height:5px;background:var(--surface3);border-radius:999px;overflow:hidden}
+    .bar-fill{height:100%;border-radius:999px;transition:width 1.2s cubic-bezier(.19,1,.22,1)}
+    .pct{text-align:right;font-size:12px;font-weight:700}
+
+    /* ── Right column ────────────────────────────────────── */
+    .right-col{display:flex;flex-direction:column;gap:16px}
+
+    /* ── Ring ────────────────────────────────────────────── */
+    .ring-wrap{display:flex;flex-direction:column;align-items:center;padding:20px 18px 14px;gap:14px}
+    .ring{width:148px;height:148px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .ring-inner{width:108px;height:108px;background:var(--surface);border-radius:50%;
+                display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .ring-pct{font-size:30px;font-weight:800;line-height:1}
+    .ring-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+    .lvl-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%}
+    .lvl-mini{text-align:center;padding:5px 4px;background:var(--surface2);border-radius:6px}
+    .lvl-mini-pct{font-size:13px;font-weight:700}
+    .lvl-mini-lbl{font-size:10px;color:var(--text2)}
+
+    /* ── Spec files ──────────────────────────────────────── */
+    .spec-row{display:flex;align-items:center;justify-content:space-between;
+              padding:7px 0;border-bottom:1px solid var(--border);gap:8px}
+    .spec-row:last-child{border-bottom:none}
+    .spec-name{font-family:monospace;font-size:11px;color:var(--blue);
+               min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .spec-meta{display:flex;align-items:center;gap:5px;flex-shrink:0}
+    .badge{font-size:9px;padding:2px 6px;border-radius:999px;font-weight:700;text-transform:uppercase}
+    .b-smoke{background:rgba(88,166,255,.12);color:var(--blue)}
+    .b-api{background:rgba(63,185,80,.12);color:var(--green)}
+    .b-regression{background:rgba(188,140,255,.12);color:var(--purple)}
+    .b-wip{background:rgba(210,153,34,.12);color:var(--yellow)}
+    .b-other{background:rgba(139,148,158,.12);color:var(--text2)}
+    .tc-count{font-size:11px;color:var(--text2)}
+
+    /* ── Bottom 2-col ────────────────────────────────────── */
+    .bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+    /* ── Heatmap ─────────────────────────────────────────── */
+    .heatmap-outer{overflow-x:auto;padding-bottom:4px}
+    .hm-months{display:flex;gap:0;font-size:10px;color:var(--text2);margin-bottom:5px;padding-left:2px}
+    .heatmap{display:flex;gap:3px}
+    .hm-week{display:flex;flex-direction:column;gap:3px}
+    .hm-day{width:11px;height:11px;border-radius:2px;background:var(--surface3)}
+    .hm-day.l1{background:#0e4429}.hm-day.l2{background:#006d32}
+    .hm-day.l3{background:#26a641}.hm-day.l4{background:#39d353}
+
+    /* ── Commits ─────────────────────────────────────────── */
+    .commit-row{display:flex;align-items:flex-start;gap:9px;
+                padding:7px 0;border-bottom:1px solid var(--border)}
+    .commit-row:last-child{border-bottom:none}
+    .cdot{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0}
+    .cmsg{flex:1;font-size:12px;line-height:1.4;min-width:0}
+    .ctype{font-weight:700;margin-right:2px}
+    .cdate{font-size:10px;color:var(--text3);white-space:nowrap;flex-shrink:0}
+
+    /* commit type colours */
+    .ct-feat{color:var(--green)} .cd-feat{background:var(--green)}
+    .ct-fix{color:var(--red)}   .cd-fix{background:var(--red)}
+    .ct-ci{color:var(--orange)} .cd-ci{background:var(--orange)}
+    .ct-test{color:var(--purple)}.cd-test{background:var(--purple)}
+    .ct-docs{color:var(--blue)} .cd-docs{background:var(--blue)}
+    .ct-chore{color:var(--text3)}.cd-chore{background:var(--surface3)}
+    .ct-perf{color:var(--cyan)} .cd-perf{background:var(--cyan)}
+    .ct-refactor{color:var(--yellow)}.cd-refactor{background:var(--yellow)}
+    .ct-other{color:var(--text3)}.cd-other{background:var(--text3)}
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media(max-width:960px){
+      .metrics-row{grid-template-columns:repeat(2,1fr)}
+      .main-grid{grid-template-columns:1fr}
+      .bottom-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="live-dot"></div>
+    <span>⚡ FPT Automation Dashboard</span>
+    <span class="logo-badge">MCP</span>
+  </div>
+  <div class="header-meta">
+    <div id="gen-at">Loading…</div>
+    <div>Refresh: <code>node utils/generate-dashboard-data.js</code> → reload page</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="banner" id="banner">
+    ⚠️ Đang dùng <strong>sample data</strong>. Chạy
+    <code>node utils/generate-dashboard-data.js</code> để load real data từ git log.
+  </div>
+
+  <!-- Metric cards -->
+  <div class="metrics-row" id="metrics"></div>
+
+  <!-- Main: Skill tree + Right panel -->
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-head">
+        🌳 Skill Tree Progress
+        <span class="panel-head-sub">Master Automation Stack</span>
+      </div>
+      <div class="panel-body" id="skill-tree"></div>
+    </div>
+
+    <div class="right-col">
+      <!-- Overall ring -->
+      <div class="panel">
+        <div class="panel-head">🎯 Overall Completion</div>
+        <div class="ring-wrap">
+          <div class="ring" id="ring">
+            <div class="ring-inner">
+              <div class="ring-pct" id="ring-pct">—</div>
+              <div class="ring-lbl">complete</div>
+            </div>
+          </div>
+          <div class="lvl-mini-grid" id="lvl-mini"></div>
+        </div>
+      </div>
+
+      <!-- Spec files -->
+      <div class="panel" style="flex:1">
+        <div class="panel-head">
+          📄 Spec Files
+          <span class="panel-head-sub" id="spec-count"></span>
+        </div>
+        <div class="panel-body" id="spec-files"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom: Heatmap + Commits -->
+  <div class="bottom-row">
+    <div class="panel">
+      <div class="panel-head">
+        📅 Git Activity
+        <span class="panel-head-sub">Last 91 days</span>
+      </div>
+      <div class="panel-body">
+        <div class="hm-months" id="hm-months"></div>
+        <div class="heatmap-outer"><div class="heatmap" id="heatmap"></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        📝 Recent Commits
+        <span class="panel-head-sub" id="commits-total"></span>
+      </div>
+      <div class="panel-body" id="commits"></div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Real data (generated by utils/generate-dashboard-data.js) -->
+<script src="dashboard-data.js" onerror="window._noData=true"></script>
+
+<script>
+// ── Fallback data (reflects project state as of 2026-04-08) ─────────────────
+const FALLBACK = {
+  generatedAt: null,
+  metrics: {
+    specFiles: 8,
+    testCases: { total: 57, pass: 52, skip: 5, fail: 0 },
+    commits:   { total: 48, thisWeek: 5, agents: 4 },
+    checkly:   24,
+  },
+  skills: [
+    { level:1, name:"Foundation",       icon:"🏗️", color:"#3fb950", completion:100,
+      items:["Playwright + TypeScript","pnpm workspaces","env management (.env)","tsconfig + path aliases"] },
+    { level:2, name:"Test Craft",        icon:"🧪", color:"#58a6ff", completion:88,
+      items:["Page Object Model","Auth fixtures","Smoke tests","Regression suite","A11y (axe-core)","⬜ Negative edge cases"] },
+    { level:3, name:"API Testing",       icon:"🔌", color:"#39c5cf", completion:95,
+      items:["VN API (24 models)","JP API site","STT audio tests","Error coverage","⬜ Perf benchmarks"] },
+    { level:4, name:"CI/CD & Monitoring",icon:"📊", color:"#bc8cff", completion:82,
+      items:["GitLab CI pipeline","Checkly 24 checks (6h)","Scheduled runs","Artifact reports","⬜ PR gate checks"] },
+    { level:5, name:"AI Integration",    icon:"🤖", color:"#db6d28", completion:78,
+      items:["FPT AI client","Claude failure analyzer","Slack reporting","Langfuse tracing","Anthropic fallback","⬜ VLM UI analysis"] },
+    { level:6, name:"AI Agents",         icon:"🦾", color:"#d29922", completion:55,
+      items:["Orchestrator","Test Agent (MCP)","OpenClaw Agent","⬜ Jira Agent (WIP)","⬜ Codegen Agent (WIP)","⬜ Autonomous loop"] },
+  ],
+  specFiles: [
+    { name:"smoke/login.spec.ts",                    tests:1,  type:"smoke"      },
+    { name:"api/api-inference.spec.ts",              tests:27, type:"api"        },
+    { name:"api/api-inference-jp.spec.ts",           tests:24, type:"api"        },
+    { name:"regression/a11y.spec.ts",                tests:1,  type:"regression" },
+    { name:"regression/filter-model.spec.ts",        tests:2,  type:"regression" },
+    { name:"regression/playground-chat.spec.ts",     tests:1,  type:"regression" },
+    { name:"regression/test-logout.spec.ts",         tests:1,  type:"regression" },
+    { name:"regression/create-api-key-ai.spec.ts",   tests:1,  type:"regression" },
+  ],
+  commits: [
+    { hash:"140c643", date:"2026-03-26", type:"docs",  message:"docs: add note — why STT models skipped in Checkly" },
+    { hash:"f7de090", date:"2026-03-26", type:"feat",  message:"feat: auto-generate 24 Checkly checks from spec" },
+    { hash:"ba8a5a0", date:"2026-03-25", type:"feat",  message:"feat: add Checkly 24/7 monitoring + browser smoke" },
+    { hash:"9d89bee", date:"2026-03-25", type:"feat",  message:"feat: add accessibility tests (WCAG 2.1 AA)" },
+    { hash:"f0d7eab", date:"2026-03-25", type:"feat",  message:"feat: dashboard auto-loads latest test results" },
+    { hash:"87886d3", date:"2026-03-19", type:"feat",  message:"feat: add OpenClaw Agent — automated test pipeline" },
+    { hash:"3c65805", date:"2026-03-22", type:"test",  message:"test: add Nemotron-120B, Alpamayo-R1-10B cases" },
+    { hash:"823545c", date:"2026-03-22", type:"ci",    message:"ci: add cache for node_modules + playwright browsers" },
+    { hash:"ad3b369", date:"2026-03-22", type:"ci",    message:"ci: add api-inference-vn-jp job on schedule" },
+    { hash:"dfdd29a", date:"2026-03-22", type:"fix",   message:"fix: update filter-model tests for PROD compat" },
+    { hash:"0eef208", date:"2026-03-25", type:"fix",   message:"fix: a11y — fail only critical/serious violations" },
+    { hash:"c672e8a", date:"2026-03-17", type:"feat",  message:"feat: Initial commit — Playwright regression suite" },
+  ],
+  dailyActivity: {
+    "2026-03-17":2,"2026-03-18":1,"2026-03-19":4,"2026-03-20":1,
+    "2026-03-22":9,"2026-03-23":8,"2026-03-25":10,"2026-03-26":7,
+    "2026-04-08":1,
+  },
+};
+
+// ── Use real data if loaded, else fallback ───────────────────────────────────
+const D = (typeof window.DASHBOARD_DATA !== 'undefined') ? window.DASHBOARD_DATA : FALLBACK;
+const isLive = typeof window.DASHBOARD_DATA !== 'undefined';
+
+if (!isLive) document.getElementById('banner').style.display = 'flex';
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+const fmtDate = iso => new Date(iso).toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+const ct = t => ['feat','fix','ci','test','docs','chore','perf','refactor'].includes(t) ? t : 'other';
+
+// ── Header ───────────────────────────────────────────────────────────────────
+document.getElementById('gen-at').textContent = D.generatedAt
+  ? 'Generated: ' + new Date(D.generatedAt).toLocaleString('vi-VN')
+  : 'Sample data — chạy generate script để refresh';
+
+// ── Metric cards ─────────────────────────────────────────────────────────────
+const m = D.metrics;
+document.getElementById('metrics').innerHTML = `
+  <div class="card">
+    <div class="card-label">Spec Files</div>
+    <div class="card-value" style="color:var(--blue)">${m.specFiles}</div>
+    <div class="card-sub">trong automation-tests/</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Test Cases</div>
+    <div class="card-value" style="color:var(--green)">${m.testCases.total}</div>
+    <div class="card-sub">
+      <span class="g">✓ ${m.testCases.pass} pass</span> ·
+      <span class="y">↷ ${m.testCases.skip} skip</span> ·
+      <span class="r">✗ ${m.testCases.fail} fail</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label">Git Commits</div>
+    <div class="card-value" style="color:var(--purple)">${m.commits.total}</div>
+    <div class="card-sub">+${m.commits.thisWeek} tuần này</div>
+  </div>
+  <div class="card">
+    <div class="card-label">AI Agents / Checkly</div>
+    <div class="card-value" style="color:var(--orange)">${m.commits.agents}</div>
+    <div class="card-sub">${m.checkly} API health checks (6h)</div>
+  </div>`;
+
+// ── Overall ring ─────────────────────────────────────────────────────────────
+const overall = Math.round(D.skills.reduce((s,sk)=>s+sk.completion,0)/D.skills.length);
+const ringColor = overall>=90?'#3fb950':overall>=70?'#58a6ff':'#d29922';
+document.getElementById('ring').style.background =
+  `conic-gradient(${ringColor} ${overall*3.6}deg, var(--surface3) 0)`;
+document.getElementById('ring-pct').textContent = overall + '%';
+document.getElementById('ring-pct').style.color = ringColor;
+
+document.getElementById('lvl-mini').innerHTML = D.skills.map(sk=>`
+  <div class="lvl-mini">
+    <div class="lvl-mini-pct" style="color:${sk.color}">${sk.completion}%</div>
+    <div class="lvl-mini-lbl">L${sk.level} ${sk.icon}</div>
+  </div>`).join('');
+
+// ── Skill tree ────────────────────────────────────────────────────────────────
+document.getElementById('skill-tree').innerHTML = D.skills.map(sk => {
+  const done = sk.items.filter(i=>!i.startsWith('⬜'));
+  const pending = sk.items.filter(i=>i.startsWith('⬜'));
+  const preview = done.slice(0,3).join(' · ') + (pending.length ? ` · <span style="color:var(--text3)">+${pending.length} pending</span>` : '');
+  return `
+    <div class="skill-row">
+      <div class="lvl-badge" style="color:${sk.color};border-color:${sk.color}">L${sk.level}</div>
+      <div>
+        <div class="skill-name">${sk.icon} ${sk.name}</div>
+        <div class="skill-tags">${preview}</div>
+      </div>
+      <div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:${sk.completion}%;background:${sk.color}"></div>
+        </div>
+      </div>
+      <div class="pct" style="color:${sk.color}">${sk.completion}%</div>
+    </div>`;
+}).join('');
+
+// ── Spec files ────────────────────────────────────────────────────────────────
+document.getElementById('spec-count').textContent = D.specFiles.length + ' files';
+document.getElementById('spec-files').innerHTML = D.specFiles.map(f=>`
+  <div class="spec-row">
+    <div class="spec-name" title="${f.name}">${f.name.split('/').pop()}</div>
+    <div class="spec-meta">
+      <span class="badge b-${f.type||'other'}">${f.type}</span>
+      <span class="tc-count">${f.tests} tests</span>
+    </div>
+  </div>`).join('');
+
+// ── Git heatmap ───────────────────────────────────────────────────────────────
+const act = D.dailyActivity || {};
+const today = new Date(D.generatedAt || '2026-04-08');
+today.setHours(12);
+
+// Go back 91 days then rewind to Monday
+const start = new Date(today);
+start.setDate(today.getDate() - 91);
+while(start.getDay()!==1) start.setDate(start.getDate()-1);
+
+const weeks=[];let week=[];
+const monthSeen={};const monthMarks=[];
+const cur=new Date(start);
+while(cur<=today){
+  const key=cur.toISOString().slice(0,10);
+  const mn=cur.getMonth();
+  if(!monthSeen[mn]){monthSeen[mn]=1;monthMarks.push({month:cur.toLocaleString('en',{month:'short'}),wIdx:weeks.length})}
+  const n=act[key]||0;
+  week.push({date:key,n,lv:n===0?0:n<=2?1:n<=5?2:n<=8?3:4});
+  if(cur.getDay()===0){weeks.push(week);week=[]}
+  cur.setDate(cur.getDate()+1);
+}
+if(week.length) weeks.push(week);
+
+// month labels
+const CELL=14; // px per cell+gap
+document.getElementById('hm-months').innerHTML = monthMarks.map((mm,i)=>{
+  const nextW=monthMarks[i+1]?monthMarks[i+1].wIdx:weeks.length;
+  return `<span style="display:inline-block;width:${(nextW-mm.wIdx)*CELL}px">${mm.month}</span>`;
+}).join('');
+
+document.getElementById('heatmap').innerHTML = weeks.map(w=>
+  `<div class="hm-week">${w.map(d=>
+    `<div class="hm-day${d.lv?' l'+d.lv:''}" title="${d.date}: ${d.n} commit${d.n!==1?'s':''}"></div>`
+  ).join('')}</div>`
+).join('');
+
+// ── Recent commits ────────────────────────────────────────────────────────────
+document.getElementById('commits-total').textContent = m.commits.total + ' total';
+document.getElementById('commits').innerHTML = D.commits.slice(0,12).map(c=>{
+  const t = ct(c.type || (c.message.match(/^(\w+)/)||[])[1] || 'other');
+  const body = c.message.replace(/^\w+(\(.+?\))?:\s*/,'');
+  return `
+    <div class="commit-row">
+      <div class="cdot cd-${t}"></div>
+      <div class="cmsg"><span class="ctype ct-${t}">${t}</span>${body}</div>
+      <div class="cdate">${fmtDate(c.date)}</div>
+    </div>`;
+}).join('');
+</script>
+</body>
+</html>

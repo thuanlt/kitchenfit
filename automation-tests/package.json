@@ -1,0 +1,21 @@
+{
+  "name": "fpt-automation-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:marketplace":  "pnpm --filter fpt-marketplace test",
+    "test:ai":           "pnpm --filter fpt-ai test",
+    "test:portal":       "pnpm --filter portal-v2 test",
+    "test:billing":      "pnpm --filter billing test",
+    "test:claw":         "pnpm --filter fpt-claw test",
+    "test:all":          "pnpm --filter './packages/products/*' test",
+    "test:smoke:all":    "pnpm --filter './packages/products/*' test:smoke",
+    "test:regression:all": "pnpm --filter './packages/products/*' test:regression",
+    "test:api:all":      "pnpm --filter './packages/products/*' test:api",
+    "report:marketplace": "pnpm --filter fpt-marketplace report",
+    "report:ai":          "pnpm --filter fpt-ai report"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

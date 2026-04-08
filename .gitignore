@@ -51,3 +51,13 @@ cache/
 
 # Temp / scratch files
 Untitled-*.ts
+utils/New file
+
+# Dashboard generated data (run: node utils/generate-dashboard-data.js)
+dashboard-data.js
+
+# JMeter reports
+utils/jmeter-reports/
+
+# Embedded sub-repos (not submodules)
+utils/ai-lifecycle-web/

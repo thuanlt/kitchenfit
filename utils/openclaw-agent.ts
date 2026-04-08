@@ -38,7 +38,7 @@ const ISSUE_KEY  = process.argv[2];
 const POST_BACK  = process.argv.includes('--post');
 const DRY_RUN    = process.argv.includes('--dry');
 const REPORT_DIR = path.resolve(__dirname, '../reports/openclaw');
-const GEN_DIR    = path.resolve(__dirname, '../tests/api/generated');
+const GEN_DIR    = path.resolve(__dirname, '../automation-tests/packages/products/fpt-marketplace/src/tests/api/generated');
 
 const PROXY = process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://10.36.252.45:8080';
 const proxy = new ProxyAgent(PROXY);

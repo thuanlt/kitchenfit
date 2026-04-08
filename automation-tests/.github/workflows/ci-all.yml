@@ -1,0 +1,40 @@
+name: CI — All Products
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # Chạy hàng ngày lúc 2AM UTC (9AM GMT+7)
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment'
+        required: true
+        default: 'prod'
+        type: choice
+        options: [test, stg, prod]
+
+jobs:
+  test-marketplace:
+    uses: ./.github/workflows/ci-marketplace.yml
+    secrets: inherit
+
+  test-ai:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: ${{ github.event.inputs.env || 'prod' }}
+      FPT_USERNAME: ${{ secrets.FPT_USERNAME }}
+      FPT_PASSWORD: ${{ secrets.FPT_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter fpt-ai exec playwright install --with-deps chromium
+      - run: pnpm --filter fpt-ai test:regression
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-ai
+          path: packages/products/fpt-ai/reports/
+          retention-days: 7

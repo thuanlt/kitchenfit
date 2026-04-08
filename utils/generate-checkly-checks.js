@@ -140,12 +140,12 @@ function generateCheck(model) {
   const req     = buildRequest(model);
   const logicId = toLogicalId(model.id);
   const label   = model.type === 'chat' ? '🤖' : model.type === 'vision' ? '👁️' : model.type === 'embedding' ? '📐' : model.type === 'rerank' ? '🔍' : '🔊';
-  const maxResp = model.type === 'vision' ? 60000 : model.type === 'chat' ? 30000 : 15000;
+  const maxResp = 30000; // Checkly hard limit: maxResponseTime <= 30000ms
 
   return `
 new ApiCheck('${logicId}', {
   name:      '${label} ${model.id}',
-  activated: true,
+  activated: false,
   frequency: Frequency.EVERY_6H,
   locations: ['ap-southeast-1'],
   tags:      ['fpt', '${model.type}'],

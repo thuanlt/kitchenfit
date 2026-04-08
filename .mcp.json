@@ -8,7 +8,7 @@
         "playwright-mcp.config.json"
       ],
       "env": {
-        "FPT_API_KEY": "sk-mF8Mxq-X4mrZzGuOL5uY4A"
+        "FPT_API_KEY": "${FPT_API_KEY}"
       }
     }
   }

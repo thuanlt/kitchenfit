@@ -1,0 +1,24 @@
+{
+  "name": "fpt-marketplace",
+  "version": "1.0.0",
+  "scripts": {
+    "test":            "playwright test",
+    "test:smoke":      "playwright test --project=smoke",
+    "test:regression": "playwright test --project=regression",
+    "test:api":        "playwright test --project=api",
+    "test:api:vn":     "playwright test src/tests/api/api-inference.spec.ts --project=api",
+    "test:api:jp":     "playwright test src/tests/api/api-inference-jp.spec.ts --project=api",
+    "report":          "playwright show-report reports/playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@axe-core/playwright": "^4.11.1",
+    "@types/node": "^25.5.0",
+    "dotenv": "^17.3.1"
+  },
+  "dependencies": {
+    "@fpt-automation/core": "workspace:*",
+    "langfuse": "^3.38.6",
+    "undici": "^7.24.2"
+  }
+}

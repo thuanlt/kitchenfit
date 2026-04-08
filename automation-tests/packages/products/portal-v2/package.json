@@ -1,0 +1,19 @@
+{
+  "name": "portal-v2",
+  "version": "1.0.0",
+  "scripts": {
+    "test":            "playwright test",
+    "test:smoke":      "playwright test --project=smoke",
+    "test:regression": "playwright test --project=regression",
+    "test:api":        "playwright test --project=api",
+    "report":          "playwright show-report reports/playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "dotenv": "^17.3.1"
+  },
+  "dependencies": {
+    "@fpt-automation/core": "workspace:*"
+  }
+}

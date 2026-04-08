@@ -19,6 +19,7 @@ import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import { ProxyAgent } from 'undici';
 import { CODE_MODELS } from './fpt-agent';
+import { wrapWithLangfuse, startAgentTrace, flushLangfuse } from './langfuse-client';
 dotenv.config();
 
 // ─── Proxy setup ──────────────────────────────────────────────────────────────
@@ -61,8 +62,9 @@ const GEN_SYSTEM =
   'Generate clean, well-structured test code based on the given requirements. ' +
   'Output ONLY the code. No thinking, no reasoning, no explanations, no markdown prose.';
 
-async function callFPTModel(model: string, prompt: string): Promise<string> {
-  const res = await fpt.chat.completions.create({
+async function callFPTModel(model: string, prompt: string, traceId?: string): Promise<string> {
+  const trackedFpt = wrapWithLangfuse(fpt, { generationName: model, traceId });
+  const res = await trackedFpt.chat.completions.create({
     model,
     messages: [
       { role: 'system', content: GEN_SYSTEM },
@@ -200,12 +202,19 @@ export async function runClaudeAgent(task: string): Promise<string> {
   console.log('\n🎯 Task:', task);
   console.log('─'.repeat(60));
 
+  const trace    = startAgentTrace('claude-agent', { task, orchestrator: 'claude-sonnet-4-6' });
   const messages: Anthropic.MessageParam[] = [{ role: 'user', content: task }];
-  let iteration = 0;
+  let iteration  = 0;
 
   while (iteration < 5) {
     iteration++;
     console.log(`\n🔄 [Claude] Iteration ${iteration}...`);
+
+    const gen = trace.generation({
+      name:  `claude-iteration-${iteration}`,
+      model: 'claude-sonnet-4-6',
+      input: messages,
+    });
 
     const response = await claude.messages.create({
       model:      'claude-sonnet-4-6',
@@ -213,6 +222,11 @@ export async function runClaudeAgent(task: string): Promise<string> {
       system:     ORCHESTRATOR_SYSTEM,
       tools:      claudeTools,
       messages,
+    });
+
+    gen.end({
+      output: response.content,
+      usage:  { input: response.usage.input_tokens, output: response.usage.output_tokens },
     });
 
     for (const block of response.content) {
@@ -224,7 +238,9 @@ export async function runClaudeAgent(task: string): Promise<string> {
     if (response.stop_reason === 'end_turn') {
       console.log('\n✅ [Claude] Task complete.');
       const textBlock = response.content.find(b => b.type === 'text');
-      return textBlock && textBlock.type === 'text' ? textBlock.text : '';
+      const output    = textBlock && textBlock.type === 'text' ? textBlock.text : '';
+      trace.update({ output: { result: output.substring(0, 500) } });
+      return output;
     }
 
     if (response.stop_reason === 'tool_use') {
@@ -255,6 +271,8 @@ export async function runQwenAgent(task: string): Promise<string> {
   console.log('\n🎯 Task:', task);
   console.log('─'.repeat(60));
 
+  const trace    = startAgentTrace('qwen-agent', { task, orchestrator: 'Qwen3-32B' });
+  const trackedFpt = wrapWithLangfuse(fpt, { generationName: 'Qwen3-32B-orchestrator', traceId: trace.id });
   const messages: OpenAI.ChatCompletionMessageParam[] = [
     { role: 'system', content: ORCHESTRATOR_SYSTEM },
     { role: 'user',   content: task },
@@ -265,7 +283,7 @@ export async function runQwenAgent(task: string): Promise<string> {
     iteration++;
     console.log(`\n🔄 [Qwen3-32B] Iteration ${iteration}...`);
 
-    const response = await fpt.chat.completions.create({
+    const response = await trackedFpt.chat.completions.create({
       model:      'Qwen3-32B',
       messages,
       tools:      qwenTools,
@@ -287,7 +305,9 @@ export async function runQwenAgent(task: string): Promise<string> {
     // Done — no tool calls
     if (finishReason === 'stop' || !msg.tool_calls?.length) {
       console.log('\n✅ [Qwen3] Task complete.');
-      return (msg.content ?? '').replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+      const output = (msg.content ?? '').replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+      trace.update({ output: { result: output.substring(0, 500) } });
+      return output;
     }
 
     // Handle tool calls
@@ -331,6 +351,7 @@ async function main() {
   console.log('📄 FINAL OUTPUT:');
   console.log('═'.repeat(60));
   console.log(result);
+  await flushLangfuse();
 }
 
 main().catch(console.error);

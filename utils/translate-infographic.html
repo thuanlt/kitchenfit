@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Powered Product Development Lifecycle</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: linear-gradient(135deg, #020b18 0%, #041428 40%, #060d20 100%);
+    font-family: 'Rajdhani', sans-serif;
+    color: #e0f0ff;
+    min-height: 100vh;
+    padding: 32px 24px 40px;
+    width: 1500px;
+  }
+
+  /* ── Title ── */
+  h1 {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 28px;
+    text-shadow: 0 0 30px rgba(0,200,255,0.4);
+  }
+
+  /* ── Phase bar ── */
+  .phase-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+  .phase-label {
+    background: linear-gradient(90deg, #1a3a1a, #2a6a2a);
+    border: 1.5px solid #4caf50;
+    border-radius: 20px;
+    padding: 7px 22px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #a0ffb0;
+    white-space: nowrap;
+  }
+  .phase-arrow {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #4caf50, #00bcd4);
+    position: relative;
+  }
+  .phase-arrow::after {
+    content: '▶';
+    position: absolute;
+    right: -8px;
+    top: -9px;
+    color: #00bcd4;
+    font-size: 0.75rem;
+  }
+
+  /* ── Cards grid ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .card {
+    background: linear-gradient(160deg, #071828 0%, #051020 100%);
+    border: 1.5px solid #1a4a7a;
+    border-radius: 14px;
+    padding: 16px 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    box-shadow: 0 0 18px rgba(0,150,255,0.12), inset 0 0 20px rgba(0,100,200,0.05);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 14px 14px 0 0;
+    background: linear-gradient(90deg, #00bcd4, #0066cc);
+  }
+
+  .card-icons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
+  .icon-circle {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(0,150,255,0.15);
+    border: 1px solid rgba(0,200,255,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  .card-phase {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #00c8ff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .card-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .tool-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+  }
+  .badge {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 4px 9px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #cce8ff;
+  }
+  .badge.purple { border-color: #9c6ee8; color: #c9a8ff; background: rgba(150,80,240,0.15); }
+  .badge.green  { border-color: #4caf50; color: #a0ffb0; background: rgba(76,175,80,0.15); }
+  .badge.orange { border-color: #ff9800; color: #ffd580; background: rgba(255,152,0,0.15); }
+  .badge.blue   { border-color: #00bcd4; color: #80eeff; background: rgba(0,188,212,0.15); }
+
+  .card-desc {
+    font-size: 0.75rem;
+    color: #8ab8d8;
+    line-height: 1.45;
+    text-align: center;
+    flex: 1;
+  }
+
+  .card-output {
+    background: rgba(0,30,60,0.6);
+    border: 1px solid #1a4a7a;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 0.7rem;
+    color: #80c8e8;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .card-output strong {
+    color: #00c8ff;
+    display: block;
+    margin-bottom: 2px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Principles ── */
+  .principles-header {
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #00c8ff;
+    border: 1.5px solid #1a4a7a;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 18px;
+    display: inline-block;
+    width: 100%;
+    background: rgba(0,30,60,0.5);
+    text-transform: uppercase;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .principle {
+    background: linear-gradient(160deg, #071828 0%, #051020 100%);
+    border: 1.5px solid #1a4a7a;
+    border-radius: 12px;
+    padding: 16px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    box-shadow: 0 0 14px rgba(0,150,255,0.1);
+  }
+  .principle-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .principle-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #00c8ff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .principle-desc {
+    font-size: 0.75rem;
+    color: #8ab8d8;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<h1>AI-Optimized Product Development Process<br>
+<span style="font-size:1.6rem;color:#80d0ff;">(AI-Powered Product Development Lifecycle)</span></h1>
+
+<!-- Phase bar -->
+<div class="phase-bar">
+  <div class="phase-label">DISCOVERY &amp; PROTOTYPING (Week 1–3)</div>
+  <div class="phase-arrow"></div>
+  <div class="phase-label">ENGINEERING &amp; TESTING (Week 3–6)</div>
+  <div class="phase-arrow"></div>
+  <div class="phase-label">LAUNCH &amp; IMPROVEMENT (Week 6+)</div>
+</div>
+
+<!-- Cards -->
+<div class="cards">
+
+  <!-- Stage 1 -->
+  <div class="card">
+    <div class="card-icons">
+      <div class="icon-circle">🔍</div>
+      <div class="icon-circle">🧠</div>
+      <div class="icon-circle">📊</div>
+    </div>
+    <div class="card-phase">STAGE 1: DISCOVERY<br>(Week 1–2)</div>
+    <div class="card-title">Market &amp; User Research</div>
+    <div class="tool-badges">
+      <span class="badge purple">Perplexity</span>
+    </div>
+    <div class="card-desc">Use AI (Perplexity) to research the market and build detailed user personas.</div>
+    <div class="card-output">
+      <strong>Output</strong>
+      PRD Document + User Personas
+    </div>
+  </div>
+
+  <!-- Stage 2 -->
+  <div class="card">
+    <div class="card-icons">
+      <div class="icon-circle">💡</div>
+      <div class="icon-circle">✏️</div>
+      <div class="icon-circle">📝</div>
+    </div>
+    <div class="card-phase">STAGE 2: IDEATION<br>(Week 2–3)</div>
+    <div class="card-title">Rapid Prototyping &amp; Validation</div>
+    <div class="tool-badges">
+      <span class="badge green">v0</span>
+      <span class="badge blue">Figma AI</span>
+    </div>
+    <div class="card-desc">Use AI (v0, Figma AI) to rapidly create prototypes and validate ideas with real users.</div>
+    <div class="card-output">
+      <strong>Output</strong>
+      Validated Prototype
+    </div>
+  </div>
+
+  <!-- Stage 3 -->
+  <div class="card">
+    <div class="card-icons">
+      <div class="icon-circle">⚙️</div>
+      <div class="icon-circle">💻</div>
+      <div class="icon-circle">🔧</div>
+    </div>
+    <div class="card-phase">STAGE 3: ENGINEERING<br>(Week 3–6)</div>
+    <div class="card-title">Development &amp; AI-Pair Coding</div>
+    <div class="tool-badges">
+      <span class="badge blue">Claude Code</span>
+      <span class="badge">Copilot</span>
+    </div>
+    <div class="card-desc">Apply AI-pair coding (Claude Code, Copilot) to accelerate product development.</div>
+    <div class="card-output">
+      <strong>Output</strong>
+      Production-Ready Code
+    </div>
+  </div>
+
+  <!-- Stage 4 -->
+  <div class="card">
+    <div class="card-icons">
+      <div class="icon-circle">✅</div>
+      <div class="icon-circle">🛡️</div>
+      <div class="icon-circle">🐛</div>
+    </div>
+    <div class="card-phase">STAGE 4: QA<br>(Week 3–6)</div>
+    <div class="card-title">Comprehensive Automated Testing</div>
+    <div class="tool-badges">
+      <span class="badge green">Playwright</span>
+      <span class="badge">Checkly</span>
+    </div>
+    <div class="card-desc">Automate comprehensive testing before deploying to Production.</div>
+    <div class="card-output">
+      <strong>Output</strong>
+      Test Coverage &gt;80%
+    </div>
+  </div>
+
+  <!-- Stage 5 -->
+  <div class="card">
+    <div class="card-icons">
+      <div class="icon-circle">🚀</div>
+      <div class="icon-circle">📢</div>
+      <div class="icon-circle">🚩</div>
+    </div>
+    <div class="card-phase">STAGE 5: LAUNCH<br>(Week 6+)</div>
+    <div class="card-title">Safe Deployment via Feature Flags</div>
+    <div class="tool-badges">
+      <span class="badge orange">LaunchDarkly</span>
+    </div>
+    <div class="card-desc">Roll out safely via Feature Flags (LaunchDarkly) — canary → 5% → 100%.</div>
+    <div class="card-output">
+      <strong>Output</strong>
+      Stable Production Release
+    </div>
+  </div>
+
+  <!-- Stage 6 -->
+  <div class="card">
+    <div class="card-icons">
+      <div class="icon-circle">📈</div>
+      <div class="icon-circle">🔄</div>
+      <div class="icon-circle">👤</div>
+    </div>
+    <div class="card-phase">STAGE 6: LEARN<br>(Week 6+)</div>
+    <div class="card-title">Feedback Analysis &amp; Optimization</div>
+    <div class="tool-badges">
+      <span class="badge purple">Mixpanel</span>
+      <span class="badge">Amplitude</span>
+    </div>
+    <div class="card-desc">Use AI to analyze feedback and continuously optimize the product.</div>
+    <div class="card-output">
+      <strong>Output</strong>
+      Optimized Product &amp; Continuous Learning
+    </div>
+  </div>
+
+</div>
+
+<!-- Principles -->
+<div class="principles-header">CORE PRINCIPLES FOR SUCCESS</div>
+<div class="principles">
+
+  <div class="principle">
+    <div class="principle-icon">🤝</div>
+    <div>
+      <div class="principle-title">AI Assists, Humans Decide</div>
+      <div class="principle-desc">Always keep humans at the center to make the final strategic decisions. AI is a force-multiplier, not the decision-maker.</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-icon">🚢</div>
+    <div>
+      <div class="principle-title">"Ship Small, Ship Often" Strategy</div>
+      <div class="principle-desc">Use Feature Flags to release features incrementally (5% → 100%) to minimize risk and enable fast rollback.</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-icon">🧰</div>
+    <div>
+      <div class="principle-title">Optimize Your Toolset (Avoid Tool Sprawl)</div>
+      <div class="principle-desc">Limit to a maximum of 2 AI tools per phase to avoid waste and keep the workflow focused and efficient.</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

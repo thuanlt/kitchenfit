@@ -10,9 +10,10 @@ stages:
   cache:
     key:
       files:
-        - package-lock.json
+        - automation-tests/pnpm-lock.yaml
     paths:
-      - node_modules/
+      - automation-tests/node_modules/
+      - automation-tests/packages/products/fpt-marketplace/node_modules/
       - .playwright-browsers/
     policy: pull-push
 
@@ -22,20 +23,22 @@ regression:
     - playwright
   <<: *cache_config
   rules:
-    - if: $CI_PIPELINE_SOURCE == "trigger"   # trigger từ app repo khi deploy
-    - if: $CI_PIPELINE_SOURCE == "web"       # chạy thủ công từ GitLab UI
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+    - if: $CI_PIPELINE_SOURCE == "web"
   script:
     - echo "=== Regression STG — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
-    - npx cross-env APP_ENV=stg npx playwright test --project=regression
+    - cd automation-tests && pnpm install --frozen-lockfile
+    - cross-env APP_ENV=stg pnpm --filter fpt-marketplace test:regression
+    - cd ../
     - npx ts-node utils/post-regression-result.ts
   after_script:
     - echo "=== Regression done — exit code $CI_JOB_STATUS ==="
   artifacts:
     when: always
     paths:
-      - reports/stg/playwright-report/
-      - reports/stg/test-results.json
+      - automation-tests/packages/products/fpt-marketplace/reports/playwright-report/
+      - automation-tests/packages/products/fpt-marketplace/reports/test-results.json
     expire_in: 14 days
   timeout: 30 minutes
 
@@ -46,30 +49,30 @@ api-inference-vn-jp:
     - playwright
   <<: *cache_config
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"  # chạy định kỳ
-    - if: $CI_PIPELINE_SOURCE == "web"       # chạy thủ công từ GitLab UI
-    - if: $CI_PIPELINE_SOURCE == "trigger"   # trigger từ app repo
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "trigger"
   script:
     - echo "=== API Inference VN + JP — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
+    - cd automation-tests && pnpm install --frozen-lockfile && cd ..
 
     # ── VN site (mkp-api.fptcloud.com) ──────────────────────────────────────
     - echo "--- Running VN site ---"
-    - npx cross-env APP_ENV=prod npx playwright test --project=api tests/api/api-inference.spec.ts; $global:LASTEXITCODE = 0
-    - npx cross-env APP_ENV=prod npx ts-node utils/post-api-inference-result.ts
+    - cd automation-tests && cross-env APP_ENV=prod pnpm --filter fpt-marketplace test:api:vn; $global:LASTEXITCODE = 0 && cd ..
+    - npx ts-node utils/post-api-inference-result.ts
 
     # ── JP site (mkp-api.fptcloud.jp) ───────────────────────────────────────
     - echo "--- Running JP site ---"
-    - npx cross-env APP_ENV=jp npx playwright test --project=api tests/api/api-inference-jp.spec.ts; $global:LASTEXITCODE = 0
-    - npx cross-env APP_ENV=jp npx ts-node utils/post-api-inference-result.ts
+    - cd automation-tests && cross-env APP_ENV=jp pnpm --filter fpt-marketplace test:api:jp; $global:LASTEXITCODE = 0 && cd ..
+    - npx ts-node utils/post-api-inference-result.ts
 
   after_script:
     - echo "=== API Inference VN+JP done — exit code $CI_JOB_STATUS ==="
   artifacts:
     when: always
     paths:
-      - reports/prod/playwright-report/
-      - reports/prod/test-results.json
-      - reports/jp/test-results.json
+      - automation-tests/packages/products/fpt-marketplace/reports/playwright-report/
+      - automation-tests/packages/products/fpt-marketplace/reports/test-results.json
     expire_in: 14 days
   timeout: 30 minutes

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+reports/
+playwright-report/
+test-results/
+playwright/.auth/
+.env
+.env.*
+!.env.example
+*.log
