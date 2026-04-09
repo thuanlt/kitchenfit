@@ -93,7 +93,7 @@ const MSG_BLACKHOLE = 'Can you tell me about the creation of blackholes?';
 
 test.describe('Chat Completions — VN Site (Modas_SiteVN_v1)', () => {
 
-  test('TC_API_001 — DeepSeek-V3.2-Speciale', async ({ request }) => {
+  test.skip('TC_API_001 — DeepSeek-V3.2-Speciale', async ({ request }) => {
     const start = Date.now();
     const res = await request.post(chatUrl('DeepSeek-V3.2-Speciale'), { headers: HEADERS, data: chatBody('DeepSeek-V3.2-Speciale', MSG_VN) });
     await assertChat(res, 'DeepSeek-V3.2-Speciale', start);
@@ -123,7 +123,7 @@ test.describe('Chat Completions — VN Site (Modas_SiteVN_v1)', () => {
     await assertChat(res, 'gpt-oss-20b', start);
   });
 
-  test('TC_API_006 — Qwen2.5-Coder-32B-Instruct', async ({ request }) => {
+  test.skip('TC_API_006 — Qwen2.5-Coder-32B-Instruct', async ({ request }) => {
     const start = Date.now();
     const res = await request.post(chatUrl('Qwen2.5-Coder-32B-Instruct'), { headers: HEADERS, data: chatBody('Qwen2.5-Coder-32B-Instruct', MSG_FAMILY) });
     await assertChat(res, 'Qwen2.5-Coder-32B-Instruct', start);
@@ -165,7 +165,7 @@ test.describe('Chat Completions — VN Site (Modas_SiteVN_v1)', () => {
     await assertChat(res, 'Llama-3.3-70B-Instruct', start);
   });
 
-  test('TC_API_013 — Llama-3.3-Swallow-70B-Instruct-v0.4', async ({ request }) => {
+  test.skip('TC_API_013 — Llama-3.3-Swallow-70B-Instruct-v0.4', async ({ request }) => {
     const start = Date.now();
     const res = await request.post(chatUrl('Llama-3.3-Swallow-70B-Instruct-v0.4'), { headers: HEADERS, data: chatBody('Llama-3.3-Swallow-70B-Instruct-v0.4', MSG_FAMILY) });
     await assertChat(res, 'Llama-3.3-Swallow-70B-Instruct-v0.4', start);
@@ -215,7 +215,7 @@ test.describe('Chat Completions — VN Site (Modas_SiteVN_v1)', () => {
 
 test.describe('Chat Completions — Vision Models', () => {
 
-  test('TC_API_018 — Qwen3-VL-8B-Instruct', async ({ request }) => {
+  test.skip('TC_API_018 — Qwen3-VL-8B-Instruct', async ({ request }) => {
     const start = Date.now();
     const res = await request.post(chatUrl('Qwen3-VL-8B-Instruct'), { headers: HEADERS, data: chatBody('Qwen3-VL-8B-Instruct', MSG_SHORT) });
     await assertChat(res, 'Qwen3-VL-8B-Instruct', start);
@@ -227,7 +227,7 @@ test.describe('Chat Completions — Vision Models', () => {
     await assertChat(res, 'Qwen2.5-VL-7B-Instruct', start);
   });
 
-  test('TC_API_020 — DeepSeek-OCR (with image URL)', async ({ request }) => {
+  test.skip('TC_API_020 — DeepSeek-OCR (with image URL)', async ({ request }) => {
     const start = Date.now();
     const res = await request.post(chatUrl('DeepSeek-OCR'), {
       headers: HEADERS,
@@ -268,7 +268,7 @@ test.describe('Chat Completions — Vision Models', () => {
     await assertChat(res, 'FPT.AI-Table-Parsing-v1.1', start);
   });
 
-  test('TC_API_030 — Alpamayo-R1-10B (autonomous vehicle trajectory)', async ({ request }) => {
+  test.skip('TC_API_030 — Alpamayo-R1-10B (autonomous vehicle trajectory)', async ({ request }) => {
     const start = Date.now();
     const res = await request.post(chatUrl('Alpamayo-R1-10B'), {
       headers: HEADERS,

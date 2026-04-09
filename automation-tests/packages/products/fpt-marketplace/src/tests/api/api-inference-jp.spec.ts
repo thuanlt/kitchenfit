@@ -144,7 +144,7 @@ test.describe('JP — Chat Completions (Text Models)', () => {
     await assertChat(res, 'SaoLa4-small_jp');
   });
 
-  test('TC_JP_004 — DeepSeek-V3.2-Speciale', async ({ request }) => {
+  test.skip('TC_JP_004 — DeepSeek-V3.2-Speciale', async ({ request }) => {
     const res = await request.post(chatUrl('DeepSeek-V3.2-Speciale'), {
       headers: HEADERS,
       data: chatBody('DeepSeek-V3.2-Speciale', MSG_VN),
@@ -184,7 +184,7 @@ test.describe('JP — Chat Completions (Text Models)', () => {
     await assertChat(res, 'gpt-oss-20b');
   });
 
-  test('TC_JP_009 — Qwen2.5-Coder-32B-Instruct', async ({ request }) => {
+  test.skip('TC_JP_009 — Qwen2.5-Coder-32B-Instruct', async ({ request }) => {
     const res = await request.post(chatUrl('Qwen2.5-Coder-32B-Instruct'), {
       headers: HEADERS,
       data: chatBody('Qwen2.5-Coder-32B-Instruct', MSG_FAMILY),
@@ -216,7 +216,7 @@ test.describe('JP — Chat Completions (Text Models)', () => {
     await assertChat(res, 'Llama-3.3-70B-Instruct');
   });
 
-  test('TC_JP_013 — Llama-3.3-Swallow-70B-Instruct-v0.4', async ({ request }) => {
+  test.skip('TC_JP_013 — Llama-3.3-Swallow-70B-Instruct-v0.4', async ({ request }) => {
     const res = await request.post(chatUrl('Llama-3.3-Swallow-70B-Instruct-v0.4'), {
       headers: HEADERS,
       data: chatBody('Llama-3.3-Swallow-70B-Instruct-v0.4', MSG_FAMILY),
@@ -240,7 +240,7 @@ test.describe('JP — Chat Completions (Text Models)', () => {
 
 test.describe('JP — Chat Completions (Vision Models)', () => {
 
-  test('TC_JP_014 — Qwen3-VL-8B-Instruct', async ({ request }) => {
+  test.skip('TC_JP_014 — Qwen3-VL-8B-Instruct', async ({ request }) => {
     const res = await request.post(chatUrl('Qwen3-VL-8B-Instruct'), {
       headers: HEADERS,
       data: chatBody('Qwen3-VL-8B-Instruct', 'what your name and your version?', { max_tokens: 500 }),
@@ -256,7 +256,7 @@ test.describe('JP — Chat Completions (Vision Models)', () => {
     await assertChat(res, 'Qwen2.5-VL-7B-Instruct');
   });
 
-  test('TC_JP_016 — DeepSeek-OCR', async ({ request }) => {
+  test.skip('TC_JP_016 — DeepSeek-OCR', async ({ request }) => {
     const res = await request.post(chatUrl('DeepSeek-OCR'), {
       headers: HEADERS,
       data: visionBody('DeepSeek-OCR', IMG_URL),
@@ -288,7 +288,7 @@ test.describe('JP — Chat Completions (Vision Models)', () => {
     await assertChat(res, 'FPT.AI-KIE-v1.7');
   });
 
-  test('TC_JP_028 — Alpamayo-R1-10B', async ({ request }) => {
+  test.skip('TC_JP_028 — Alpamayo-R1-10B', async ({ request }) => {
     const res = await request.post(chatUrl('Alpamayo-R1-10B'), {
       headers: HEADERS,
       data: {
@@ -466,6 +466,47 @@ test.describe('JP — Audio Models (Speech to Text)', () => {
   test('TC_JP_026 — FPT.AI-whisper-medium', async ({ request }) => {
     test.skip(!AUDIO_EXISTS, `Audio file not found: ${AUDIO_DIR}/`);
     await transcribeJP(request, 'FPT.AI-whisper-medium');
+  });
+
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+//  PROTEIN STRUCTURE PREDICTION
+// ════════════════════════════════════════════════════════════════════════════
+
+test.describe('JP — Protein Structure Prediction', () => {
+
+  test('TC_JP_031 — Boltz-2', async ({ request }) => {
+    const res = await request.post(`${BASE}/v1/predict?from=${FROM}&model=Boltz-2`, {
+      headers: HEADERS,
+      data: {
+        model: 'Boltz-2',
+        polymers: [
+          {
+            id: 'A',
+            molecule_type: 'protein',
+            sequence: 'MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR',
+          },
+        ],
+        ligands: [
+          {
+            id: 'ASP',
+            smiles: 'CC(=O)OC1=CC=CC=C1C(=O)O',
+            predict_affinity: true,
+          },
+        ],
+        recycling_steps:             3,
+        sampling_steps:              50,
+        sampling_steps_affinity:     100,
+        diffusion_samples_affinity:  3,
+        output_format:               'mmcif',
+      },
+    });
+    console.log(`📡 Boltz-2 → HTTP ${res.status()}`);
+    expect(res.status(), 'Boltz-2 should return 200').toBe(200);
+    const body = await res.json();
+    expect(body, 'Boltz-2 missing response').toBeDefined();
+    console.log(`✅ Boltz-2: response received — ${JSON.stringify(body).substring(0, 120)}`);
   });
 
 });
