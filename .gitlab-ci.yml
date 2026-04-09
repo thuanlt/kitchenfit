@@ -5,6 +5,7 @@ variables:
 stages:
   - regression
   - api
+  - monitoring
 
 .cache_config: &cache_config
   cache:
@@ -41,6 +42,19 @@ regression:
       - automation-tests/packages/products/fpt-marketplace/reports/test-results.json
     expire_in: 14 days
   timeout: 30 minutes
+
+checkly-deploy:
+  stage: monitoring
+  tags:
+    - playwright
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
+  script:
+    - echo "=== Deploy Checkly checks ==="
+    - npm ci
+    - node utils/generate-checkly-checks.js
+    - npx checkly deploy -f
+  allow_failure: true
 
 api-inference-vn-jp:
   stage: api
