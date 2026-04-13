@@ -8,7 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, `../../../.env.${APP_ENV}`), overr
 
 const authFile = `playwright/.auth/${APP_ENV}-user.json`;
 
-const BASE_URL = process.env.BASE_URL ?? 'https://marketplace.fptcloud.com/en';
+const BASE_URL = process.env.FPT_CLAW_URL ?? process.env.BASE_URL ?? 'https://claw.fptcloud.com';
 
 export default defineConfig({
   testDir: './src',
@@ -26,7 +26,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     ignoreHTTPSErrors: APP_ENV !== 'prod',
     proxy: process.env.HTTPS_PROXY
-      ? { server: process.env.HTTPS_PROXY, bypass: 'lovable.app,lovable.dev,dashboard-luxe.lovable.app' }
+      ? { server: process.env.HTTPS_PROXY, bypass: 'localhost,127.0.0.1' }
       : undefined,
   },
 
@@ -48,13 +48,13 @@ export default defineConfig({
       dependencies: ['setup'],
     },
     {
-      name: 'api',
-      testMatch: '**/tests/api/**/*.spec.ts',
+      name: 'e2e',
+      testMatch: '**/tests/e2e/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'e2e',
-      testMatch: '**/tests/e2e/**/*.spec.ts',
+      name: 'api',
+      testMatch: '**/tests/api/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
   ],

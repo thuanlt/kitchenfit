@@ -60,11 +60,42 @@ importers:
         specifier: ^17.3.1
         version: 17.4.0
 
+  packages/products/fpt-claw:
+    dependencies:
+      '@fpt-automation/core':
+        specifier: workspace:*
+        version: link:../../core
+      langfuse:
+        specifier: ^3.38.6
+        version: 3.38.20
+      undici:
+        specifier: ^7.24.2
+        version: 7.24.8
+    devDependencies:
+      '@axe-core/playwright':
+        specifier: ^4.11.1
+        version: 4.11.1(playwright-core@1.59.1)
+      '@playwright/test':
+        specifier: ^1.58.2
+        version: 1.59.1
+      '@types/node':
+        specifier: ^25.5.0
+        version: 25.5.2
+      dotenv:
+        specifier: ^17.3.1
+        version: 17.4.0
+
   packages/products/fpt-marketplace:
     dependencies:
       '@fpt-automation/core':
         specifier: workspace:*
         version: link:../../core
+      langfuse:
+        specifier: ^3.38.6
+        version: 3.38.20
+      undici:
+        specifier: ^7.24.2
+        version: 7.24.8
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.1
@@ -123,6 +154,18 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+  langfuse-core@3.38.20:
+    resolution: {integrity: sha512-zBKVmQN/1oT5VWZUBYlWzvokIlkC/6mnpgr/2atMyTeAm+jR3ia7w2iJMjlrF5/oG8ukO1s8+LDRCzJpF1QeEA==}
+    engines: {node: '>=18'}
+
+  langfuse@3.38.20:
+    resolution: {integrity: sha512-MAmBAASSzJtmK1O9HQegA1mFsQhT8Yf+OJRGvE7FXkyv3g/eiBE0glLD0Ohg3pkxhoPdggM5SejK7ue9ctlaMA==}
+    engines: {node: '>=18'}
+
+  mustache@4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
+
   playwright-core@1.59.1:
     resolution: {integrity: sha512-HBV/RJg81z5BiiZ9yPzIiClYV/QMsDCKUyogwH9p3MCP6IYjUFu/MActgYAvK0oWyV9NlwM3GLBjADyWgydVyg==}
     engines: {node: '>=18'}
@@ -140,6 +183,10 @@ packages:
 
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
+
+  undici@7.24.8:
+    resolution: {integrity: sha512-6KQ/+QxK49Z/p3HO6E5ZCZWNnCasyZLa5ExaVYyvPxUwKtbCPMKELJOqh7EqOle0t9cH/7d2TaaTRRa6Nhs4YQ==}
+    engines: {node: '>=20.18.1'}
 
 snapshots:
 
@@ -163,6 +210,16 @@ snapshots:
   fsevents@2.3.2:
     optional: true
 
+  langfuse-core@3.38.20:
+    dependencies:
+      mustache: 4.2.0
+
+  langfuse@3.38.20:
+    dependencies:
+      langfuse-core: 3.38.20
+
+  mustache@4.2.0: {}
+
   playwright-core@1.59.1: {}
 
   playwright@1.59.1:
@@ -174,3 +231,5 @@ snapshots:
   typescript@5.9.3: {}
 
   undici-types@7.18.2: {}
+
+  undici@7.24.8: {}

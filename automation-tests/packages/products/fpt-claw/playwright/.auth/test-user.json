@@ -1,0 +1,25 @@
+{
+  "cookies": [
+    {
+      "name": "fptclaw_at",
+      "value": "add6e627-8ee8-44e8-9ef1-a75b91a947d7",
+      "domain": "dev-claw.fptcloud.net",
+      "path": "/",
+      "expires": 1776069841.107381,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "fptclaw_rt",
+      "value": "98a535d1-07e7-415b-a582-982dd54edfd0",
+      "domain": "dev-claw.fptcloud.net",
+      "path": "/",
+      "expires": 1776154441.107688,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": []
+}

@@ -33,6 +33,7 @@ regression:
     - cross-env APP_ENV=stg pnpm --filter fpt-marketplace test:regression
     - cd ../
     - npx ts-node utils/post-regression-result.ts
+    - cross-env APP_ENV=stg npx ts-node utils/auto-jira-bug.ts || true
   after_script:
     - echo "=== Regression done — exit code $CI_JOB_STATUS ==="
   artifacts:
@@ -75,11 +76,13 @@ api-inference-vn-jp:
     - echo "--- Running VN site ---"
     - cd automation-tests && cross-env APP_ENV=prod pnpm --filter fpt-marketplace test:api:vn; $global:LASTEXITCODE = 0 && cd ..
     - npx ts-node utils/post-api-inference-result.ts
+    - cross-env APP_ENV=prod npx ts-node utils/auto-jira-bug.ts || true
 
     # ── JP site (mkp-api.fptcloud.jp) ───────────────────────────────────────
     - echo "--- Running JP site ---"
     - cd automation-tests && cross-env APP_ENV=jp pnpm --filter fpt-marketplace test:api:jp; $global:LASTEXITCODE = 0 && cd ..
     - npx ts-node utils/post-api-inference-result.ts
+    - cross-env APP_ENV=jp npx ts-node utils/auto-jira-bug.ts || true
 
   after_script:
     - echo "=== API Inference VN+JP done — exit code $CI_JOB_STATUS ==="
