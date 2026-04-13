@@ -62,7 +62,7 @@ test.describe('TC-CHAT — CLAW Chat Functionality', () => {
   });
 
   test.describe('TC-CHAT-003: Basic Chat Flow', () => {
-    
+    test.setTimeout(180000); // 3 minutes — agentic AI response có thể mất >60s
     test('User can send chat message and receive AI response', async ({ page }) => {
       // STEP 1: Login and navigate to chat
       await loginPage.login('Thuanlt11@fpt.com', 'Thuanlt11@fpt.com');
@@ -100,8 +100,8 @@ test.describe('TC-CHAT — CLAW Chat Functionality', () => {
   });
 
   test.describe('TC-CHAT-004: Multi-turn Conversation', () => {
-    test.setTimeout(120000); // 2 minutes for multi-turn
-    
+    test.setTimeout(300000); // 5 minutes — 2 turns × ~90s mỗi turn + overhead
+
     test('User can have multiple conversation turns', async ({ page }) => {
       // Login and navigate to chat
       await loginPage.login('Thuanlt11@fpt.com', 'Thuanlt11@fpt.com');
@@ -111,14 +111,14 @@ test.describe('TC-CHAT — CLAW Chat Functionality', () => {
       const message1 = 'Bạn có thể làm gì?';
       await chatPage.sendMessage(message1);
       await expect(chatPage.userMessage(message1)).toBeVisible({ timeout: 5000 });
-      await chatPage.waitForAiResponse(60000);
+      await chatPage.waitForAiResponse(120000);
       console.log('✅ Turn 1 PASS: First message sent and AI responded');
 
       // Turn 2: Follow-up question
       const message2 = 'Hãy viết một đoạn văn ngắn về AI';
       await chatPage.sendFollowUpMessage(message2);
       await expect(chatPage.userMessage(message2)).toBeVisible({ timeout: 5000 });
-      await chatPage.waitForAiResponse(60000);
+      await chatPage.waitForAiResponse(120000);
       console.log('✅ Turn 2 PASS: Follow-up message sent and AI responded');
 
       // Verify both messages in conversation
@@ -150,8 +150,8 @@ test.describe('TC-CHAT — CLAW Chat Functionality', () => {
   });
 
   test.describe('TC-CHAT-006: Chat Actions', () => {
-    test.setTimeout(120000); // 2 minutes
-    
+    test.setTimeout(180000); // 3 minutes — wait for AI + action buttons
+
     test('User can use copy and retry buttons', async ({ page }) => {
       // Login and navigate to chat
       await loginPage.login('Thuanlt11@fpt.com', 'Thuanlt11@fpt.com');
@@ -159,7 +159,7 @@ test.describe('TC-CHAT — CLAW Chat Functionality', () => {
 
       // Send a message
       await chatPage.sendMessage('Test message for actions');
-      await chatPage.waitForAiResponse(30000);
+      await chatPage.waitForAiResponse(90000);
 
       // Test copy button (optional - may not be visible)
       const copyVisible = await chatPage.copyButton().isVisible({ timeout: 5000 }).catch(() => false);
