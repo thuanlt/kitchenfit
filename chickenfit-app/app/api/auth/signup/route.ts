@@ -4,18 +4,18 @@
     *   **Constraints:** Output ONLY code. No explanations. Keep comments. Preserve unchanged code.
 
 2.  **Analyze the Changes:**
-    *   *Original Import:* `import { supabaseAdmin } from '@/lib/db-server';`
+    *   *Original Import:* `import { supabaseAdmin } from '../../../lib/db-server';`
     *   *Suggested Import:* `import { supabaseAdmin } from '../../../lib/db-server';`
     *   *Rest of the code:* The `SUGGESTED EDIT` snippet shows the beginning of the function, but the prompt implies applying the specific change found in the suggestion to the full original file. The suggestion explicitly changes the import path.
 
 3.  **Execution:**
     *   Take the `ORIGINAL CODE`.
-    *   Locate line 2: `import { supabaseAdmin } from '@/lib/db-server';`.
+    *   Locate line 2: `import { supabaseAdmin } from '../../../lib/db-server';`.
     *   Replace it with `import { supabaseAdmin } from '../../../lib/db-server';`.
     *   Ensure the rest of the file remains identical.
 
 4.  **Verification:**
-    *   Original: `import { supabaseAdmin } from '@/lib/db-server';`
+    *   Original: `import { supabaseAdmin } from '../../../lib/db-server';`
     *   Modified: `import { supabaseAdmin } from '../../../lib/db-server';`
     *   Did I touch anything else? No.
     *   Did I include comments? Yes.

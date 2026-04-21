@@ -8,13 +8,13 @@
         *   Preserve unchanged code exactly.
 
 2.  **Compare Original vs. Suggested:**
-    *   *Original Import:* `import { supabaseAdmin } from '@/lib/db-server';`
+    *   *Original Import:* `import { supabaseAdmin } from '../../../lib/db-server';`
     *   *Suggested Import:* `import { supabaseAdmin } from '../../../lib/db-server';`
     *   *Rest of the code:* The suggested edit snippet cuts off after the function signature comment, implying the rest of the file remains identical.
 
 3.  **Determine the Change:**
     *   I need to replace line 2 of the original code with line 2 of the suggested edit.
-    *   Original: `import { supabaseAdmin } from '@/lib/db-server';`
+    *   Original: `import { supabaseAdmin } from '../../../lib/db-server';`
     *   New: `import { supabaseAdmin } from '../../../lib/db-server';`
 
 4.  **Construct the Final Code:**

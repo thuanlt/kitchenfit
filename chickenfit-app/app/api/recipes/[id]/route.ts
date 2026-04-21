@@ -7,7 +7,7 @@ The user wants me to apply a specific edit to an original TypeScript/Next.js fil
 
 **Suggested Edit Analysis:**
 - The edit changes the import statement for `supabaseAdmin`.
-- Original: `import { supabaseAdmin } from '@/lib/db-server';`
+- Original: `import { supabaseAdmin } from '../../../../lib/db-server';`
 - Suggested: `import { supabaseAdmin } from '../../../../lib/db-server';`
 - The rest of the code block in the suggestion starts with `export async function GET(` but doesn't finish the function signature or body, implying I should just take the import change and keep the rest of the original code.
 
@@ -18,7 +18,7 @@ The user wants me to apply a specific edit to an original TypeScript/Next.js fil
 
 **Step-by-step Execution:**
 1. Copy the original code.
-2. Locate line 2: `import { supabaseAdmin } from '@/lib/db-server';`.
+2. Locate line 2: `import { supabaseAdmin } from '../../../../lib/db-server';`.
 3. Replace it with: `import { supabaseAdmin } from '../../../../lib/db-server';`.
 4. Ensure the rest of the file remains identical.
 

@@ -11,7 +11,7 @@ The user wants to apply a specific edit to an original TypeScript/Next.js file.
 
 **Analysis:**
 1.  **Line 1:** `import { NextRequest, NextResponse } from 'next/server';` -> Unchanged.
-2.  **Line 2:** `import { supabaseAdmin } from '@/lib/db-server';` -> Changed to `import { supabaseAdmin } from '../../../lib/db-server';`.
+2.  **Line 2:** `import { supabaseAdmin } from '../../../lib/db-server';` -> Changed to `import { supabaseAdmin } from '../../../lib/db-server';`.
 3.  **Line 4 onwards:** The rest of the code remains exactly as is.
 
 **Constraint Checklist & Confidence Score:**
