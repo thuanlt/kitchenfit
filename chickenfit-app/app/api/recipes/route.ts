@@ -1,25 +1,79 @@
-1.  **Analyze the Request:**
-    *   **Input:** Original Code (Next.js API route handler for `GET` recipes) and Suggested Edit (New code replacing the logic with a simpler `GET` by `userId` and adding a `POST` handler).
-    *   **Constraint:** "Apply the SUGGESTED EDIT to the ORIGINAL CODE. Output the complete modified file."
-    *   **Constraint:** "Output ONLY code. Do NOT explain, summarize, or describe changes."
-    *   **Constraint:** "Leave existing comments in place unless changes require modifying them." (There are no comments in either snippet, so this is trivial).
-    *   **Constraint:** "Preserve all unchanged code exactly as-is." (This is tricky because the Suggested Edit completely replaces the logic of the Original Code. The prompt implies replacing the content of the file with the Suggested Edit, but usually, "Apply edit" implies integration. However, looking at the snippets, the Suggested Edit is a full replacement of the file content, changing the import path, the GET logic, and adding a POST method. It doesn't look like a patch; it looks like a rewrite).
+"import { NextRequest, NextResponse } from 'next/server';
+import { supabaseAdmin } from '@/lib/db-server';
 
-2.  **Compare Original vs. Suggested:**
-    *   *Original Imports:* `import { supabaseAdmin } from '../../lib/db-server';`
-    *   *Suggested Imports:* `import { supabaseAdmin } from '@/lib/db-server';` (Path alias change).
-    *   *Original Logic:* Complex filtering, pagination, tags joining, specific columns selected.
-    *   *Suggested Logic:* Simple `userId` filter, `created_at` ordering, select `*`, no pagination, no tags.
-    *   *Original Methods:* Only `GET`.
-    *   *Suggested Methods:* `GET` and `POST`.
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId');
 
-3.  **Determine the Action:**
-    The user wants the "complete modified file". Since the Suggested Edit provides a full implementation of the handlers (GET and POST) that replaces the existing implementation entirely, I should output the Suggested Edit code block as the final result. The instruction "Preserve all unchanged code exactly as-is" usually applies to partial edits, but here the edit is a full replacement. There is no "unchanged code" from the original logic to preserve because the logic is completely swapped.
+    if (!userId) {
+      return NextResponse.json(
+        { error: { code: 'MISSING_USER_ID', message: 'User ID is required', status: 400 } },
+        { status: 400 }
+      );
+    }
 
-    However, I need to be careful about the file structure. The original was just `export async function GET`. The suggested is `export async function GET` AND `export async function POST`.
+    const { data: recipes, error } = await supabaseAdmin
+      .from('recipes')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
 
-    Let's verify the "Apply the SUGGESTED EDIT" instruction. Usually, in these types of prompts, the user provides a diff or a new block and wants the resulting file. The resulting file is exactly the Suggested Edit block provided in the prompt.
+    if (error) {
+      return NextResponse.json(
+        { error: { code: 'FETCH_FAILED', message: error.message, status: 500 } },
+        { status: 500 }
+      );
+    }
 
-4.  **Drafting the Output:**
-    I will take the code block labeled "SUGGESTED EDIT" and output it.
+    return NextResponse.json({ data: recipes || [] });
+  } catch {
+    return NextResponse.json(
+      { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
+      { status: 500 }
+    );
+  }
+}
 
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { userId, name, calories, protein, carbs, fat, ingredients, instructions } = body;
+
+    if (!userId || !name) {
+      return NextResponse.json(
+        { error: { code: 'MISSING_FIELDS', message: 'User ID and name are required', status: 400 } },
+        { status: 400 }
+      );
+    }
+
+    const { data: recipe, error } = await supabaseAdmin
+      .from('recipes')
+      .insert({
+        user_id: userId,
+        name,
+        calories: calories || 0,
+        protein: protein || 0,
+        carbs: carbs || 0,
+        fat: fat || 0,
+        ingredients: ingredients || '',
+        instructions: instructions || '',
+      })
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json(
+        { error: { code: 'CREATE_FAILED', message: error.message, status: 500 } },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ data: recipe }, { status: 201 });
+  } catch {
+    return NextResponse.json(
+      { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
+      { status: 500 }
+    );
+  }
+}"
