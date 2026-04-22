@@ -45,8 +45,8 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const allowedFields = ['display_name', 'gender', 'age', 'weight_kg', 'height_cm', 'activity', 'goal', 'tdee', 'onboarding_done'];
-    const updates = {};
+    const allowedFields = ['display_name', 'gender', 'age', 'weight_kg', 'height_cm', 'activity', 'goal', 'tdee', 'onboarding_done'] as const;
+    const updates: Record<string, unknown> = {};
 
     for (const key of allowedFields) {
       if (body[key] !== undefined) updates[key] = body[key];
