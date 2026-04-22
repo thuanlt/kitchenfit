@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '../../lib/db-server';
+"import { NextResponse } from 'next/server';
+import { supabaseAdmin } from '@/lib/db-server';
 
 export async function GET() {
   try {
@@ -60,4 +60,4 @@ export async function GET() {
       details: error instanceof Error ? error.message : 'Unknown error',
     }, { status: 500 });
   }
-}
+}"

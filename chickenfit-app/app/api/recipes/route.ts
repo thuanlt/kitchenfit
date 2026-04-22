@@ -1,62 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '../../lib/db-server';
+1.  **Analyze the Request:**
+    *   **Input:** Original Code (Next.js API route handler for `GET` recipes) and Suggested Edit (New code replacing the logic with a simpler `GET` by `userId` and adding a `POST` handler).
+    *   **Constraint:** "Apply the SUGGESTED EDIT to the ORIGINAL CODE. Output the complete modified file."
+    *   **Constraint:** "Output ONLY code. Do NOT explain, summarize, or describe changes."
+    *   **Constraint:** "Leave existing comments in place unless changes require modifying them." (There are no comments in either snippet, so this is trivial).
+    *   **Constraint:** "Preserve all unchanged code exactly as-is." (This is tricky because the Suggested Edit completely replaces the logic of the Original Code. The prompt implies replacing the content of the file with the Suggested Edit, but usually, "Apply edit" implies integration. However, looking at the snippets, the Suggested Edit is a full replacement of the file content, changing the import path, the GET logic, and adding a POST method. It doesn't look like a patch; it looks like a rewrite).
 
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const goal = searchParams.get('goal');
-    const type = searchParams.get('type');
-    const q = searchParams.get('q');
-    const page = parseInt(searchParams.get('page') ?? '1');
-    const limit = Math.min(parseInt(searchParams.get('limit') ?? '50'), 50);
+2.  **Compare Original vs. Suggested:**
+    *   *Original Imports:* `import { supabaseAdmin } from '../../lib/db-server';`
+    *   *Suggested Imports:* `import { supabaseAdmin } from '@/lib/db-server';` (Path alias change).
+    *   *Original Logic:* Complex filtering, pagination, tags joining, specific columns selected.
+    *   *Suggested Logic:* Simple `userId` filter, `created_at` ordering, select `*`, no pagination, no tags.
+    *   *Original Methods:* Only `GET`.
+    *   *Suggested Methods:* `GET` and `POST`.
 
-    const from = (page - 1) * limit;
-    const to = from + limit - 1;
+3.  **Determine the Action:**
+    The user wants the "complete modified file". Since the Suggested Edit provides a full implementation of the handlers (GET and POST) that replaces the existing implementation entirely, I should output the Suggested Edit code block as the final result. The instruction "Preserve all unchanged code exactly as-is" usually applies to partial edits, but here the edit is a full replacement. There is no "unchanged code" from the original logic to preserve because the logic is completely swapped.
 
-    let query = supabaseAdmin
-      .from('recipes')
-      .select('id, name_vi, emoji, type, goal, goal_label, calories, protein_g, carbs_g, fat_g, prep_time, bg_color, health_note, image_url', { count: 'exact' })
-      .range(from, to)
-      .order('id', { ascending: true });
+    However, I need to be careful about the file structure. The original was just `export async function GET`. The suggested is `export async function GET` AND `export async function POST`.
 
-    if (goal && goal !== 'all') query = query.or(`goal.eq.${goal},goal.eq.all`);
-    if (type && type !== 'all') query = query.eq('type', type);
-    if (q) query = query.ilike('name_vi', `%${q}%`);
+    Let's verify the "Apply the SUGGESTED EDIT" instruction. Usually, in these types of prompts, the user provides a diff or a new block and wants the resulting file. The resulting file is exactly the Suggested Edit block provided in the prompt.
 
-    const { data: recipes, count, error } = await query;
+4.  **Drafting the Output:**
+    I will take the code block labeled "SUGGESTED EDIT" and output it.
 
-    if (error) {
-      return NextResponse.json(
-        { error: { code: 'DB_ERROR', message: error.message, status: 500 } },
-        { status: 500 }
-      );
-    }
-
-    let recipesWithTags = recipes ?? [];
-    if (recipes && recipes.length > 0) {
-      const recipeIds = recipes.map((r: any) => r.id);
-      const { data: recipeTags } = await supabaseAdmin
-        .from('recipe_tags')
-        .select('recipe_id, tags(slug, label)')
-        .in('recipe_id', recipeIds);
-
-      const tagMap = new Map<number, { slug: string; label: string }[]>();
-      (recipeTags ?? []).forEach((rt: { recipe_id: number; tags: { slug: string; label: string }[] }) => {
-        if (!tagMap.has(rt.recipe_id)) tagMap.set(rt.recipe_id, []);
-        tagMap.get(rt.recipe_id)!.push(...rt.tags);
-      });
-
-      recipesWithTags = recipes.map((r: any) => ({ ...r, tags: tagMap.get(r.id) ?? [] }));
-    }
-
-    return NextResponse.json({
-      data: recipesWithTags,
-      meta: { total: count ?? 0, page, limit, pages: Math.ceil((count ?? 0) / limit) },
-    });
-  } catch {
-    return NextResponse.json(
-      { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
-      { status: 500 }
-    );
-  }
-}

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '../../lib/db-server';
-import { getUserId } from '../../lib/auth';
+"import { NextRequest, NextResponse } from 'next/server';
+import { supabaseAdmin } from '@/lib/db-server';
+import { getUserId } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -80,4 +80,4 @@ export async function PUT(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+}"
