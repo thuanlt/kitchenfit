@@ -1,4 +1,4 @@
-"import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/db-server';
 import { getUserId } from '@/lib/auth';
 
@@ -46,7 +46,7 @@ export async function PUT(request: NextRequest) {
 
     const body = await request.json();
     const allowedFields = ['display_name', 'gender', 'age', 'weight_kg', 'height_cm', 'activity', 'goal', 'tdee', 'onboarding_done'];
-    const updates: Record<string, unknown> = {};
+    const updates = {};
 
     for (const key of allowedFields) {
       if (body[key] !== undefined) updates[key] = body[key];
@@ -80,4 +80,4 @@ export async function PUT(request: NextRequest) {
       { status: 500 }
     );
   }
-}"
+}

@@ -1,4 +1,4 @@
-"import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/db-server';
 
 export async function GET(request: NextRequest) {
@@ -76,4 +76,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}"
+}
