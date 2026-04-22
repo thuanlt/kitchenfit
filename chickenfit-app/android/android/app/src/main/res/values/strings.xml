@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">chickenfit-app</string>
+    <string name="title_activity_main">chickenfit-app</string>
+    <string name="package_name">app.chickenfit.www</string>
+    <string name="custom_url_scheme">app.chickenfit.www</string>
+</resources>

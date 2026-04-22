@@ -1,0 +1,17 @@
+1.  **Analyze the Request:**
+    *   **Original Code:** Empty (implied by the blank line before "SUGGESTED EDIT").
+    *   **Suggested Edit:** A JavaScript configuration file content for PostCSS (`postcss.config.js`).
+    *   **Goal:** Apply the edit to the original code and output the complete modified file.
+    *   **Constraints:** Output ONLY code. No explanations. Preserve comments (none). Preserve unchanged code (none).
+
+2.  **Analyze the Conflict/Context:**
+    *   The prompt format suggests a file editing task.
+    *   "Original Code" is effectively empty or represents a new file creation.
+    *   "Suggested Edit" provides the full content of the file.
+    *   The task is simply to output the content provided in the "SUGGESTED EDIT" section.
+3.  **Refining the Interpretation:**
+    *   Since the original code is empty/non-existent in the snippet provided, the "modified file" is just the suggested edit itself.
+    *   I need to output the JavaScript code exactly as provided.
+4.  **Drafting the Output:**
+    *   Content:
+

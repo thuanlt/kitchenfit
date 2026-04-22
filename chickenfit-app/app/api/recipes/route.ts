@@ -1,30 +1,62 @@
-The user wants to apply a specific edit to an original TypeScript/Next.js file.
+import { NextRequest, NextResponse } from 'next/server';
+import { supabaseAdmin } from '@/lib/db-server';
 
-**Original Code:**
-- Imports `NextRequest`, `NextResponse` from 'next/server'.
-- Imports `supabaseAdmin` from '@/lib/db-server'.
-- Defines a `GET` handler.
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const goal = searchParams.get('goal');
+    const type = searchParams.get('type');
+    const q = searchParams.get('q');
+    const page = parseInt(searchParams.get('page') ?? '1');
+    const limit = Math.min(parseInt(searchParams.get('limit') ?? '50'), 50);
 
-**Suggested Edit:**
-- Changes the import path for `supabaseAdmin` from `'@/lib/db-server'` to `'../../../lib/db-server'`.
-- The rest of the import line and the function signature remain the same in the suggestion snippet, but the instruction implies applying this change to the existing code structure.
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
 
-**Analysis:**
-1.  **Line 1:** `import { NextRequest, NextResponse } from 'next/server';` -> Unchanged.
-2.  **Line 2:** `import { supabaseAdmin } from '../../../lib/db-server';` -> Changed to `import { supabaseAdmin } from '../../../lib/db-server';`.
-3.  **Line 4 onwards:** The rest of the code remains exactly as is.
+    let query = supabaseAdmin
+      .from('recipes')
+      .select('id, name_vi, emoji, type, goal, goal_label, calories, protein_g, carbs_g, fat_g, prep_time, bg_color, health_note, image_url', { count: 'exact' })
+      .range(from, to)
+      .order('id', { ascending: true });
 
-**Constraint Checklist & Confidence Score:**
-1. Apply SUGGESTED EDIT? Yes.
-2. Output complete modified file? Yes.
-3. Output ONLY code? Yes.
-4. No explanation/summary? Yes.
-5. Leave existing comments? Yes.
-6. Preserve unchanged code? Yes.
+    if (goal && goal !== 'all') query = query.or(`goal.eq.${goal},goal.eq.all`);
+    if (type && type !== 'all') query = query.eq('type', type);
+    if (q) query = query.ilike('name_vi', `%${q}%`);
 
-Confidence Score: 5/5
+    const { data: recipes, count, error } = await query;
 
-**Mental Sandbox Simulation:**
-I will copy the original code, replace the specific import path, and output the result.
+    if (error) {
+      return NextResponse.json(
+        { error: { code: 'DB_ERROR', message: error.message, status: 500 } },
+        { status: 500 }
+      );
+    }
 
-Original:
+    let recipesWithTags = recipes ?? [];
+    if (recipes && recipes.length > 0) {
+      const recipeIds = recipes.map((r: any) => r.id);
+      const { data: recipeTags } = await supabaseAdmin
+        .from('recipe_tags')
+        .select('recipe_id, tags(slug, label)')
+        .in('recipe_id', recipeIds);
+
+      const tagMap = new Map<number, { slug: string; label: string }[]>();
+      (recipeTags ?? []).forEach((rt: { recipe_id: number; tags: { slug: string; label: string }[] }) => {
+        if (!tagMap.has(rt.recipe_id)) tagMap.set(rt.recipe_id, []);
+        tagMap.get(rt.recipe_id)!.push(...rt.tags);
+      });
+
+      recipesWithTags = recipes.map((r: any) => ({ ...r, tags: tagMap.get(r.id) ?? [] }));
+    }
+
+    return NextResponse.json({
+      data: recipesWithTags,
+      meta: { total: count ?? 0, page, limit, pages: Math.ceil((count ?? 0) / limit) },
+    });
+  } catch {
+    return NextResponse.json(
+      { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
+      { status: 500 }
+    );
+  }
+}

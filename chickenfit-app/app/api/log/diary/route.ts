@@ -1,16 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../lib/db-server';
+import { getUserId } from '../../../../lib/auth';
 
-function getUserId(request: NextRequest): string | null {
-  const auth = request.headers.get('authorization');
-  if (!auth?.startsWith('Bearer ')) return null;
-  return null;
-}
-
-// GET /api/log/diary?date=YYYY-MM-DD
 export async function GET(request: NextRequest) {
   try {
-    const userId = getUserId(request);
+    const userId = await getUserId(request);
     if (!userId) {
       return NextResponse.json(
         { error: { code: 'UNAUTHORIZED', message: 'Missing or invalid token', status: 401 } },
@@ -34,9 +28,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Calculate totals
     const totals = (entries ?? []).reduce(
-      (acc: { calories: number; protein_g: number; carbs_g: number; fat_g: number }, e: { calories: number | null; protein_g: number | null; carbs_g: number | null; fat_g: number | null }) => ({
+      (acc: { calories: number; protein_g: number; carbs_g: number; fat_g: number }, e: any) => ({
         calories: acc.calories + (e.calories ?? 0),
         protein_g: acc.protein_g + (e.protein_g ?? 0),
         carbs_g: acc.carbs_g + (e.carbs_g ?? 0),
@@ -45,11 +38,7 @@ export async function GET(request: NextRequest) {
       { calories: 0, protein_g: 0, carbs_g: 0, fat_g: 0 }
     );
 
-    return NextResponse.json({
-      data: entries ?? [],
-      totals,
-      date,
-    });
+    return NextResponse.json({ data: entries ?? [], totals, date });
   } catch {
     return NextResponse.json(
       { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
@@ -58,10 +47,9 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/log/diary — Add entry to diary
 export async function POST(request: NextRequest) {
   try {
-    const userId = getUserId(request);
+    const userId = await getUserId(request);
     if (!userId) {
       return NextResponse.json(
         { error: { code: 'UNAUTHORIZED', message: 'Missing or invalid token', status: 401 } },
@@ -79,7 +67,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch recipe to get nutrition data
     const { data: recipe, error: recipeError } = await supabaseAdmin
       .from('recipes')
       .select('calories, protein_g, carbs_g, fat_g')
@@ -120,6 +107,46 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ data: entry }, { status: 201 });
+  } catch {
+    return NextResponse.json(
+      { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const userId = await getUserId(request);
+    if (!userId) {
+      return NextResponse.json(
+        { error: { code: 'UNAUTHORIZED', message: 'Missing or invalid token', status: 401 } },
+        { status: 401 }
+      );
+    }
+
+    const entryId = request.nextUrl.searchParams.get('id');
+    if (!entryId) {
+      return NextResponse.json(
+        { error: { code: 'MISSING_ID', message: 'Entry ID is required', status: 400 } },
+        { status: 400 }
+      );
+    }
+
+    const { error } = await supabaseAdmin
+      .from('diary_entries')
+      .delete()
+      .eq('id', entryId)
+      .eq('user_id', userId);
+
+    if (error) {
+      return NextResponse.json(
+        { error: { code: 'DELETE_FAILED', message: error.message, status: 500 } },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ data: { deleted: true } });
   } catch {
     return NextResponse.json(
       { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },

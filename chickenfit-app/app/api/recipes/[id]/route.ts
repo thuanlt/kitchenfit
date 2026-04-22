@@ -1,33 +1,62 @@
-The user wants me to apply a specific edit to an original TypeScript/Next.js file.
+import { NextRequest, NextResponse } from 'next/server';
+import { supabaseAdmin } from '../../../../lib/db-server';
 
-**Original Code Analysis:**
-- Imports `NextRequest`, `NextResponse` from 'next/server'.
-- Imports `supabaseAdmin` from '@/lib/db-server'.
-- Exports an async function `GET`.
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const recipeId = parseInt(id);
 
-**Suggested Edit Analysis:**
-- The edit changes the import statement for `supabaseAdmin`.
-- Original: `import { supabaseAdmin } from '../../../../lib/db-server';`
-- Suggested: `import { supabaseAdmin } from '../../../../lib/db-server';`
-- The rest of the code block in the suggestion starts with `export async function GET(` but doesn't finish the function signature or body, implying I should just take the import change and keep the rest of the original code.
+    if (isNaN(recipeId)) {
+      return NextResponse.json(
+        { error: { code: 'INVALID_ID', message: 'Recipe ID must be a number', status: 400 } },
+        { status: 400 }
+      );
+    }
 
-**Task:**
-1. Replace the relative path alias `@/lib/db-server` with a relative path `../../../../lib/db-server` in the import statement.
-2. Keep the rest of the code exactly as is.
-3. Output ONLY the code.
+    const { data: recipe, error } = await supabaseAdmin
+      .from('recipes')
+      .select('*')
+      .eq('id', recipeId)
+      .single();
 
-**Step-by-step Execution:**
-1. Copy the original code.
-2. Locate line 2: `import { supabaseAdmin } from '../../../../lib/db-server';`.
-3. Replace it with: `import { supabaseAdmin } from '../../../../lib/db-server';`.
-4. Ensure the rest of the file remains identical.
+    if (error || !recipe) {
+      return NextResponse.json(
+        { error: { code: 'RECIPE_NOT_FOUND', message: 'Recipe not found', status: 404 } },
+        { status: 404 }
+      );
+    }
 
-**Verification:**
-- Line 1: `import { NextRequest, NextResponse } from 'next/server';` (Unchanged)
-- Line 2: `import { supabaseAdmin } from '../../../../lib/db-server';` (Changed)
-- Line 4: `export async function GET(` (Unchanged)
-- ... rest of file (Unchanged)
+    const [{ data: ingredients }, { data: steps }, { data: recipeTags }] = await Promise.all([
+      supabaseAdmin
+        .from('recipe_ingredients')
+        .select('name, amount, order_num')
+        .eq('recipe_id', recipeId)
+        .order('order_num', { ascending: true }),
+      supabaseAdmin
+        .from('recipe_steps')
+        .select('step_num, description')
+        .eq('recipe_id', recipeId)
+        .order('step_num', { ascending: true }),
+      supabaseAdmin
+        .from('recipe_tags')
+        .select('tags(slug, label)')
+        .eq('recipe_id', recipeId),
+    ]);
 
-The prompt asks to output the complete modified file.
+    const tags = (recipeTags ?? []).flatMap(
+      (rt: { tags: { slug: string; label: string }[] }) => rt.tags
+    );
 
-**Constructing the output:**
+    return NextResponse.json({
+      data: { ...recipe, ingredients: ingredients ?? [], steps: steps ?? [], tags },
+    });
+  } catch {
+    return NextResponse.json(
+      { error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
+      { status: 500 }
+    );
+  }
+}
