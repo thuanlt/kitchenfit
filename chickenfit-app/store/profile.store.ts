@@ -6,6 +6,7 @@ export interface ProfileState {
   // User data
   userId: string | null;
   email: string | null;
+  fullName: string;
   goal: Goal | null;
   gender: Gender;
   age: number;
@@ -27,6 +28,7 @@ export interface ProfileState {
 const initialState = {
   userId: null as string | null,
   email: null as string | null,
+  fullName: '' as string,
   goal: null as Goal | null,
   gender: 'male' as Gender,
   age: 0,

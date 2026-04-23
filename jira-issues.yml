@@ -1,0 +1,897 @@
+- generic [ref=e2]:
+  - banner:
+    - navigation [ref=e3]:
+      - generic:
+        - generic:
+          - button " Linked Applications" [ref=e4] [cursor=pointer]:
+            - generic [ref=e5]:  Linked Applications
+          - text: 
+        - generic:
+          - heading "FCI Jira" [level=1] [ref=e6]:
+            - link "FCI Jira" [ref=e7] [cursor=pointer]:
+              - /url: https://jira.fci.vn/secure/MyJiraHome.jspa
+              - img "FCI Jira" [ref=e8]
+          - list [ref=e9]:
+            - listitem [ref=e10]:
+              - link "Dashboards " [ref=e11] [cursor=pointer]:
+                - /url: /secure/Dashboard.jspa
+            - listitem [ref=e12]:
+              - link "Projects " [ref=e13] [cursor=pointer]:
+                - /url: /browse/FPTCLAW
+            - listitem [ref=e14]:
+              - link "Issues " [ref=e15] [cursor=pointer]:
+                - /url: /issues/
+            - listitem [ref=e16]:
+              - link "Team Reports" [ref=e17] [cursor=pointer]:
+                - /url: /plugins/servlet/com.gebsun.plugins.jira.startwork/team-reports
+            - listitem [ref=e18]:
+              - link "Boards " [ref=e19] [cursor=pointer]:
+                - /url: /secure/RapidBoard.jspa
+            - listitem [ref=e20]:
+              - link "Structure " [ref=e21] [cursor=pointer]:
+                - /url: /secure/StructureBoard.jspa
+            - listitem [ref=e22]:
+              - link "Plans " [ref=e23] [cursor=pointer]:
+                - /url: ""
+            - listitem [ref=e24]:
+              - link "Calendar" [ref=e25] [cursor=pointer]:
+                - /url: /secure/DoItBetterCalendar.jspa
+            - listitem [ref=e26]:
+              - link "BigPicture " [ref=e27] [cursor=pointer]:
+                - /url: /plugins/servlet/softwareplant-bigpicture/#/box/ROOT/o
+            - listitem [ref=e28]:
+              - link "Releases " [ref=e29] [cursor=pointer]:
+                - /url: ""
+            - listitem [ref=e30]:
+              - link "Insight " [ref=e31] [cursor=pointer]:
+                - /url: /secure/ObjectSchema.jspa
+            - listitem [ref=e32]:
+              - link "More " [ref=e33] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e34]:
+              - link "Create" [ref=e35] [cursor=pointer]:
+                - /url: /secure/CreateIssue!default.jspa
+        - list [ref=e36]:
+          - listitem [ref=e37]:
+            - generic [ref=e38]:
+              - textbox "Search ( Type '/' )" [ref=e39]:
+                - /placeholder: Search
+              - text: 
+          - listitem [ref=e40]:
+            - button " Give feedback to Atlassian" [ref=e41] [cursor=pointer]:
+              - generic [ref=e42]:  Give feedback to Atlassian
+          - listitem [ref=e43]:
+            - link " Help" [ref=e44] [cursor=pointer]:
+              - /url: https://docs.atlassian.com/jira/jsw-docs-085/
+              - generic [ref=e45]:  Help
+          - listitem [ref=e46]:
+            - link "User profile for Lưu Thị Thuần 11" [ref=e47] [cursor=pointer]:
+              - /url: /secure/ViewProfile.jspa
+              - img "User profile for Lưu Thị Thuần 11" [ref=e50]
+            - text: 
+  - main [ref=e51]:
+    - generic [ref=e52]:
+      - generic [ref=e55]:
+        - heading "New search  Undock" [level=4] [ref=e56]:
+          - link "New search" [ref=e57] [cursor=pointer]:
+            - /url: /issues/?jql=
+          - link " Undock" [ref=e58] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e59]:  Undock
+        - list [ref=e60]:
+          - listitem [ref=e61]:
+            - link "Find filters" [ref=e62] [cursor=pointer]:
+              - /url: /secure/ManageFilters.jspa?filterView=search
+        - generic [ref=e63]:
+          - generic [ref=e65]:
+            - strong [ref=e67]: Filters
+            - list [ref=e69]:
+              - listitem [ref=e70]:
+                - link "My open issues" [ref=e71] [cursor=pointer]:
+                  - /url: /issues/?filter=-1
+              - listitem [ref=e72]:
+                - link "Reported by me" [ref=e73] [cursor=pointer]:
+                  - /url: /issues/?filter=-2
+              - listitem [ref=e74]:
+                - link "All issues" [ref=e75] [cursor=pointer]:
+                  - /url: /issues/?filter=-4
+              - listitem [ref=e76]:
+                - link "Open issues" [ref=e77] [cursor=pointer]:
+                  - /url: /issues/?filter=-5
+              - listitem [ref=e78]:
+                - link "Done issues" [ref=e79] [cursor=pointer]:
+                  - /url: /issues/?filter=-9
+              - listitem [ref=e80]:
+                - link "Viewed recently" [ref=e81] [cursor=pointer]:
+                  - /url: /issues/?filter=-3
+              - listitem [ref=e82]:
+                - link "Created recently" [ref=e83] [cursor=pointer]:
+                  - /url: /issues/?filter=-6
+              - listitem [ref=e84]:
+                - link "Resolved recently" [ref=e85] [cursor=pointer]:
+                  - /url: /issues/?filter=-7
+              - listitem [ref=e86]:
+                - link "Updated recently" [ref=e87] [cursor=pointer]:
+                  - /url: /issues/?filter=-8
+          - generic [ref=e89]:
+            - strong [ref=e91]: Favorite Filters
+            - list [ref=e93]:
+              - listitem [ref=e94]:
+                - link "[Modas]_bug_1.0.2" [ref=e95] [cursor=pointer]:
+                  - /url: /issues/?filter=26623
+                - text: 
+              - listitem [ref=e96]:
+                - link "Bug Category of Metal Cloud" [ref=e97] [cursor=pointer]:
+                  - /url: /issues/?filter=26364
+                - text: 
+              - listitem [ref=e98]:
+                - link "bug prd mods be v2" [ref=e99] [cursor=pointer]:
+                  - /url: /issues/?filter=27333
+                - text: 
+              - listitem [ref=e100]:
+                - link "Bug Serving 1.1" [ref=e101] [cursor=pointer]:
+                  - /url: /issues/?filter=26281
+                - text: 
+              - listitem [ref=e102]:
+                - link "bug_prioty_ai-studio" [ref=e103] [cursor=pointer]:
+                  - /url: /issues/?filter=26591
+                - text: 
+              - listitem [ref=e104]:
+                - link "Chart bugs for Modas" [ref=e105] [cursor=pointer]:
+                  - /url: /issues/?filter=26370
+                - text: 
+              - listitem [ref=e106]:
+                - link "Chart bugs Production of Metal Cloud" [ref=e107] [cursor=pointer]:
+                  - /url: /issues/?filter=26358
+                - text: 
+              - listitem [ref=e108]:
+                - link "FE_model hub_HaTN" [ref=e109] [cursor=pointer]:
+                  - /url: /issues/?filter=26673
+                - text: 
+              - listitem [ref=e110]:
+                - link "FPTCLAW_bug" [ref=e111] [cursor=pointer]:
+                  - /url: /issues/?filter=27366
+                - text: 
+              - listitem [ref=e112]:
+                - link "fptclaw_bug" [ref=e113] [cursor=pointer]:
+                  - /url: /issues/?filter=27367
+                - button " Filter Actions" [ref=e114] [cursor=pointer]
+              - listitem [ref=e116]:
+                - link "List_bug_FPTClaw" [ref=e117] [cursor=pointer]:
+                  - /url: /issues/?filter=27350
+                - text: 
+              - listitem [ref=e118]:
+                - link "my FI" [ref=e119] [cursor=pointer]:
+                  - /url: /issues/?filter=27116
+                - text: 
+              - listitem [ref=e120]:
+                - link "NCP FI Task" [ref=e121] [cursor=pointer]:
+                  - /url: /issues/?filter=27115
+                - text: 
+              - listitem [ref=e122]:
+                - link "NCP_bug" [ref=e123] [cursor=pointer]:
+                  - /url: /issues/?filter=27364
+                - text: 
+              - listitem [ref=e124]:
+                - link "NCP_Customer" [ref=e125] [cursor=pointer]:
+                  - /url: /issues/?filter=26694
+                - text: 
+              - listitem [ref=e126]:
+                - link "NCP_Customer1" [ref=e127] [cursor=pointer]:
+                  - /url: /issues/?filter=26695
+                - text: 
+              - listitem [ref=e128]:
+                - link "prd be v2" [ref=e129] [cursor=pointer]:
+                  - /url: /issues/?filter=27334
+                - text: 
+              - listitem [ref=e130]:
+                - link "sprint9_modas_bug" [ref=e131] [cursor=pointer]:
+                  - /url: /issues/?filter=26606
+                - text: 
+              - listitem [ref=e132]:
+                - link "Type bugs as label for Metal Cloud on Prd" [ref=e133] [cursor=pointer]:
+                  - /url: /issues/?filter=26359
+                - text: 
+              - listitem [ref=e134]:
+                - link "Vietnq" [ref=e135] [cursor=pointer]:
+                  - /url: /issues/?filter=26464
+                - text: 
+      - generic [ref=e138]:
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - link " Share this search by emailing other users Share" [ref=e141] [cursor=pointer]:
+              - /url: ""
+              - generic [ref=e142]:  Share this search by emailing other users
+              - text: Share
+            - button " Export " [ref=e143] [cursor=pointer]:
+              - generic [ref=e144]: 
+              - text: Export 
+            - button " Tools " [ref=e145] [cursor=pointer]:
+              - generic [ref=e146]: 
+              - text: Tools 
+          - generic [ref=e149]:
+            - heading "fptclaw_bug" [level=1] [ref=e150]
+            - list [ref=e151]:
+              - listitem [ref=e152]:
+                - button "Save as" [ref=e153] [cursor=pointer]
+              - listitem [ref=e154]:
+                - link "Details" [ref=e155] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e156]:
+                - link " Remove this filter from your Favorite Filters" [ref=e157] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=e159]:
+          - generic [ref=e161]:
+            - generic [ref=e163]:
+              - list [ref=e165]:
+                - listitem [ref=e166]
+                - listitem [ref=e170]
+                - listitem [ref=e174]
+                - listitem [ref=e177]
+                - listitem [ref=e180]
+                - listitem [ref=e183]
+                - listitem [ref=e185]
+              - generic:
+                - list
+            - link "Advanced" [ref=e189] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=e191]:
+            - button " Switch search results view " [ref=e192] [cursor=pointer]:
+              - generic [ref=e193]:  Switch search results view
+              - text: 
+            - text: 
+        - generic [ref=e198]:
+          - generic [ref=e199]:
+            - generic [ref=e200]:
+              - generic [ref=e201]: 1–50 of 53
+              - link " Refresh results" [ref=e202] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e203]:  Refresh results
+            - button "Columns " [ref=e206] [cursor=pointer]
+          - table [ref=e210]:
+            - rowgroup [ref=e211]:
+              - row "Key T Summary  Assignee Reporter Status P Bug Priority Severity Created" [ref=e212]:
+                - columnheader "Key" [ref=e213] [cursor=pointer]
+                - columnheader "T" [ref=e214] [cursor=pointer]
+                - columnheader "Summary " [ref=e215] [cursor=pointer]
+                - columnheader "Assignee" [ref=e217] [cursor=pointer]
+                - columnheader "Reporter" [ref=e218] [cursor=pointer]
+                - columnheader "Status" [ref=e219] [cursor=pointer]
+                - columnheader "P" [ref=e220] [cursor=pointer]
+                - columnheader "Bug Priority" [ref=e221] [cursor=pointer]
+                - columnheader "Severity" [ref=e222] [cursor=pointer]
+                - columnheader "Created" [ref=e223] [cursor=pointer]
+                - columnheader [ref=e224]
+            - rowgroup [ref=e225]:
+              - row "FPTCLAW-216 FPTCLAW-216 Bug Agent hay truy cập vào thư mục bị chặn để ghi Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 In Review Highest 10/Apr/26  Actions" [ref=e226]:
+                - cell "FPTCLAW-216 FPTCLAW-216" [ref=e227]
+                - cell "Bug" [ref=e230]
+                - cell "Agent hay truy cập vào thư mục bị chặn để ghi" [ref=e233]
+                - cell "Đào Khôi Nguyên 9" [ref=e236]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e239]
+                - cell "In Review" [ref=e242]
+                - cell "Highest" [ref=e244]
+                - cell [ref=e246]
+                - cell [ref=e247]
+                - cell "10/Apr/26" [ref=e248]
+                - cell " Actions" [ref=e251]
+              - row "FPTCLAW-273 FPTCLAW-273 Bug Agent không sử dụng được browser Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 To Do High 17/Apr/26  Actions" [ref=e254]:
+                - cell "FPTCLAW-273 FPTCLAW-273" [ref=e255]
+                - cell "Bug" [ref=e258]
+                - cell "Agent không sử dụng được browser" [ref=e261]
+                - cell "Đào Khôi Nguyên 9" [ref=e264]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e267]
+                - cell "To Do" [ref=e270]
+                - cell "High" [ref=e272]
+                - cell [ref=e274]
+                - cell [ref=e275]
+                - cell "17/Apr/26" [ref=e276]
+                - cell " Actions" [ref=e279]
+              - row "FPTCLAW-210 FPTCLAW-210 Bug Bị gửi lại câu chat nếu chat ngắn Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 In Progress Highest 10/Apr/26  Actions" [ref=e282]:
+                - cell "FPTCLAW-210 FPTCLAW-210" [ref=e283]
+                - cell "Bug" [ref=e286]
+                - cell "Bị gửi lại câu chat nếu chat ngắn" [ref=e289]
+                - cell "Đào Khôi Nguyên 9" [ref=e292]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e295]
+                - cell "In Progress" [ref=e298]
+                - cell "Highest" [ref=e300]
+                - cell [ref=e302]
+                - cell [ref=e303]
+                - cell "10/Apr/26" [ref=e304]
+                - cell " Actions" [ref=e307]
+              - row "FPTCLAW-221 FPTCLAW-221 Bug Bỏ nút tạo agent manual do đã tạo bằng prompt Đào Khôi Nguyên 9 Đào Bích Ngọc 12 Done Low 13/Apr/26  Actions" [ref=e310]:
+                - cell "FPTCLAW-221 FPTCLAW-221" [ref=e311]
+                - cell "Bug" [ref=e314]
+                - cell "Bỏ nút tạo agent manual do đã tạo bằng prompt" [ref=e317]
+                - cell "Đào Khôi Nguyên 9" [ref=e320]
+                - cell "Đào Bích Ngọc 12" [ref=e323]
+                - cell "Done" [ref=e326]
+                - cell "Low" [ref=e328]
+                - cell [ref=e330]
+                - cell [ref=e331]
+                - cell "13/Apr/26" [ref=e332]
+                - cell " Actions" [ref=e335]
+              - row "FPTCLAW-264 FPTCLAW-264 Bug Chưa có tính năng đọc ảnh ở các model text Nguyễn Thái Dương 214 Nguyễn Tuấn Đạt 446 To Do High 16/Apr/26  Actions" [ref=e338]:
+                - cell "FPTCLAW-264 FPTCLAW-264" [ref=e339]
+                - cell "Bug" [ref=e342]
+                - cell "Chưa có tính năng đọc ảnh ở các model text" [ref=e345]
+                - cell "Nguyễn Thái Dương 214" [ref=e348]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e351]
+                - cell "To Do" [ref=e354]
+                - cell "High" [ref=e356]
+                - cell [ref=e358]
+                - cell [ref=e359]
+                - cell "16/Apr/26" [ref=e360]
+                - cell " Actions" [ref=e363]
+              - row "FPTCLAW-268 FPTCLAW-268 Bug Connect Telegram qua kết nối ở khung chat không chạy được Nguyễn Thái Dương 214 Đào Bích Ngọc 12 In Progress Medium 17/Apr/26  Actions" [ref=e366]:
+                - cell "FPTCLAW-268 FPTCLAW-268" [ref=e367]
+                - cell "Bug" [ref=e370]
+                - cell "Connect Telegram qua kết nối ở khung chat không chạy được" [ref=e373]
+                - cell "Nguyễn Thái Dương 214" [ref=e376]
+                - cell "Đào Bích Ngọc 12" [ref=e379]
+                - cell "In Progress" [ref=e382]
+                - cell "Medium" [ref=e384]
+                - cell [ref=e386]
+                - cell [ref=e387]
+                - cell "17/Apr/26" [ref=e388]
+                - cell " Actions" [ref=e391]
+              - row "FPTCLAW-225 FPTCLAW-225 Bug Cần validate loại file giới hạn chỉ cho upload đọc các file loại \"ppt, doc, excel, pdf, md\" Nguyễn Thái Dương 214 Lưu Thị Thuần 11 To Do High 14/Apr/26  Actions" [ref=e394]:
+                - cell "FPTCLAW-225 FPTCLAW-225" [ref=e395]
+                - cell "Bug" [ref=e398]
+                - cell "Cần validate loại file giới hạn chỉ cho upload đọc các file loại \"ppt, doc, excel, pdf, md\"" [ref=e401]
+                - cell "Nguyễn Thái Dương 214" [ref=e404]
+                - cell "Lưu Thị Thuần 11" [ref=e407]
+                - cell "To Do" [ref=e410]
+                - cell "High" [ref=e412]
+                - cell [ref=e414]
+                - cell [ref=e415]
+                - cell "14/Apr/26" [ref=e416]
+                - cell " Actions" [ref=e419]
+              - row "FPTCLAW-197 FPTCLAW-197 Bug Dashboard hiển thị ko đúng Đào Khôi Nguyên 9 Lưu Thị Thuần 11 In Progress Medium 06/Apr/26  Actions" [ref=e422]:
+                - cell "FPTCLAW-197 FPTCLAW-197" [ref=e423]
+                - cell "Bug" [ref=e426]
+                - cell "Dashboard hiển thị ko đúng" [ref=e429]
+                - cell "Đào Khôi Nguyên 9" [ref=e432]
+                - cell "Lưu Thị Thuần 11" [ref=e435]
+                - cell "In Progress" [ref=e438]
+                - cell "Medium" [ref=e440]
+                - cell [ref=e442]
+                - cell [ref=e443]
+                - cell "06/Apr/26" [ref=e444]
+                - cell " Actions" [ref=e447]
+              - row "FPTCLAW-211 FPTCLAW-211 Bug Di chuột vào các nút để đăng nhập không có hover để chuyển chuột thành dạng bấm Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 To Do Low 10/Apr/26  Actions" [ref=e450]:
+                - cell "FPTCLAW-211 FPTCLAW-211" [ref=e451]
+                - cell "Bug" [ref=e454]
+                - cell "Di chuột vào các nút để đăng nhập không có hover để chuyển chuột thành dạng bấm" [ref=e457]
+                - cell "Đào Khôi Nguyên 9" [ref=e460]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e463]
+                - cell "To Do" [ref=e466]
+                - cell "Low" [ref=e468]
+                - cell [ref=e470]
+                - cell [ref=e471]
+                - cell "10/Apr/26" [ref=e472]
+                - cell " Actions" [ref=e475]
+              - row "FPTCLAW-271 FPTCLAW-271 Bug Giao diện không đồng nhất với hệ thống, nút bấm mở rộng quá bé khi agent yêu cầu cấp quyền kết nối teams Nguyễn Thái Dương 214 Nguyễn Tuấn Đạt 446 To Do High 17/Apr/26  Actions" [ref=e478]:
+                - cell "FPTCLAW-271 FPTCLAW-271" [ref=e479]
+                - cell "Bug" [ref=e482]
+                - cell "Giao diện không đồng nhất với hệ thống, nút bấm mở rộng quá bé khi agent yêu cầu cấp quyền kết nối teams" [ref=e485]
+                - cell "Nguyễn Thái Dương 214" [ref=e488]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e491]
+                - cell "To Do" [ref=e494]
+                - cell "High" [ref=e496]
+                - cell [ref=e498]
+                - cell [ref=e499]
+                - cell "17/Apr/26" [ref=e500]
+                - cell " Actions" [ref=e503]
+              - row "FPTCLAW-267 FPTCLAW-267 Bug Giao diện phần MCP trong chat bị lỗi, không kéo xuống được toàn bộ Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 To Do High 17/Apr/26  Actions" [ref=e506]:
+                - cell "FPTCLAW-267 FPTCLAW-267" [ref=e507]
+                - cell "Bug" [ref=e510]
+                - cell "Giao diện phần MCP trong chat bị lỗi, không kéo xuống được toàn bộ" [ref=e513]
+                - cell "Đào Khôi Nguyên 9" [ref=e516]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e519]
+                - cell "To Do" [ref=e522]
+                - cell "High" [ref=e524]
+                - cell [ref=e526]
+                - cell [ref=e527]
+                - cell "17/Apr/26" [ref=e528]
+                - cell " Actions" [ref=e531]
+              - row "FPTCLAW-228 FPTCLAW-228 Bug Gắn link đều bị 404 Nguyễn Thái Dương 214 Lưu Thị Thuần 11 Done Low 14/Apr/26  Actions" [ref=e534]:
+                - cell "FPTCLAW-228 FPTCLAW-228" [ref=e535]
+                - cell "Bug" [ref=e538]
+                - cell "Gắn link đều bị 404" [ref=e541]
+                - cell "Nguyễn Thái Dương 214" [ref=e544]
+                - cell "Lưu Thị Thuần 11" [ref=e547]
+                - cell "Done" [ref=e550]
+                - cell "Low" [ref=e552]
+                - cell [ref=e554]
+                - cell [ref=e555]
+                - cell "14/Apr/26" [ref=e556]
+                - cell " Actions" [ref=e559]
+              - row "FPTCLAW-262 FPTCLAW-262 Bug Khi chạy 2 chat dài đồng thời thì chat sẽ bị trùng nội dung gửi vào nhau Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 In Review Highest 16/Apr/26  Actions" [ref=e562]:
+                - cell "FPTCLAW-262 FPTCLAW-262" [ref=e563]
+                - cell "Bug" [ref=e566]
+                - cell "Khi chạy 2 chat dài đồng thời thì chat sẽ bị trùng nội dung gửi vào nhau" [ref=e569]
+                - cell "Đào Khôi Nguyên 9" [ref=e572]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e575]
+                - cell "In Review" [ref=e578]
+                - cell "Highest" [ref=e580]
+                - cell [ref=e582]
+                - cell [ref=e583]
+                - cell "16/Apr/26" [ref=e584]
+                - cell " Actions" [ref=e587]
+              - row "FPTCLAW-263 FPTCLAW-263 Bug Không đọc được file pdf trên telegram Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 To Do Medium 16/Apr/26  Actions" [ref=e590]:
+                - cell "FPTCLAW-263 FPTCLAW-263" [ref=e591]
+                - cell "Bug" [ref=e594]
+                - cell "Không đọc được file pdf trên telegram" [ref=e597]
+                - cell "Đào Khôi Nguyên 9" [ref=e600]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e603]
+                - cell "To Do" [ref=e606]
+                - cell "Medium" [ref=e608]
+                - cell [ref=e610]
+                - cell [ref=e611]
+                - cell "16/Apr/26" [ref=e612]
+                - cell " Actions" [ref=e615]
+              - row "FPTCLAW-272 FPTCLAW-272 Bug Lặp lại yêu cầu cấp quyền (không tắt được) khi agent yêu cầu cấp quyền Nguyễn Thái Dương 214 Nguyễn Thái Dương 214 To Do High 17/Apr/26  Actions" [ref=e618]:
+                - cell "FPTCLAW-272 FPTCLAW-272" [ref=e619]
+                - cell "Bug" [ref=e622]
+                - cell "Lặp lại yêu cầu cấp quyền (không tắt được) khi agent yêu cầu cấp quyền" [ref=e625]
+                - cell "Nguyễn Thái Dương 214" [ref=e628]
+                - cell "Nguyễn Thái Dương 214" [ref=e631]
+                - cell "To Do" [ref=e634]
+                - cell "High" [ref=e636]
+                - cell [ref=e638]
+                - cell [ref=e639]
+                - cell "17/Apr/26" [ref=e640]
+                - cell " Actions" [ref=e643]
+              - row "FPTCLAW-219 FPTCLAW-219 Bug Lệnh bị chặn hoặc chưa install Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 Done High 10/Apr/26  Actions" [ref=e646]:
+                - cell "FPTCLAW-219 FPTCLAW-219" [ref=e647]
+                - cell "Bug" [ref=e650]
+                - cell "Lệnh bị chặn hoặc chưa install" [ref=e653]
+                - cell "Đào Khôi Nguyên 9" [ref=e656]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e659]
+                - cell "Done" [ref=e662]
+                - cell "High" [ref=e664]
+                - cell [ref=e666]
+                - cell [ref=e667]
+                - cell "10/Apr/26" [ref=e668]
+                - cell " Actions" [ref=e671]
+              - row "FPTCLAW-258 FPTCLAW-258 Bug Lỗi HTML streaming Đào Khôi Nguyên 9 Đào Bích Ngọc 12 Done High 16/Apr/26  Actions" [ref=e674]:
+                - cell "FPTCLAW-258 FPTCLAW-258" [ref=e675]
+                - cell "Bug" [ref=e678]
+                - cell "Lỗi HTML streaming" [ref=e681]
+                - cell "Đào Khôi Nguyên 9" [ref=e684]
+                - cell "Đào Bích Ngọc 12" [ref=e687]
+                - cell "Done" [ref=e690]
+                - cell "High" [ref=e692]
+                - cell [ref=e694]
+                - cell [ref=e695]
+                - cell "16/Apr/26" [ref=e696]
+                - cell " Actions" [ref=e699]
+              - row "FPTCLAW-204 FPTCLAW-204 Bug Lỗi create task agent Nguyễn Thái Dương 214 Lưu Thị Thuần 11 In Review Low 08/Apr/26  Actions" [ref=e702]:
+                - cell "FPTCLAW-204 FPTCLAW-204" [ref=e703]
+                - cell "Bug" [ref=e706]
+                - cell "Lỗi create task agent" [ref=e709]
+                - cell "Nguyễn Thái Dương 214" [ref=e712]
+                - cell "Lưu Thị Thuần 11" [ref=e715]
+                - cell "In Review" [ref=e718]
+                - cell "Low" [ref=e720]
+                - cell [ref=e722]
+                - cell [ref=e723]
+                - cell "08/Apr/26" [ref=e724]
+                - cell " Actions" [ref=e727]
+              - row "FPTCLAW-229 FPTCLAW-229 Bug Lỗi dọc file excel Đào Khôi Nguyên 9 Đào Bích Ngọc 12 In Review Low 14/Apr/26  Actions" [ref=e730]:
+                - cell "FPTCLAW-229 FPTCLAW-229" [ref=e731]
+                - cell "Bug" [ref=e734]
+                - cell "Lỗi dọc file excel" [ref=e737]
+                - cell "Đào Khôi Nguyên 9" [ref=e740]
+                - cell "Đào Bích Ngọc 12" [ref=e743]
+                - cell "In Review" [ref=e746]
+                - cell "Low" [ref=e748]
+                - cell [ref=e750]
+                - cell [ref=e751]
+                - cell "14/Apr/26" [ref=e752]
+                - cell " Actions" [ref=e755]
+              - row "FPTCLAW-214 FPTCLAW-214 Bug Lỗi không dùng được micro để chat Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 To Do Highest 10/Apr/26  Actions" [ref=e758]:
+                - cell "FPTCLAW-214 FPTCLAW-214" [ref=e759]
+                - cell "Bug" [ref=e762]
+                - cell "Lỗi không dùng được micro để chat" [ref=e765]
+                - cell "Đào Khôi Nguyên 9" [ref=e768]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e771]
+                - cell "To Do" [ref=e774]
+                - cell "Highest" [ref=e776]
+                - cell [ref=e778]
+                - cell [ref=e779]
+                - cell "10/Apr/26" [ref=e780]
+                - cell " Actions" [ref=e783]
+              - row "FPTCLAW-224 FPTCLAW-224 Bug Lỗi ko cập nhật status flow trong agent teams Nguyễn Thái Dương 214 Lưu Thị Thuần 11 To Do High 14/Apr/26  Actions" [ref=e786]:
+                - cell "FPTCLAW-224 FPTCLAW-224" [ref=e787]
+                - cell "Bug" [ref=e790]
+                - cell "Lỗi ko cập nhật status flow trong agent teams" [ref=e793]
+                - cell "Nguyễn Thái Dương 214" [ref=e796]
+                - cell "Lưu Thị Thuần 11" [ref=e799]
+                - cell "To Do" [ref=e802]
+                - cell "High" [ref=e804]
+                - cell [ref=e806]
+                - cell [ref=e807]
+                - cell "14/Apr/26" [ref=e808]
+                - cell " Actions" [ref=e811]
+              - row "FPTCLAW-196 FPTCLAW-196 Bug Lỗi ko log lại dc thông tin task Nguyễn Thái Dương 214 Lưu Thị Thuần 11 In Review Medium 06/Apr/26  Actions" [ref=e814]:
+                - cell "FPTCLAW-196 FPTCLAW-196" [ref=e815]
+                - cell "Bug" [ref=e818]
+                - cell "Lỗi ko log lại dc thông tin task" [ref=e821]
+                - cell "Nguyễn Thái Dương 214" [ref=e824]
+                - cell "Lưu Thị Thuần 11" [ref=e827]
+                - cell "In Review" [ref=e830]
+                - cell "Medium" [ref=e832]
+                - cell [ref=e834]
+                - cell [ref=e835]
+                - cell "06/Apr/26" [ref=e836]
+                - cell " Actions" [ref=e839]
+              - row "FPTCLAW-226 FPTCLAW-226 Bug Lỗi quick ask ở Dashboard Nguyễn Thái Dương 214 Lưu Thị Thuần 11 In Review Low 14/Apr/26  Actions" [ref=e842]:
+                - cell "FPTCLAW-226 FPTCLAW-226" [ref=e843]
+                - cell "Bug" [ref=e846]
+                - cell "Lỗi quick ask ở Dashboard" [ref=e849]
+                - cell "Nguyễn Thái Dương 214" [ref=e852]
+                - cell "Lưu Thị Thuần 11" [ref=e855]
+                - cell "In Review" [ref=e858]
+                - cell "Low" [ref=e860]
+                - cell [ref=e862]
+                - cell [ref=e863]
+                - cell "14/Apr/26" [ref=e864]
+                - cell " Actions" [ref=e867]
+              - row "FPTCLAW-227 FPTCLAW-227 Bug Lỗi quick ask ở New tassk Nguyễn Thái Dương 214 Lưu Thị Thuần 11 In Review Low 14/Apr/26  Actions" [ref=e870]:
+                - cell "FPTCLAW-227 FPTCLAW-227" [ref=e871]
+                - cell "Bug" [ref=e874]
+                - cell "Lỗi quick ask ở New tassk" [ref=e877]
+                - cell "Nguyễn Thái Dương 214" [ref=e880]
+                - cell "Lưu Thị Thuần 11" [ref=e883]
+                - cell "In Review" [ref=e886]
+                - cell "Low" [ref=e888]
+                - cell [ref=e890]
+                - cell [ref=e891]
+                - cell "14/Apr/26" [ref=e892]
+                - cell " Actions" [ref=e895]
+              - row "FPTCLAW-260 FPTCLAW-260 Bug Lỗi sau khi tạo bot thành công thì bot show thông tin user ra file chat Nguyễn Thái Dương 214 Lưu Thị Thuần 11 To Do Highest 16/Apr/26  Actions" [ref=e898]:
+                - cell "FPTCLAW-260 FPTCLAW-260" [ref=e899]
+                - cell "Bug" [ref=e902]
+                - cell "Lỗi sau khi tạo bot thành công thì bot show thông tin user ra file chat" [ref=e905]
+                - cell "Nguyễn Thái Dương 214" [ref=e908]
+                - cell "Lưu Thị Thuần 11" [ref=e911]
+                - cell "To Do" [ref=e914]
+                - cell "Highest" [ref=e916]
+                - cell [ref=e918]
+                - cell [ref=e919]
+                - cell "16/Apr/26" [ref=e920]
+                - cell " Actions" [ref=e923]
+              - row "FPTCLAW-193 FPTCLAW-193 Bug Lỗi xóa mất group teams Nguyễn Thái Dương 214 Lưu Thị Thuần 11 To Do High 06/Apr/26  Actions" [ref=e926]:
+                - cell "FPTCLAW-193 FPTCLAW-193" [ref=e927]
+                - cell "Bug" [ref=e930]
+                - cell "Lỗi xóa mất group teams" [ref=e933]
+                - cell "Nguyễn Thái Dương 214" [ref=e936]
+                - cell "Lưu Thị Thuần 11" [ref=e939]
+                - cell "To Do" [ref=e942]
+                - cell "High" [ref=e944]
+                - cell [ref=e946]
+                - cell [ref=e947]
+                - cell "06/Apr/26" [ref=e948]
+                - cell " Actions" [ref=e951]
+              - row "FPTCLAW-195 FPTCLAW-195 Bug Lỗi đứt gãy workflow Nguyễn Thái Dương 214 Lưu Thị Thuần 11 Done High 06/Apr/26  Actions" [ref=e954]:
+                - cell "FPTCLAW-195 FPTCLAW-195" [ref=e955]
+                - cell "Bug" [ref=e958]
+                - cell "Lỗi đứt gãy workflow" [ref=e961]
+                - cell "Nguyễn Thái Dương 214" [ref=e964]
+                - cell "Lưu Thị Thuần 11" [ref=e967]
+                - cell "Done" [ref=e970]
+                - cell "High" [ref=e972]
+                - cell [ref=e974]
+                - cell [ref=e975]
+                - cell "06/Apr/26" [ref=e976]
+                - cell " Actions" [ref=e979]
+              - row "FPTCLAW-50 FPTCLAW-50 Bug Lựa chọn model khi chat Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 In Progress High 03/Apr/26  Actions" [ref=e982]:
+                - cell "FPTCLAW-50 FPTCLAW-50" [ref=e983]
+                - cell "Bug" [ref=e986]
+                - cell "Lựa chọn model khi chat" [ref=e989]
+                - cell "Đào Khôi Nguyên 9" [ref=e992]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e995]
+                - cell "In Progress" [ref=e998]
+                - cell "High" [ref=e1000]
+                - cell [ref=e1002]
+                - cell [ref=e1003]
+                - cell "03/Apr/26" [ref=e1004]
+                - cell " Actions" [ref=e1007]
+              - row "FPTCLAW-212 FPTCLAW-212 Bug Mất lịch sử chat, và tin nhắn gửi nếu chat bị dài (và để lâu 1 chút) Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 Done High 10/Apr/26  Actions" [ref=e1010]:
+                - cell "FPTCLAW-212 FPTCLAW-212" [ref=e1011]
+                - cell "Bug" [ref=e1014]
+                - cell "Mất lịch sử chat, và tin nhắn gửi nếu chat bị dài (và để lâu 1 chút)" [ref=e1017]
+                - cell "Đào Khôi Nguyên 9" [ref=e1020]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1023]
+                - cell "Done" [ref=e1026]
+                - cell "High" [ref=e1028]
+                - cell [ref=e1030]
+                - cell [ref=e1031]
+                - cell "10/Apr/26" [ref=e1032]
+                - cell " Actions" [ref=e1035]
+              - row "FPTCLAW-192 FPTCLAW-192 Bug Một số model gọi tool đọc file bị lỗi Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 In Review High 03/Apr/26  Actions" [ref=e1038]:
+                - cell "FPTCLAW-192 FPTCLAW-192" [ref=e1039]
+                - cell "Bug" [ref=e1042]
+                - cell "Một số model gọi tool đọc file bị lỗi" [ref=e1045]
+                - cell "Đào Khôi Nguyên 9" [ref=e1048]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1051]
+                - cell "In Review" [ref=e1054]
+                - cell "High" [ref=e1056]
+                - cell [ref=e1058]
+                - cell [ref=e1059]
+                - cell "03/Apr/26" [ref=e1060]
+                - cell " Actions" [ref=e1063]
+              - row "FPTCLAW-191 FPTCLAW-191 Bug Một số model thinking cần cấu hình giao diện reasoning phù hợp (deepseek, qwen,...) Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 In Progress Medium 03/Apr/26  Actions" [ref=e1066]:
+                - cell "FPTCLAW-191 FPTCLAW-191" [ref=e1067]
+                - cell "Bug" [ref=e1070]
+                - cell "Một số model thinking cần cấu hình giao diện reasoning phù hợp (deepseek, qwen,...)" [ref=e1073]
+                - cell "Đào Khôi Nguyên 9" [ref=e1076]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1079]
+                - cell "In Progress" [ref=e1082]
+                - cell "Medium" [ref=e1084]
+                - cell [ref=e1086]
+                - cell [ref=e1087]
+                - cell "03/Apr/26" [ref=e1088]
+                - cell " Actions" [ref=e1091]
+              - row "FPTCLAW-218 FPTCLAW-218 Bug Mở chat trong lịch sử chat không bôi đậm ở trong list lịch sử và không có tên chat hiện tại ở trên cùng nên user bị khó tìm Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 Done High 10/Apr/26  Actions" [ref=e1094]:
+                - cell "FPTCLAW-218 FPTCLAW-218" [ref=e1095]
+                - cell "Bug" [ref=e1098]
+                - cell "Mở chat trong lịch sử chat không bôi đậm ở trong list lịch sử và không có tên chat hiện tại ở trên cùng nên user bị khó tìm" [ref=e1101]
+                - cell "Đào Khôi Nguyên 9" [ref=e1104]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1107]
+                - cell "Done" [ref=e1110]
+                - cell "High" [ref=e1112]
+                - cell [ref=e1114]
+                - cell [ref=e1115]
+                - cell "10/Apr/26" [ref=e1116]
+                - cell " Actions" [ref=e1119]
+              - row "FPTCLAW-213 FPTCLAW-213 Bug Mở tab mới hoặc ấn CTRL + Tính năng sẽ luôn yêu cầu đăng nhập lại Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 Done Low 10/Apr/26  Actions" [ref=e1122]:
+                - cell "FPTCLAW-213 FPTCLAW-213" [ref=e1123]
+                - cell "Bug" [ref=e1126]
+                - cell "Mở tab mới hoặc ấn CTRL + Tính năng sẽ luôn yêu cầu đăng nhập lại" [ref=e1129]
+                - cell "Đào Khôi Nguyên 9" [ref=e1132]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1135]
+                - cell "Done" [ref=e1138]
+                - cell "Low" [ref=e1140]
+                - cell [ref=e1142]
+                - cell [ref=e1143]
+                - cell "10/Apr/26" [ref=e1144]
+                - cell " Actions" [ref=e1147]
+              - row "FPTCLAW-270 FPTCLAW-270 Bug Nhắn tin trên telegram không đẩy được tin nhắn về bot Nguyễn Thái Dương 214 Đào Bích Ngọc 12 In Progress Medium 17/Apr/26  Actions" [ref=e1150]:
+                - cell "FPTCLAW-270 FPTCLAW-270" [ref=e1151]
+                - cell "Bug" [ref=e1154]
+                - cell "Nhắn tin trên telegram không đẩy được tin nhắn về bot" [ref=e1157]
+                - cell "Nguyễn Thái Dương 214" [ref=e1160]
+                - cell "Đào Bích Ngọc 12" [ref=e1163]
+                - cell "In Progress" [ref=e1166]
+                - cell "Medium" [ref=e1168]
+                - cell [ref=e1170]
+                - cell [ref=e1171]
+                - cell "17/Apr/26" [ref=e1172]
+                - cell " Actions" [ref=e1175]
+              - 'row "FPTCLAW-261 FPTCLAW-261 Bug SEC: OOM Đánh sập FPTClaw bằng python Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 To Do High 16/Apr/26  Actions" [ref=e1178]':
+                - cell "FPTCLAW-261 FPTCLAW-261" [ref=e1179]
+                - cell "Bug" [ref=e1182]
+                - 'cell "SEC: OOM Đánh sập FPTClaw bằng python" [ref=e1185]'
+                - cell "Đào Khôi Nguyên 9" [ref=e1188]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1191]
+                - cell "To Do" [ref=e1194]
+                - cell "High" [ref=e1196]
+                - cell [ref=e1198]
+                - cell [ref=e1199]
+                - cell "16/Apr/26" [ref=e1200]
+                - cell " Actions" [ref=e1203]
+              - 'row "FPTCLAW-220 FPTCLAW-220 Bug SEC: Đánh sập FPTClaw bằng cách lồng mã độc vào file py rồi yêu cầu chạy Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 Done Highest 10/Apr/26  Actions" [ref=e1206]':
+                - cell "FPTCLAW-220 FPTCLAW-220" [ref=e1207]
+                - cell "Bug" [ref=e1210]
+                - 'cell "SEC: Đánh sập FPTClaw bằng cách lồng mã độc vào file py rồi yêu cầu chạy" [ref=e1213]'
+                - cell "Đào Khôi Nguyên 9" [ref=e1216]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1219]
+                - cell "Done" [ref=e1222]
+                - cell "Highest" [ref=e1224]
+                - cell [ref=e1226]
+                - cell [ref=e1227]
+                - cell "10/Apr/26" [ref=e1228]
+                - cell " Actions" [ref=e1231]
+              - 'row "FPTCLAW-269 FPTCLAW-269 Bug Stream có vấn đề: text bị nhảy lung tung, sai vị trí Nguyễn Tiến Hoàng 77 Nguyễn Tuấn Đạt 446 To Do High 17/Apr/26  Actions" [ref=e1234]':
+                - cell "FPTCLAW-269 FPTCLAW-269" [ref=e1235]
+                - cell "Bug" [ref=e1238]
+                - 'cell "Stream có vấn đề: text bị nhảy lung tung, sai vị trí" [ref=e1241]'
+                - cell "Nguyễn Tiến Hoàng 77" [ref=e1244]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1247]
+                - cell "To Do" [ref=e1250]
+                - cell "High" [ref=e1252]
+                - cell [ref=e1254]
+                - cell [ref=e1255]
+                - cell "17/Apr/26" [ref=e1256]
+                - cell " Actions" [ref=e1259]
+              - row "FPTCLAW-217 FPTCLAW-217 Bug Thời gian lưu chat đang bị sai Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 Done Medium 10/Apr/26  Actions" [ref=e1262]:
+                - cell "FPTCLAW-217 FPTCLAW-217" [ref=e1263]
+                - cell "Bug" [ref=e1266]
+                - cell "Thời gian lưu chat đang bị sai" [ref=e1269]
+                - cell "Đào Khôi Nguyên 9" [ref=e1272]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1275]
+                - cell "Done" [ref=e1278]
+                - cell "Medium" [ref=e1280]
+                - cell [ref=e1282]
+                - cell [ref=e1283]
+                - cell "10/Apr/26" [ref=e1284]
+                - cell " Actions" [ref=e1287]
+              - row "FPTCLAW-265 FPTCLAW-265 Bug Trục trặc khi gọi tool để sử dụng trên telegram Nguyễn Thái Dương 214 Nguyễn Tuấn Đạt 446 To Do Medium 16/Apr/26  Actions" [ref=e1290]:
+                - cell "FPTCLAW-265 FPTCLAW-265" [ref=e1291]
+                - cell "Bug" [ref=e1294]
+                - cell "Trục trặc khi gọi tool để sử dụng trên telegram" [ref=e1297]
+                - cell "Nguyễn Thái Dương 214" [ref=e1300]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1303]
+                - cell "To Do" [ref=e1306]
+                - cell "Medium" [ref=e1308]
+                - cell [ref=e1310]
+                - cell [ref=e1311]
+                - cell "16/Apr/26" [ref=e1312]
+                - cell " Actions" [ref=e1315]
+              - row "FPTCLAW-259 FPTCLAW-259 Bug Working Space bị cấu hình khác nhau giữa các role Nguyễn Thái Dương 214 Nguyễn Tuấn Đạt 446 In Review High 16/Apr/26  Actions" [ref=e1318]:
+                - cell "FPTCLAW-259 FPTCLAW-259" [ref=e1319]
+                - cell "Bug" [ref=e1322]
+                - cell "Working Space bị cấu hình khác nhau giữa các role" [ref=e1325]
+                - cell "Nguyễn Thái Dương 214" [ref=e1328]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1331]
+                - cell "In Review" [ref=e1334]
+                - cell "High" [ref=e1336]
+                - cell [ref=e1338]
+                - cell [ref=e1339]
+                - cell "16/Apr/26" [ref=e1340]
+                - cell " Actions" [ref=e1343]
+              - row "FPTCLAW-266 FPTCLAW-266 Bug Write file bị failed do không tạo được sandbox Đào Khôi Nguyên 9 Đào Bích Ngọc 12 In Review Highest 17/Apr/26  Actions" [ref=e1346]:
+                - cell "FPTCLAW-266 FPTCLAW-266" [ref=e1347]
+                - cell "Bug" [ref=e1350]
+                - cell "Write file bị failed do không tạo được sandbox" [ref=e1353]
+                - cell "Đào Khôi Nguyên 9" [ref=e1356]
+                - cell "Đào Bích Ngọc 12" [ref=e1359]
+                - cell "In Review" [ref=e1362]
+                - cell "Highest" [ref=e1364]
+                - cell [ref=e1366]
+                - cell [ref=e1367]
+                - cell "17/Apr/26" [ref=e1368]
+                - cell " Actions" [ref=e1371]
+              - row "FPTCLAW-194 FPTCLAW-194 Bug Xóa agent ko có thông báo cho user Nguyễn Thái Dương 214 Lưu Thị Thuần 11 In Review Highest 06/Apr/26  Actions" [ref=e1374]:
+                - cell "FPTCLAW-194 FPTCLAW-194" [ref=e1375]
+                - cell "Bug" [ref=e1378]
+                - cell "Xóa agent ko có thông báo cho user" [ref=e1381]
+                - cell "Nguyễn Thái Dương 214" [ref=e1384]
+                - cell "Lưu Thị Thuần 11" [ref=e1387]
+                - cell "In Review" [ref=e1390]
+                - cell "Highest" [ref=e1392]
+                - cell [ref=e1394]
+                - cell [ref=e1395]
+                - cell "06/Apr/26" [ref=e1396]
+                - cell " Actions" [ref=e1399]
+              - row "FPTCLAW-215 FPTCLAW-215 Bug Xóa tính năng enhance prompt đi Đào Khôi Nguyên 9 Nguyễn Tuấn Đạt 446 Done Highest 10/Apr/26  Actions" [ref=e1402]:
+                - cell "FPTCLAW-215 FPTCLAW-215" [ref=e1403]
+                - cell "Bug" [ref=e1406]
+                - cell "Xóa tính năng enhance prompt đi" [ref=e1409]
+                - cell "Đào Khôi Nguyên 9" [ref=e1412]
+                - cell "Nguyễn Tuấn Đạt 446" [ref=e1415]
+                - cell "Done" [ref=e1418]
+                - cell "Highest" [ref=e1420]
+                - cell [ref=e1422]
+                - cell [ref=e1423]
+                - cell "10/Apr/26" [ref=e1424]
+                - cell " Actions" [ref=e1427]
+              - row "FPTCLAW-181 FPTCLAW-181 Bug [PT-001] [Critical] Shell Deny Bypass → Leak All Environment Secrets Đào Khôi Nguyên 9 Phạm Tiến Duy 13 Done Blocker 03/Apr/26  Actions" [ref=e1430]:
+                - cell "FPTCLAW-181 FPTCLAW-181" [ref=e1431]
+                - cell "Bug" [ref=e1434]
+                - cell "[PT-001] [Critical] Shell Deny Bypass → Leak All Environment Secrets" [ref=e1437]
+                - cell "Đào Khôi Nguyên 9" [ref=e1440]
+                - cell "Phạm Tiến Duy 13" [ref=e1443]
+                - cell "Done" [ref=e1446]
+                - cell "Blocker" [ref=e1448]
+                - cell [ref=e1450]
+                - cell [ref=e1451]
+                - cell "03/Apr/26" [ref=e1452]
+                - cell " Actions" [ref=e1455]
+              - row "FPTCLAW-182 FPTCLAW-182 Bug [PT-002] [Critical] SSRF — Access Internal Services via wget Đào Khôi Nguyên 9 Phạm Tiến Duy 13 Done Blocker 03/Apr/26  Actions" [ref=e1458]:
+                - cell "FPTCLAW-182 FPTCLAW-182" [ref=e1459]
+                - cell "Bug" [ref=e1462]
+                - cell "[PT-002] [Critical] SSRF — Access Internal Services via wget" [ref=e1465]
+                - cell "Đào Khôi Nguyên 9" [ref=e1468]
+                - cell "Phạm Tiến Duy 13" [ref=e1471]
+                - cell "Done" [ref=e1474]
+                - cell "Blocker" [ref=e1476]
+                - cell [ref=e1478]
+                - cell [ref=e1479]
+                - cell "03/Apr/26" [ref=e1480]
+                - cell " Actions" [ref=e1483]
+              - row "FPTCLAW-183 FPTCLAW-183 Bug [PT-003] [Critical] Cloud Metadata Leak (OpenStack / FPT Cloud) Đào Khôi Nguyên 9 Phạm Tiến Duy 13 Done Blocker 03/Apr/26  Actions" [ref=e1486]:
+                - cell "FPTCLAW-183 FPTCLAW-183" [ref=e1487]
+                - cell "Bug" [ref=e1490]
+                - cell "[PT-003] [Critical] Cloud Metadata Leak (OpenStack / FPT Cloud)" [ref=e1493]
+                - cell "Đào Khôi Nguyên 9" [ref=e1496]
+                - cell "Phạm Tiến Duy 13" [ref=e1499]
+                - cell "Done" [ref=e1502]
+                - cell "Blocker" [ref=e1504]
+                - cell [ref=e1506]
+                - cell [ref=e1507]
+                - cell "03/Apr/26" [ref=e1508]
+                - cell " Actions" [ref=e1511]
+              - row "FPTCLAW-184 FPTCLAW-184 Bug [PT-004] [High] Gateway Token Has No Expiration (Permanent) Đào Khôi Nguyên 9 Phạm Tiến Duy 13 Done Critical 03/Apr/26  Actions" [ref=e1514]:
+                - cell "FPTCLAW-184 FPTCLAW-184" [ref=e1515]
+                - cell "Bug" [ref=e1518]
+                - cell "[PT-004] [High] Gateway Token Has No Expiration (Permanent)" [ref=e1521]
+                - cell "Đào Khôi Nguyên 9" [ref=e1524]
+                - cell "Phạm Tiến Duy 13" [ref=e1527]
+                - cell "Done" [ref=e1530]
+                - cell "Critical" [ref=e1532]
+                - cell [ref=e1534]
+                - cell [ref=e1535]
+                - cell "03/Apr/26" [ref=e1536]
+                - cell " Actions" [ref=e1539]
+              - row "FPTCLAW-185 FPTCLAW-185 Bug [PT-005] [Medium] Session Token Lifetime Too Long (7 Days) Đào Khôi Nguyên 9 Phạm Tiến Duy 13 Done Low 03/Apr/26  Actions" [ref=e1542]:
+                - cell "FPTCLAW-185 FPTCLAW-185" [ref=e1543]
+                - cell "Bug" [ref=e1546]
+                - cell "[PT-005] [Medium] Session Token Lifetime Too Long (7 Days)" [ref=e1549]
+                - cell "Đào Khôi Nguyên 9" [ref=e1552]
+                - cell "Phạm Tiến Duy 13" [ref=e1555]
+                - cell "Done" [ref=e1558]
+                - cell "Low" [ref=e1560]
+                - cell [ref=e1562]
+                - cell [ref=e1563]
+                - cell "03/Apr/26" [ref=e1564]
+                - cell " Actions" [ref=e1567]
+              - row "FPTCLAW-186 FPTCLAW-186 Bug [PT-006] [Medium] Weak Passwords / Default Credentials Đào Khôi Nguyên 9 Phạm Tiến Duy 13 Done Low 03/Apr/26  Actions" [ref=e1570]:
+                - cell "FPTCLAW-186 FPTCLAW-186" [ref=e1571]
+                - cell "Bug" [ref=e1574]
+                - cell "[PT-006] [Medium] Weak Passwords / Default Credentials" [ref=e1577]
+                - cell "Đào Khôi Nguyên 9" [ref=e1580]
+                - cell "Phạm Tiến Duy 13" [ref=e1583]
+                - cell "Done" [ref=e1586]
+                - cell "Low" [ref=e1588]
+                - cell [ref=e1590]
+                - cell [ref=e1591]
+                - cell "03/Apr/26" [ref=e1592]
+                - cell " Actions" [ref=e1595]
+              - row "FPTCLAW-187 FPTCLAW-187 Bug [PT-007] [Medium] SSRF DNS Rebinding (web_fetch) Đào Khôi Nguyên 9 Phạm Tiến Duy 13 Done Low 03/Apr/26  Actions" [ref=e1598]:
+                - cell "FPTCLAW-187 FPTCLAW-187" [ref=e1599]
+                - cell "Bug" [ref=e1602]
+                - cell "[PT-007] [Medium] SSRF DNS Rebinding (web_fetch)" [ref=e1605]
+                - cell "Đào Khôi Nguyên 9" [ref=e1608]
+                - cell "Phạm Tiến Duy 13" [ref=e1611]
+                - cell "Done" [ref=e1614]
+                - cell "Low" [ref=e1616]
+                - cell [ref=e1618]
+                - cell [ref=e1619]
+                - cell "03/Apr/26" [ref=e1620]
+                - cell " Actions" [ref=e1623]
+          - generic [ref=e1626]:
+            - generic [ref=e1627]:
+              - generic [ref=e1628]: 1–50 of 53
+              - link " Refresh results" [ref=e1629] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e1630]:  Refresh results
+            - generic [ref=e1632]:
+              - strong [ref=e1633]: "1"
+              - link "2" [ref=e1634] [cursor=pointer]:
+                - /url: /issues/?filter=27367&startIndex=50
+              - link " Next >>" [ref=e1635] [cursor=pointer]:
+                - /url: /issues/?filter=27367&startIndex=50
+                - generic [ref=e1636]:  Next >>
+  - contentinfo [ref=e1637]:
+    - generic [ref=e1638]:
+      - list [ref=e1639]:
+        - listitem [ref=e1640]:
+          - text: Atlassian Jira
+          - link "Project Management Software" [ref=e1641] [cursor=pointer]:
+            - /url: https://www.atlassian.com/software/jira
+          - generic [ref=e1642]: (v8.5.6#805006-sha1:4c63feb)
+          - text: ·
+        - listitem [ref=e1643]:
+          - link "About Jira" [ref=e1644] [cursor=pointer]:
+            - /url: /secure/AboutPage.jspa/secure/AboutPage.jspa
+          - text: ·
+        - listitem [ref=e1645]:
+          - link "Report a problem" [ref=e1646] [cursor=pointer]:
+            - /url: /secure/CreateIssue!default.jspa
+      - paragraph
+      - link "Atlassian" [ref=e1648] [cursor=pointer]:
+        - /url: http://www.atlassian.com/

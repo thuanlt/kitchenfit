@@ -1,0 +1,222 @@
+"{
+  \"project\": {
+    \"key\": \"SLA\"
+  },
+  \"summary\": \"[TEST REPORT] SLA Dashboard Test Results - 2026-04-13\",
+  \"description\": {
+    \"type\": \"doc\",
+    \"version\": 1,
+    \"content\": [
+      {
+        \"type\": \"paragraph\",
+        \"content\": [
+          {
+            \"type\": \"text\",
+            \"text\": \"Test Date: 2026-04-13\\nEnvironment: Staging\\nURL: https://marketplace-stg.fptcloud.net/en/my-account?tab=service-health\\n\\n\"
+          },
+          {
+            \"type\": \"text\",
+            \"text\": \"TOTAL RESULTS: 7/10 PASS (70%)\",
+            \"marks\": [
+              {
+                \"type\": \"strong\"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        \"type\": \"heading\",
+        \"attrs\": {
+          \"level\": 3
+        },
+        \"content\": [
+          {
+            \"type\": \"text\",
+            \"text\": \"✅ PASSING TESTS (7)\"
+          }
+        ]
+      },
+      {
+        \"type\": \"bulletList\",
+        \"content\": [
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-001: Page Display (with caveats)\"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-003: Personal Uptime (100.000%)\"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-004: Uptime Chart\"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-005: Month Filter\"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-007: Default Filter Values\"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-008: Navigate to My Usage\"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-010: Return to Service Health\"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        \"type\": \"heading\",
+        \"attrs\": {
+          \"level\": 3
+        },
+        \"content\": [
+          {
+            \"type\": \"text\",
+            \"text\": \"❌ FAILING TESTS (2)\"
+          }
+        ]
+      },
+      {
+        \"type\": \"bulletList\",
+        \"content\": [
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-002: Status Banner - MISSING\"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \"type\": \"listItem\",
+            \"content\": [
+              {
+                \"type\": \"paragraph\",
+                \"content\": [
+                  {
+                    \"type\": \"text\",
+                    \"text\": \"TC-SLA-006: Year Filter - UI Mismatch\"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        \"type\": \"heading\",
+        \"attrs\": {
+          \"level\": 3
+        },
+        \"content\": [
+          {
+            \"type\": \"text\",
+            \"text\": \"📋 ATTACHED FILES\"
+          }
+        ]
+      },
+      {
+        \"type\": \"paragraph\",
+        \"content\": [
+          {
+            \"type\": \"text\",
+            \"text\": \"- SLA-Dashboard-Test-Report-2026-04-13.md (Detailed report)\\n- SLA-Dashboard-Issues-For-Jira.csv (Bug list for import)\\n- sla-dashboard-current-state.png (Screenshot)\"
+          }
+        ]
+      }
+    ]
+  },
+  \"issuetype\": {
+    \"name\": \"Task\"
+  },
+  \"priority\": {
+    \"name\": \"Medium\"
+  },
+  \"labels\": [
+    \"test-report\",
+    \"sla-dashboard\",
+    \"automation\"
+  ]
+}"

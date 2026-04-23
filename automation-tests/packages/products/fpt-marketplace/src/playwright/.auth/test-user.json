@@ -1,0 +1,113 @@
+{
+  "cookies": [
+    {
+      "name": "AUTH_SESSION_ID",
+      "value": "YjNhNTVhMzUtNjYyYi00Nzg3LWI2MWEtZWYxYzcyYjk0YzAzLmZRZ1BScy11cGRZS2dOYkw3c01vWEJWQWJ6cXFHWWk3NGRTMGRFa201MFBBQUd1VG96UVZSMmlrMjR4bkVGRlRZbi1HbmN3Vm1VWVJVY183Vi1QVjRB.iamv415-6cd4b7d897-ckj2q-17964",
+      "domain": "id.fptcloud.com",
+      "path": "/auth/realms/FptSmartCloud/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "KC_AUTH_SESSION_HASH",
+      "value": "4dQ1Spu732KX0MWKsXYB8KXA2o1Pwhd6QbSwImRu6VM",
+      "domain": "id.fptcloud.com",
+      "path": "/auth/realms/FptSmartCloud/",
+      "expires": 1776156782.602717,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "KEYCLOAK_IDENTITY",
+      "value": "eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4M2Q1MzZlZS00YTY4LTRmNWItOTExMi1kZmFiYmY3ZDJjZTEifQ.eyJleHAiOjE3NzYyNDMxMjMsImlhdCI6MTc3NjE1NjcyMywianRpIjoiZTNjN2Q3OWEtOWI1Yy00MDk1LTljOWUtYWI2ZGIyZGQxNWI0IiwiaXNzIjoiaHR0cHM6Ly9pZC5mcHRjbG91ZC5jb20vYXV0aC9yZWFsbXMvRnB0U21hcnRDbG91ZCIsInN1YiI6ImM1MDMyMzY4LTAyMTEtNDU5Ny1hYjgwLTdjYTRiMWEwZmRlOSIsInR5cCI6IlNlcmlhbGl6ZWQtSUQiLCJzaWQiOiJiM2E1NWEzNS02NjJiLTQ3ODctYjYxYS1lZjFjNzJiOTRjMDMiLCJzdGF0ZV9jaGVja2VyIjoiYTh0NXVVbmsyXzdfZDgtYVRpMmJKSGNEamVxZDZpOG4zejZFSk0tTTdYQSJ9.J-8TATkrj2OMkBSgjHyZvxgL9IjKEiBzBgS_la8TPiGA_c9nwzknRUVQufPwR3trYcTFnb27UFM2hzRO0Md1Pg",
+      "domain": "id.fptcloud.com",
+      "path": "/auth/realms/FptSmartCloud/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "KEYCLOAK_SESSION",
+      "value": "4dQ1Spu732KX0MWKsXYB8KXA2o1Pwhd6QbSwImRu6VM",
+      "domain": "id.fptcloud.com",
+      "path": "/auth/realms/FptSmartCloud/",
+      "expires": 1776243123.670858,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "cf_clearance",
+      "value": "aRFnQr43.iLJBUM27CWJt4jaHEQwxzB51fzBvJPYd30-1776156720-1.2.1.1-H80BFA6IQqzag4BK2r.jJlJgxZLQE0TsZfaRsaUavvGbQYV4rhlBrszD3EEsd59uTP6nT36wVsCJatw8SZKTePLaBclaR5L2e1zVt3VAWrQ3chrPS4ywaL14u8CrrRT64M2Cp1H_2.wJWTdBsCWq6W0JA5dRC5MPXLdllQjIa03Hnhm5WxvOlsJJPt2oBgJtNJMeoU9i052cKR1dnWPTXKL0YNbJEQ6NMm3bvTjMKH5d0xEDAJRz7rXVzNbtElQtFaDNEfiJI2pmU5efCIEhJHaWNE8gYZfsf.K.hNwV9G8MmMjKsloCTl2H27e4kLX34xc630GdzdbraOZXaGqG8A",
+      "domain": ".fptcloud.com",
+      "path": "/",
+      "expires": 1807692720.34723,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://fptcloud.com",
+      "_crHasCrossSiteAncestor": false
+    },
+    {
+      "name": "INGRESSCOOKIE",
+      "value": "1776156721.401.5926.526594|055d2798c7b2225124a568e9dceec2ea",
+      "domain": "id.fptcloud.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1413688052.1776156722",
+      "domain": ".fptcloud.com",
+      "path": "/",
+      "expires": 1783932722,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "test_cookie",
+      "value": "CheckForPermission",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1776157622.387849,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://marketplace.fptcloud.com",
+      "localStorage": [
+        {
+          "name": "keycloak_tokens",
+          "value": "{\"accessToken\":\"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmbkNSS18xcWtrYjNEdXFDc1RJOS0wQm9GdEtmUmI4X3BJOUFwTEdvTEdNIn0.eyJleHAiOjE3NzYxNTcwMjQsImlhdCI6MTc3NjE1NjcyNCwiYXV0aF90aW1lIjoxNzc2MTU2NzIzLCJqdGkiOiIwZmYwZWFiOC1lOGRmLTQzMDgtYjBmMy01N2E4YjUwMzA1NDUiLCJpc3MiOiJodHRwczovL2lkLmZwdGNsb3VkLmNvbS9hdXRoL3JlYWxtcy9GcHRTbWFydENsb3VkIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImM1MDMyMzY4LTAyMTEtNDU5Ny1hYjgwLTdjYTRiMWEwZmRlOSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFpX21hcmtldHBsYWNlX3dlYiIsInNpZCI6ImIzYTU1YTM1LTY2MmItNDc4Ny1iNjFhLWVmMWM3MmI5NGMwMyIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9tYXJrZXRwbGFjZS1hcGkuZnB0Y2xvdWQuanAiLCJodHRwczovL21hcmtldHBsYWNlLWdwdS5mcHRjbG91ZC5jb20iLCJodHRwczovL21hcmtldHBsYWNlLWFwaS5mcHRjbG91ZC5jb20iLCJodHRwczovL21hcmtldHBsYWNlLmZwdGNsb3VkLmpwIiwiaHR0cHM6Ly9tYXJrZXRwbGFjZS1hcGktc3RnLmZwdGNsb3VkLm5ldCIsImh0dHBzOi8vbWFya2V0cGxhY2Utc3RnLmZwdGNsb3VkLm5ldCIsImh0dHBzOi8vbWFya2V0cGxhY2UuZnB0Y2xvdWQuY29tIiwiaHR0cHM6Ly9tYXJrZXRwbGFjZS1hcGktZ3B1LmZwdGNsb3VkLmNvbSIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImh0dHBzOi8vbWFya2V0cGxhY2UtYXBpLWRldi5mcHRjbG91ZC5uZXQiLCJodHRwczovL21hcmtldHBsYWNlLWRldi5mcHRjbG91ZC5uZXQiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJ0aHVhbiB0aHVhbiIsInByZWZlcnJlZF91c2VybmFtZSI6InRodWFubHQ5QG91dGxvb2suY29tIiwiZ2l2ZW5fbmFtZSI6InRodWFuIiwiZmFtaWx5X25hbWUiOiJ0aHVhbiIsImVtYWlsIjoidGh1YW5sdDlAb3V0bG9vay5jb20ifQ.KTeM949Te1yFXvhnvjA4pOIxv886XxNLI_fY924a88fWVstBTy2lSR0YOlkWwQrV-G-zynb8iaLdmh1AvDgnedsogC9sc45b7e4XYzjhFBM_UszsBTTdqxCxCe35uMwMPjBj2QXbK3s7JG1--8R2tdUUYgiTff1ukAY162_ufKPe4N4z2YJyWXHB4K6xe1s58JNobNbWZvIadnp2C4eVaudrB1Z1Xl6s1wPvqZOkb8fis1bzvA0zcDUVfgdapOBsoodvOiJvw0wzcRqPZ9NvWbYwEhcAjQv_GeTjw2Llf8_WaJxFsXy3KkL85lhhu1wvGI-ymKQ5eLq5BaNqHNuURg\",\"refreshToken\":\"eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4M2Q1MzZlZS00YTY4LTRmNWItOTExMi1kZmFiYmY3ZDJjZTEifQ.eyJleHAiOjE3NzYyNDMxMjMsImlhdCI6MTc3NjE1NjcyNCwianRpIjoiYmU5ZWJmYzktOTU1Yy00NTFmLTgxNTMtZjJiNWIxOWNlMzg0IiwiaXNzIjoiaHR0cHM6Ly9pZC5mcHRjbG91ZC5jb20vYXV0aC9yZWFsbXMvRnB0U21hcnRDbG91ZCIsImF1ZCI6Imh0dHBzOi8vaWQuZnB0Y2xvdWQuY29tL2F1dGgvcmVhbG1zL0ZwdFNtYXJ0Q2xvdWQiLCJzdWIiOiJjNTAzMjM2OC0wMjExLTQ1OTctYWI4MC03Y2E0YjFhMGZkZTkiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYWlfbWFya2V0cGxhY2Vfd2ViIiwic2lkIjoiYjNhNTVhMzUtNjYyYi00Nzg3LWI2MWEtZWYxYzcyYjk0YzAzIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSB3ZWItb3JpZ2lucyByb2xlcyBiYXNpYyBhY3IgZW1haWwifQ.EcKE9MKXkqM4LEfmvRgILhAZCCCN5nDr6y4L_sCYv0XWSaN-uWuyOJFyRGZdV3Rmtmik4U4iAy9bVGl0xD4NpQ\",\"expiresAt\":1776157024368,\"refreshExpiresAt\":1776243123368}"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1776156722008},\"expires\":1783932722008}}"
+        },
+        {
+          "name": "Accept-Language",
+          "value": "en"
+        },
+        {
+          "name": "PRE_AUTH_ACTION",
+          "value": "login_with_fpt_id"
+        },
+        {
+          "name": "li_adsId",
+          "value": "128f08e8-bd99-4457-8609-ebe855802eb3"
+        }
+      ]
+    }
+  ]
+}

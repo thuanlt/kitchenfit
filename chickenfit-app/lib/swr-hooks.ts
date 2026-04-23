@@ -45,6 +45,7 @@ async function authFetcher<T>(url: string, accessToken?: string | null): Promise
 export interface ProfileResponse {
   id: string;
   email: string;
+  display_name?: string;
   goal: "burn" | "maintain" | "build";
   gender: "male" | "female";
   age: number;
@@ -58,6 +59,7 @@ export interface ProfileResponse {
 }
 
 export interface UpdateProfileRequest {
+  display_name?: string;
   goal?: "burn" | "maintain" | "build";
   gender?: "male" | "female";
   age?: number;
@@ -105,6 +107,7 @@ export function useProfile() {
         };
 
         setStoreProfile({
+          fullName: data.display_name || "",
           goal: GOAL_FROM_DB[data.goal] || "maintain",
           gender: data.gender,
           age: data.age,
