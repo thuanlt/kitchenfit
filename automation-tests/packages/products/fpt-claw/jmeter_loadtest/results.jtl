@@ -1,0 +1,63 @@
+The user wants me to apply a "SUGGESTED EDIT" to an "ORIGINAL CODE".
+
+**1. Analyze the Input:**
+
+*   **ORIGINAL CODE:** This is a CSV file content representing JMeter load test results. It contains a header row and multiple data rows with timestamps, labels, response codes, etc.
+*   **SUGGESTED EDIT:** This is a directory tree structure (ASCII art) showing a folder named `jmeter_loadtest` with various files inside (`README.md`, `LOAD_TEST_BEST_PRACTICES.md`, `load_test_dashboard.html`, `.jmx` files, `results.jtl`, etc.).
+
+**2. Analyze the Request:**
+
+*   "Apply the SUGGESTED EDIT to the ORIGINAL CODE."
+*   "Output the complete modified file."
+*   "Output ONLY code. Do NOT explain, summarize, or describe changes."
+*   "Leave existing comments in place unless changes require modifying them." (There are no comments in the original CSV).
+*   "Preserve all unchanged code exactly as-is."
+
+**3. Interpret the Conflict:**
+
+The "ORIGINAL CODE" is a CSV file containing raw test data.
+The "SUGGESTED EDIT" is a file system structure (directory listing).
+
+How do I "apply" a directory structure to a CSV file?
+This doesn't make sense in a standard text editing context. You don't paste a directory tree into a CSV file.
+
+However, looking at the context of typical LLM prompts, sometimes users copy-paste the wrong thing, or they want the *structure* to represent the file, or perhaps they want the *content* of the suggested edit to *replace* the original code.
+
+Let's look closer at the prompt structure. It looks like a standard "diff" or "refactoring" prompt format.
+Original: [CSV Data]
+Suggested Edit: [Directory Tree]
+
+If I strictly follow the instruction "Apply the SUGGESTED EDIT to the ORIGINAL CODE", I have to replace the CSV content with the Directory Tree content. The resulting "file" would be the directory tree.
+
+Is there any other interpretation?
+Maybe the user wants to create a file *named* `results.jtl` inside that structure? No, the instruction says "Output the complete modified file". Singular. This implies the input is one file, and the output is one file.
+
+The most logical interpretation for a "code generation/editing" task when the "edit" is a completely different format/type than the "original" is that the user wants to *replace* the content of the file with the new content provided in the suggestion.
+
+So, the "modified file" will be the text representation of the directory tree provided in the SUGGESTED EDIT.
+
+**4. Verification:**
+
+*   Original: CSV data.
+*   Suggested: ASCII directory tree.
+*   Action: Replace CSV with ASCII tree.
+*   Constraint Check: "Output ONLY code." -> The ASCII tree is the code/text. "Do not explain." -> Okay.
+
+Wait, let me double-check if there's a hidden instruction or if this is a trick.
+The prompt says: "Output the complete modified file."
+If I output the directory tree, I am effectively saying "Here is the file content now."
+
+Let's consider if the user made a mistake and meant to provide a code snippet to fix the CSV. Unlikely, I must act on what is provided.
+
+Let's consider if the user wants me to *embed* the directory tree *into* the CSV? That would break the CSV format.
+
+Let's consider if the user wants me to convert the CSV into that directory structure? The prompt says "Apply the SUGGESTED EDIT...". The Suggested Edit *is* the directory structure.
+
+Therefore, the result should be the directory structure text.
+
+**5. Final Decision:**
+
+The output should be exactly the content of the SUGGESTED EDIT block.
+
+**6. Constructing the Output:**
+

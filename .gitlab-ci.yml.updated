@@ -1,0 +1,131 @@
+variables:
+  APP_ENV: "stg"
+  PLAYWRIGHT_BROWSERS_PATH: "C:\\playwright-browsers"
+
+stages:
+  - regression
+  - e2e
+  - api
+  - monitoring
+
+.cache_config: &cache_config
+  cache:
+    key:
+      files:
+        - automation-tests/pnpm-lock.yaml
+    paths:
+      - automation-tests/node_modules/
+      - automation-tests/packages/products/fpt-marketplace/node_modules/
+      - automation-tests/packages/products/fpt-claw/node_modules/
+      - .playwright-browsers/
+    policy: pull-push
+
+regression:
+  stage: regression
+  tags:
+    - playwright
+  <<: *cache_config
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+    - if: $CI_PIPELINE_SOURCE == "web"
+  script:
+    - echo "=== Regression STG — triggered by $CI_PIPELINE_SOURCE ==="
+    - npm ci
+    - cd automation-tests && pnpm install --frozen-lockfile
+    - cross-env APP_ENV=stg pnpm --filter fpt-marketplace test:regression
+    - cd ../
+    - npx ts-node utils/post-regression-result.ts
+    - cross-env APP_ENV=stg npx ts-node utils/auto-jira-bug.ts || true
+  after_script:
+    - echo "=== Regression done — exit code $CI_JOB_STATUS ==="
+  artifacts:
+    when: always
+    paths:
+      - automation-tests/packages/products/fpt-marketplace/reports/playwright-report/
+      - automation-tests/packages/products/fpt-marketplace/reports/test-results.json
+    expire_in: 14 days
+  timeout: 30 minutes
+
+e2e-claw:
+  stage: e2e
+  tags:
+    - playwright
+  <<: *cache_config
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
+  script:
+    - echo "=== FPT CLAW E2E Tests — triggered by $CI_PIPELINE_SOURCE ==="
+    - npm ci
+    - cd automation-tests && pnpm install --frozen-lockfile
+    - echo "--- Installing Playwright browsers ---"
+    - npx playwright install --with-deps chromium
+    - echo "--- Running FPT CLAW E2E tests ---"
+    - cd packages/products/fpt-claw
+    - npx playwright test fptclaw_e2e.spec.ts fptclaw_workspace_e2e.spec.ts
+    - echo "--- E2E tests completed ---"
+    - cd ../../..
+  after_script:
+    - echo "=== FPT CLAW E2E done — exit code $CI_JOB_STATUS ==="
+  artifacts:
+    when: always
+    paths:
+      - automation-tests/packages/products/fpt-claw/reports/playwright-report/
+      - automation-tests/packages/products/fpt-claw/reports/test-results.json
+      - automation-tests/packages/products/fpt-claw/test-results/
+    expire_in: 14 days
+    reports:
+      junit: automation-tests/packages/products/fpt-claw/reports/test-results.json
+  timeout: 30 minutes
+  allow_failure: false
+
+checkly-deploy:
+  stage: monitoring
+  tags:
+    - playwright
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
+  script:
+    - echo "=== Deploy Checkly checks ==="
+    - npm ci
+    - node utils/generate-checkly-checks.js
+    - npx checkly deploy -f
+  allow_failure: true
+
+api-inference-vn-jp:
+  stage: api
+  needs: []
+  tags:
+    - playwright
+  <<: *cache_config
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+  script:
+    - echo "=== API Inference VN + JP — triggered by $CI_PIPELINE_SOURCE ==="
+    - npm ci
+    - cd automation-tests && pnpm install --frozen-lockfile && cd ..
+
+    # ── VN site (mkp-api.fptcloud.com) ──────────────────────────────────────
+    - echo "--- Running VN site ---"
+    - cd automation-tests && cross-env APP_ENV=prod pnpm --filter fpt-marketplace test:api:vn; $global:LASTEXITCODE = 0 && cd ..
+    - npx ts-node utils/post-api-inference-result.ts
+    - cross-env APP_ENV=prod npx ts-node utils/auto-jira-bug.ts || true
+
+    # ── JP site (mkp-api.fptcloud.jp) ───────────────────────────────────────
+    - echo "--- Running JP site ---"
+    - cd automation-tests && cross-env APP_ENV=jp pnpm --filter fpt-marketplace test:api:jp; $global:LASTEXITCODE = 0 && cd ..
+    - npx ts-node utils/post-api-inference-result.ts
+    - cross-env APP_ENV=jp npx ts-node utils/auto-jira-bug.ts || true
+
+  after_script:
+    - echo "=== API Inference VN+JP done — exit code $CI_JOB_STATUS ==="
+  artifacts:
+    when: always
+    paths:
+      - automation-tests/packages/products/fpt-marketplace/reports/playwright-report/
+      - automation-tests/packages/products/fpt-marketplace/reports/test-results.json
+    expire_in: 14 days
+  timeout: 30 minutes

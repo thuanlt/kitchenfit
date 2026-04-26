@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="FPTCLAW UI Chat Pre-Prod">
+      <stringProp name="TestPlan.comments">Standalone UI chat flow: login -&gt; list visible agents -&gt; WebSocket connect -&gt; chat.send. This JMX runs directly in JMeter GUI without shell env setup. Default mode uses one fixed login account. The seeded default Clawgi agent key is default-assistant. Leave fptclaw_tenant_id blank to use the tenant returned by login. Optional per-run model and reasoning overrides are available when you need to steer around an unstable upstream provider. Open View Results Tree -&gt; Response Data after a run to inspect payloads, including attempt_failures / last_run_event when a run fails.</stringProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="fptclaw_base_url" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_base_url</stringProp>
+            <stringProp name="Argument.value">https://dev-claw.fptcloud.net/api</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_ws_url" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_ws_url</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_tenant_id" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_tenant_id</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_agent_id" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_agent_id</stringProp>
+            <stringProp name="Argument.value">default-assistant</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_model" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_model</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_reasoning_effort" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_reasoning_effort</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_login_user_id" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_login_user_id</stringProp>
+            <stringProp name="Argument.value">DuongNT214@fpt.com</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_password" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_password</stringProp>
+            <stringProp name="Argument.value">DuongNT214@fpt.com</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_prefix" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_prefix</stringProp>
+            <stringProp name="Argument.value">lt-user-</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_suffix" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_suffix</stringProp>
+            <stringProp name="Argument.value">@preprod.local</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_start" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_start</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_pad" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_pad</stringProp>
+            <stringProp name="Argument.value">4</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_session_prefix" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_session_prefix</stringProp>
+            <stringProp name="Argument.value">lt-ui-jmeter</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_tag" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_tag</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_messages_per_connection" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_messages_per_connection</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_message_interval_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_message_interval_ms</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_stream" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_stream</stringProp>
+            <stringProp name="Argument.value">true</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_max_run_attempts" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_max_run_attempts</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_retry_backoff_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_retry_backoff_ms</stringProp>
+            <stringProp name="Argument.value">1000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_threads" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_threads</stringProp>
+            <stringProp name="Argument.value">14</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_ramp_up_seconds" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_ramp_up_seconds</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_connect_timeout_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_connect_timeout_ms</stringProp>
+            <stringProp name="Argument.value">10000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_timeout_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_timeout_ms</stringProp>
+            <stringProp name="Argument.value">120000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_socket_close_timeout_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_socket_close_timeout_ms</stringProp>
+            <stringProp name="Argument.value">5000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_message_template" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_message_template</stringProp>
+            <stringProp name="Argument.value">Health-check turn {seq} from {userId} at {timestamp}. Reply with exactly OK. Do not use tools, browsing, or search.</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_agent_discovery" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_agent_discovery</stringProp>
+            <stringProp name="Argument.value">false</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_chat_flow" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_chat_flow</stringProp>
+            <stringProp name="Argument.value">true</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UI Chat Users">
+        <stringProp name="ThreadGroup.num_threads">${__P(fptclaw.threads,${fptclaw_threads})}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(fptclaw.ramp_up_seconds,${fptclaw_ramp_up_seconds})}</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="01 Login + List Visible Agents">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
+import java.nio.charset.StandardCharsets
+import java.time.Duration
+import java.util.Locale
+
+def stringSetting = { String propertyKey, String variableKey, String fallback -&gt;
+    def propertyValue = props.get(propertyKey)
+    if (propertyValue != null &amp;&amp; !propertyValue.trim().isEmpty()) {
+        return propertyValue.trim()
+    }
+    def variableValue = vars.get(variableKey)
+    if (variableValue != null &amp;&amp; !variableValue.trim().isEmpty()) {
+        return variableValue.trim()
+    }
+    fallback
+}
+
+def boolSetting = { String propertyKey, String variableKey, boolean fallback -&gt;
+    def raw = stringSetting(propertyKey, variableKey, String.valueOf(fallback))
+    ![&quot;0&quot;, &quot;false&quot;, &quot;no&quot;, &quot;off&quot;].contains(raw.toLowerCase(Locale.ROOT))
+}
+
+def trimTrailingSlash = { String value -&gt;
+    String result = value
+    while (result.endsWith(&quot;/&quot;)) {
+        result = result.substring(0, result.length() - 1)
+    }
+    result
+}
+
+String baseUrl = stringSetting(&quot;fptclaw.base_url&quot;, &quot;fptclaw_base_url&quot;, &quot;https://dev-claw.fptcloud.net/api&quot;)
+String loginUserId = stringSetting(&quot;fptclaw.login_user_id&quot;, &quot;fptclaw_login_user_id&quot;, &quot;&quot;)
+String password = stringSetting(&quot;fptclaw.password&quot;, &quot;fptclaw_password&quot;, &quot;&quot;)
+boolean runAgentDiscovery = boolSetting(&quot;fptclaw.run_agent_discovery&quot;, &quot;fptclaw_run_agent_discovery&quot;, true)
+int connectTimeoutMs = Integer.parseInt(stringSetting(&quot;fptclaw.connect_timeout_ms&quot;, &quot;fptclaw_connect_timeout_ms&quot;, &quot;10000&quot;))
+
+Map responseData = [
+    user_id : loginUserId,
+    base_url: baseUrl,
+    agents  : [],
+]
+
+SampleResult.setSampleLabel(&quot;01 Agent Discovery&quot;)
+SampleResult.setSamplerData(&quot;user_id=${loginUserId}\nbase_url=${baseUrl}&quot;)
+
+if (!runAgentDiscovery) {
+    SampleResult.setSuccessful(true)
+    SampleResult.setResponseCodeOK()
+    SampleResult.setResponseMessage(&quot;agent discovery skipped&quot;)
+    responseData.skipped = true
+    SampleResult.setResponseData(JsonOutput.prettyPrint(JsonOutput.toJson(responseData)), &quot;UTF-8&quot;)
+    return
+}
+
+if (!loginUserId) {
+    throw new IllegalArgumentException(&quot;Set fptclaw_login_user_id in User Defined Variables&quot;)
+}
+if (!password) {
+    throw new IllegalArgumentException(&quot;Set fptclaw_password in User Defined Variables&quot;)
+}
+
+HttpClient client = HttpClient.newBuilder()
+    .connectTimeout(Duration.ofMillis(connectTimeoutMs))
+    .build()
+
+try {
+    String loginBody = JsonOutput.toJson([
+        user_id : loginUserId,
+        password: password,
+    ])
+
+    HttpRequest loginRequest = HttpRequest.newBuilder()
+        .uri(URI.create(trimTrailingSlash(baseUrl) + &quot;/v1/auth/login&quot;))
+        .timeout(Duration.ofMillis(connectTimeoutMs))
+        .header(&quot;Content-Type&quot;, &quot;application/json&quot;)
+        .POST(HttpRequest.BodyPublishers.ofString(loginBody, StandardCharsets.UTF_8))
+        .build()
+
+    HttpResponse&lt;String&gt; loginResponse = client.send(loginRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
+    responseData.login_status = loginResponse.statusCode()
+    if (loginResponse.statusCode() != 200) {
+        SampleResult.setSuccessful(false)
+        SampleResult.setResponseCode(String.valueOf(loginResponse.statusCode()))
+        SampleResult.setResponseMessage(&quot;agent discovery login failed&quot;)
+        responseData.login_response = loginResponse.body()
+        SampleResult.setResponseData(JsonOutput.prettyPrint(JsonOutput.toJson(responseData)), &quot;UTF-8&quot;)
+        return
+    }
+
+    Map loginJson = (Map) new JsonSlurper().parseText(loginResponse.body())
+    String accessToken = String.valueOf(loginJson.token ?: &quot;&quot;)
+    String tenantId = String.valueOf(loginJson.tenant_id ?: &quot;&quot;)
+    responseData.tenant_id = tenantId
+
+    HttpRequest agentsRequest = HttpRequest.newBuilder()
+        .uri(URI.create(trimTrailingSlash(baseUrl) + &quot;/v1/agents&quot;))
+        .timeout(Duration.ofMillis(connectTimeoutMs))
+        .header(&quot;Authorization&quot;, &quot;Bearer &quot; + accessToken)
+        .GET()
+        .build()
+
+    HttpResponse&lt;String&gt; agentsResponse = client.send(agentsRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
+    responseData.agents_status = agentsResponse.statusCode()
+    if (agentsResponse.statusCode() != 200) {
+        SampleResult.setSuccessful(false)
+        SampleResult.setResponseCode(String.valueOf(agentsResponse.statusCode()))
+        SampleResult.setResponseMessage(&quot;agent discovery list failed&quot;)
+        responseData.agents_response = agentsResponse.body()
+        SampleResult.setResponseData(JsonOutput.prettyPrint(JsonOutput.toJson(responseData)), &quot;UTF-8&quot;)
+        return
+    }
+
+    Map agentsJson = (Map) new JsonSlurper().parseText(agentsResponse.body())
+    List agentRows = ((List) (agentsJson.agents ?: [])).collect { Map agent -&gt;
+        [
+            agent_uuid  : String.valueOf(agent.id ?: &quot;&quot;),
+            agent_key   : String.valueOf(agent.agent_key ?: &quot;&quot;),
+            display_name: String.valueOf(agent.display_name ?: &quot;&quot;),
+            is_default  : Boolean.TRUE.equals(agent.is_default),
+            status      : String.valueOf(agent.status ?: &quot;&quot;),
+            provider    : String.valueOf(agent.provider ?: &quot;&quot;),
+            model       : String.valueOf(agent.model ?: &quot;&quot;),
+        ]
+    }
+    responseData.agents = agentRows
+    Map defaultAgent = agentRows.find { it.is_default } ?: [:]
+    responseData.recommended_jmeter_agent_id = String.valueOf(defaultAgent.agent_key ?: &quot;&quot;)
+    responseData.recommended_agent_uuid = String.valueOf(defaultAgent.agent_uuid ?: &quot;&quot;)
+    vars.put(&quot;fptclaw_discovered_default_agent_key&quot;, responseData.recommended_jmeter_agent_id ?: &quot;&quot;)
+    vars.put(&quot;fptclaw_discovered_default_agent_uuid&quot;, responseData.recommended_agent_uuid ?: &quot;&quot;)
+
+    String summary = &quot;found=${agentRows.size()} | default_key=${responseData.recommended_jmeter_agent_id ?: &apos;&apos;}&quot;
+    SampleResult.setSuccessful(true)
+    SampleResult.setResponseCodeOK()
+    SampleResult.setResponseMessage(summary)
+} catch (Throwable err) {
+    SampleResult.setSuccessful(false)
+    SampleResult.setResponseCode(&quot;500&quot;)
+    SampleResult.setResponseMessage(err.message ?: err.class.name)
+    responseData.error = err.toString()
+} finally {
+    SampleResult.setResponseData(JsonOutput.prettyPrint(JsonOutput.toJson(responseData)), &quot;UTF-8&quot;)
+}
+          </stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="02 Login + WS Chat Flow" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
+import java.net.http.WebSocket
+import java.nio.charset.StandardCharsets
+import java.time.Duration
+import java.util.Locale
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletionStage
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
+import java.util.concurrent.atomic.AtomicReference
+
+class RPCFrameException extends IllegalStateException {
+    final String phase
+    final Map frame
+
+    RPCFrameException(String phase, Map frame) {
+        super(&quot;${phase}: ${frame?.error?.message ?: frame}&quot;)
+        this.phase = phase
+        this.frame = frame
+    }
+}
+
+class RunTerminalException extends IllegalStateException {
+    final String eventType
+    final Map payload
+
+    RunTerminalException(String eventType, Map payload) {
+        super(&quot;${eventType}: ${payload}&quot;)
+        this.eventType = eventType
+        this.payload = payload
+    }
+}
+
+class WebSocketClosedBeforeCompletionException extends IllegalStateException {
+    final int statusCode
+    final String reason
+
+    WebSocketClosedBeforeCompletionException(int statusCode, String reason) {
+        super(&quot;websocket closed before flow completed: ${statusCode} ${reason ?: &apos;&apos;}&quot;.trim())
+        this.statusCode = statusCode
+        this.reason = reason ?: &quot;&quot;
+    }
+}
+
+class FlowListener implements WebSocket.Listener {
+    private final JsonSlurper parser = new JsonSlurper()
+    private final String connectRequestId
+    private final String userId
+    private final String sessionKey
+    private final CompletableFuture&lt;Map&gt; connectFuture
+    private final AtomicReference&lt;CompletableFuture&lt;Map&gt;&gt; runFutureRef = new AtomicReference&lt;&gt;()
+    private final AtomicReference&lt;Map&gt; lastRPCResponseRef = new AtomicReference&lt;&gt;()
+    private final AtomicReference&lt;Map&gt; lastRunEventRef = new AtomicReference&lt;&gt;()
+    private final AtomicReference&lt;Map&gt; lastCloseEventRef = new AtomicReference&lt;&gt;()
+    private final StringBuilder textBuffer = new StringBuilder()
+
+    FlowListener(String connectRequestId, String userId, String sessionKey, CompletableFuture&lt;Map&gt; connectFuture) {
+        this.connectRequestId = connectRequestId
+        this.userId = userId
+        this.sessionKey = sessionKey
+        this.connectFuture = connectFuture
+    }
+
+    void expectRun(CompletableFuture&lt;Map&gt; runFuture) {
+        runFutureRef.set(runFuture)
+    }
+
+    Map snapshot() {
+        [
+            last_rpc_response: lastRPCResponseRef.get() ?: [:],
+            last_run_event   : lastRunEventRef.get() ?: [:],
+            last_ws_close    : lastCloseEventRef.get() ?: [:],
+        ]
+    }
+
+    @Override
+    void onOpen(WebSocket webSocket) {
+        webSocket.request(1)
+    }
+
+    @Override
+    CompletionStage&lt;?&gt; onText(WebSocket webSocket, CharSequence data, boolean last) {
+        textBuffer.append(data)
+        if (last) {
+            handleFrame(textBuffer.toString())
+            textBuffer.setLength(0)
+        }
+        webSocket.request(1)
+        return null
+    }
+
+    @Override
+    void onError(WebSocket webSocket, Throwable error) {
+        failPending(error)
+    }
+
+    @Override
+    CompletionStage&lt;?&gt; onClose(WebSocket webSocket, int statusCode, String reason) {
+        lastCloseEventRef.set([status_code: statusCode, reason: reason ?: &quot;&quot;])
+        failPending(new WebSocketClosedBeforeCompletionException(statusCode, reason))
+        return null
+    }
+
+    private void handleFrame(String rawFrame) {
+        Map frame = (Map) parser.parseText(rawFrame)
+        if (&quot;res&quot;.equals(frame.type)) {
+            lastRPCResponseRef.set(frame)
+            if (connectRequestId.equals(String.valueOf(frame.id))) {
+                if (Boolean.TRUE.equals(frame.ok)) {
+                    connectFuture.complete(frame)
+                } else {
+                    connectFuture.completeExceptionally(new RPCFrameException(&quot;connect rejected&quot;, frame))
+                }
+                return
+            }
+            CompletableFuture&lt;Map&gt; runFuture = runFutureRef.get()
+            if (runFuture != null &amp;&amp; !Boolean.TRUE.equals(frame.ok)) {
+                runFutureRef.compareAndSet(runFuture, null)
+                runFuture.completeExceptionally(new RPCFrameException(&quot;chat.send rejected&quot;, frame))
+            }
+            return
+        }
+
+        if (!&quot;event&quot;.equals(frame.type) || !&quot;agent&quot;.equals(frame.event)) {
+            return
+        }
+
+        Map payload = frame.payload instanceof Map ? (Map) frame.payload : [:]
+        if (payload.userId &amp;&amp; userId != String.valueOf(payload.userId)) {
+            return
+        }
+        if (payload.sessionKey &amp;&amp; sessionKey != String.valueOf(payload.sessionKey)) {
+            return
+        }
+
+        String eventType = String.valueOf(payload.type ?: &quot;&quot;)
+        if (eventType) {
+            lastRunEventRef.set(payload)
+        }
+        if (&quot;run.completed&quot;.equals(eventType)) {
+            completeRun(payload)
+            return
+        }
+        if (&quot;run.failed&quot;.equals(eventType) || &quot;run.cancelled&quot;.equals(eventType)) {
+            CompletableFuture&lt;Map&gt; runFuture = runFutureRef.getAndSet(null)
+            if (runFuture != null) {
+                runFuture.completeExceptionally(new RunTerminalException(eventType, payload))
+            }
+        }
+    }
+
+    private void completeRun(Map payload) {
+        CompletableFuture&lt;Map&gt; runFuture = runFutureRef.getAndSet(null)
+        if (runFuture != null) {
+            runFuture.complete(payload)
+        }
+    }
+
+    private void failPending(Throwable error) {
+        if (!connectFuture.isDone()) {
+            connectFuture.completeExceptionally(error)
+        }
+        CompletableFuture&lt;Map&gt; runFuture = runFutureRef.getAndSet(null)
+        if (runFuture != null) {
+            runFuture.completeExceptionally(error)
+        }
+    }
+}
+
+def stringSetting = { String propertyKey, String variableKey, String fallback -&gt;
+    def propertyValue = props.get(propertyKey)
+    if (propertyValue != null &amp;&amp; !propertyValue.trim().isEmpty()) {
+        return propertyValue.trim()
+    }
+    def variableValue = vars.get(variableKey)
+    if (variableValue != null &amp;&amp; !variableValue.trim().isEmpty()) {
+        return variableValue.trim()
+    }
+    fallback
+}
+
+def intSetting = { String propertyKey, String variableKey, int fallback -&gt;
+    Integer.parseInt(stringSetting(propertyKey, variableKey, String.valueOf(fallback)))
+}
+
+def boolSetting = { String propertyKey, String variableKey, boolean fallback -&gt;
+    def raw = stringSetting(propertyKey, variableKey, String.valueOf(fallback))
+    ![&quot;0&quot;, &quot;false&quot;, &quot;no&quot;, &quot;off&quot;].contains(raw.toLowerCase(Locale.ROOT))
+}
+
+def trimTrailingSlash = { String value -&gt;
+    String result = value
+    while (result.endsWith(&quot;/&quot;)) {
+        result = result.substring(0, result.length() - 1)
+    }
+    result
+}
+
+def deriveWsUrl = { String baseUrl -&gt;
+    String trimmed = trimTrailingSlash(baseUrl)
+    String wsBase = trimmed.replaceFirst(&quot;^https:&quot;, &quot;wss:&quot;).replaceFirst(&quot;^http:&quot;, &quot;ws:&quot;)
+    wsBase.endsWith(&quot;/ws&quot;) ? wsBase : wsBase + &quot;/ws&quot;
+}
+
+def buildMessage = { String template, String userId, int seq -&gt;
+    template
+        .replace(&quot;{userId}&quot;, userId)
+        .replace(&quot;{seq}&quot;, String.valueOf(seq))
+        .replace(&quot;{timestamp}&quot;, new Date().format(&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSXXX&quot;))
+}
+
+def resolveRunTag = {
+    String fromProps = props.get(&quot;fptclaw.run_tag&quot;)
+    if (fromProps != null &amp;&amp; !fromProps.trim().isEmpty()) {
+        return fromProps.trim()
+    }
+    String fromVars = vars.get(&quot;fptclaw_run_tag&quot;)
+    if (fromVars != null &amp;&amp; !fromVars.trim().isEmpty()) {
+        props.put(&quot;fptclaw.run_tag&quot;, fromVars.trim())
+        return fromVars.trim()
+    }
+    String generated = &quot;run-&quot; + String.valueOf(System.currentTimeMillis())
+    props.put(&quot;fptclaw.run_tag&quot;, generated)
+    return generated
+}
+
+def abbreviate = { String value, int max -&gt;
+    if (value == null) {
+        return &quot;&quot;
+    }
+    if (value.length() &lt;= max) {
+        return value
+    }
+    value.substring(0, Math.max(0, max - 3)) + &quot;...&quot;
+}
+
+def rootCause = { Throwable err -&gt;
+    Throwable current = err
+    while (current?.cause != null &amp;&amp; current.cause != current) {
+        current = current.cause
+    }
+    current ?: err
+}
+
+def errorSummary = { Throwable err -&gt;
+    Throwable root = rootCause(err)
+    String message = String.valueOf(root?.message ?: &quot;&quot;).trim()
+    message ? message : String.valueOf(root?.class?.name ?: err?.class?.name ?: &quot;unknown error&quot;)
+}
+
+def isRetryableFailure = { Throwable err -&gt;
+    Throwable root = rootCause(err)
+    String message = String.valueOf(root?.message ?: &quot;&quot;).toLowerCase(Locale.ROOT)
+    if (root instanceof TimeoutException) {
+        return true
+    }
+    if (root instanceof WebSocketClosedBeforeCompletionException) {
+        return true
+    }
+    message.contains(&quot;invalid provider response&quot;) ||
+        message.contains(&quot;http 502&quot;) ||
+        message.contains(&quot;gateway page&quot;) ||
+        message.contains(&quot;output closed&quot;) ||
+        message.contains(&quot;rate limit&quot;) ||
+        message.contains(&quot;too many requests&quot;) ||
+        message.contains(&quot;temporarily unavailable&quot;) ||
+        message.contains(&quot;websocket closed before flow completed&quot;)
+}
+
+def captureListenerState = { Map responseData, FlowListener listener -&gt;
+    if (listener == null) {
+        return
+    }
+    Map snapshot = listener.snapshot()
+    if (snapshot.last_rpc_response) {
+        responseData.last_rpc_response = snapshot.last_rpc_response
+    }
+    if (snapshot.last_run_event) {
+        responseData.last_run_event = snapshot.last_run_event
+    }
+    if (snapshot.last_ws_close) {
+        responseData.last_ws_close = snapshot.last_ws_close
+    }
+}
+
+def appendAttemptFailure = { Map responseData, int seq, int attempt, Throwable err, FlowListener listener -&gt;
+    Throwable root = rootCause(err)
+    Map failure = [
+        seq          : seq,
+        attempt      : attempt,
+        retryable    : isRetryableFailure(root),
+        error_type   : String.valueOf(root?.class?.name ?: err?.class?.name ?: &quot;&quot;),
+        error_message: errorSummary(root),
+    ]
+    if (root instanceof RunTerminalException) {
+        failure.run_event_type = root.eventType
+        failure.run_event = root.payload
+        responseData.last_run_event = root.payload
+    }
+    if (root instanceof RPCFrameException) {
+        failure.rpc_phase = root.phase
+        failure.rpc_frame = root.frame
+        responseData.last_rpc_response = root.frame
+    }
+    if (root instanceof WebSocketClosedBeforeCompletionException) {
+        failure.last_ws_close = [
+            status_code: root.statusCode,
+            reason     : root.reason,
+        ]
+        responseData.last_ws_close = failure.last_ws_close
+    }
+    if (listener != null) {
+        Map snapshot = listener.snapshot()
+        if (snapshot.last_rpc_response) {
+            failure.last_rpc_response = snapshot.last_rpc_response
+        }
+        if (snapshot.last_run_event) {
+            failure.last_run_event = snapshot.last_run_event
+        }
+        if (snapshot.last_ws_close) {
+            failure.last_ws_close = snapshot.last_ws_close
+        }
+        captureListenerState(responseData, listener)
+    }
+    ((List) responseData.attempt_failures).add(failure)
+}
+
+def loadConfig = {
+    [
+        baseUrl              : stringSetting(&quot;fptclaw.base_url&quot;, &quot;fptclaw_base_url&quot;, &quot;https://dev-claw.fptcloud.net/api&quot;),
+        tenantOverride       : stringSetting(&quot;fptclaw.tenant_id&quot;, &quot;fptclaw_tenant_id&quot;, &quot;&quot;),
+        agentId              : stringSetting(&quot;fptclaw.agent_id&quot;, &quot;fptclaw_agent_id&quot;, &quot;&quot;),
+        modelOverride        : stringSetting(&quot;fptclaw.model&quot;, &quot;fptclaw_model&quot;, &quot;&quot;),
+        reasoningEffort      : stringSetting(&quot;fptclaw.reasoning_effort&quot;, &quot;fptclaw_reasoning_effort&quot;, &quot;&quot;),
+        loginUserIdOverride  : stringSetting(&quot;fptclaw.login_user_id&quot;, &quot;fptclaw_login_user_id&quot;, &quot;&quot;),
+        password             : stringSetting(&quot;fptclaw.password&quot;, &quot;fptclaw_password&quot;, &quot;&quot;),
+        runChatFlow          : boolSetting(&quot;fptclaw.run_chat_flow&quot;, &quot;fptclaw_run_chat_flow&quot;, true),
+        userPrefix           : stringSetting(&quot;fptclaw.user_prefix&quot;, &quot;fptclaw_user_prefix&quot;, &quot;lt-user-&quot;),
+        userSuffix           : stringSetting(&quot;fptclaw.user_suffix&quot;, &quot;fptclaw_user_suffix&quot;, &quot;&quot;),
+        userStart            : intSetting(&quot;fptclaw.user_start&quot;, &quot;fptclaw_user_start&quot;, 1),
+        userPad              : intSetting(&quot;fptclaw.user_pad&quot;, &quot;fptclaw_user_pad&quot;, 4),
+        sessionPrefix        : stringSetting(&quot;fptclaw.session_prefix&quot;, &quot;fptclaw_session_prefix&quot;, &quot;lt-ui-jmeter&quot;),
+        runTag               : resolveRunTag(),
+        messagesPerConnection: Math.max(1, intSetting(&quot;fptclaw.messages_per_connection&quot;, &quot;fptclaw_messages_per_connection&quot;, 1)),
+        messageIntervalMs    : Math.max(0, intSetting(&quot;fptclaw.message_interval_ms&quot;, &quot;fptclaw_message_interval_ms&quot;, 0)),
+        stream               : boolSetting(&quot;fptclaw.stream&quot;, &quot;fptclaw_stream&quot;, true),
+        maxRunAttempts       : Math.max(1, intSetting(&quot;fptclaw.max_run_attempts&quot;, &quot;fptclaw_max_run_attempts&quot;, 1)),
+        retryBackoffMs       : Math.max(0, intSetting(&quot;fptclaw.retry_backoff_ms&quot;, &quot;fptclaw_retry_backoff_ms&quot;, 1000)),
+        connectTimeoutMs     : Math.max(1000, intSetting(&quot;fptclaw.connect_timeout_ms&quot;, &quot;fptclaw_connect_timeout_ms&quot;, 10000)),
+        runTimeoutMs         : Math.max(1000, intSetting(&quot;fptclaw.run_timeout_ms&quot;, &quot;fptclaw_run_timeout_ms&quot;, 120000)),
+        closeTimeoutMs       : Math.max(1000, intSetting(&quot;fptclaw.socket_close_timeout_ms&quot;, &quot;fptclaw_socket_close_timeout_ms&quot;, 5000)),
+        messageTemplate      : stringSetting(&quot;fptclaw.message_template&quot;, &quot;fptclaw_message_template&quot;, &quot;Health-check turn {seq} from {userId} at {timestamp}. Reply with exactly OK. Do not use tools, browsing, or search.&quot;),
+    ]
+}
+
+def buildIdentity = { Map cfg -&gt;
+    int threadNum = ctx.getThreadNum()
+    int numericUser = cfg.userStart + threadNum
+    String suffixNumber = String.format(Locale.US, &quot;%0${cfg.userPad}d&quot;, numericUser)
+    String generatedUserId = cfg.userPrefix + suffixNumber + cfg.userSuffix
+    boolean fixedLoginUser = cfg.loginUserIdOverride != null &amp;&amp; !cfg.loginUserIdOverride.trim().isEmpty()
+    String userId = fixedLoginUser ? cfg.loginUserIdOverride.trim() : generatedUserId
+    String userLabel = fixedLoginUser ? userId + &quot; #&quot; + suffixNumber : userId
+    String sessionKey = fixedLoginUser ? &quot;${cfg.sessionPrefix}-${cfg.runTag}-${userId}-${suffixNumber}&quot; : &quot;${cfg.sessionPrefix}-${cfg.runTag}-${userId}&quot;
+    [
+        threadNum       : threadNum,
+        generatedUserId : generatedUserId,
+        fixedLoginUser  : fixedLoginUser,
+        userId          : userId,
+        userLabel       : userLabel,
+        sessionKey      : sessionKey,
+    ]
+}
+
+def buildResponseData = { Map cfg, Map identity -&gt;
+    [
+        user_id            : identity.userId,
+        user_mode          : identity.fixedLoginUser ? &quot;fixed_login_user&quot; : &quot;generated_user&quot;,
+        generated_user_id  : identity.generatedUserId,
+        base_url           : cfg.baseUrl,
+        ws_url             : stringSetting(&quot;fptclaw.ws_url&quot;, &quot;fptclaw_ws_url&quot;, deriveWsUrl(cfg.baseUrl)),
+        agent_id           : cfg.agentId,
+        model_override     : cfg.modelOverride,
+        reasoning_effort   : cfg.reasoningEffort,
+        stream             : cfg.stream,
+        run_tag            : cfg.runTag,
+        session_key        : identity.sessionKey,
+        messages_requested : cfg.messagesPerConnection,
+        messages_completed : 0,
+        max_run_attempts   : cfg.maxRunAttempts,
+        retry_backoff_ms   : cfg.retryBackoffMs,
+        chat_attempts_total: 0,
+        attempt_failures   : [],
+    ]
+}
+
+def setSampleMetadata = { Map cfg, Map identity, Map responseData -&gt;
+    SampleResult.setSampleLabel(&quot;UI Chat &quot; + identity.userLabel)
+    SampleResult.setSamplerData(
+        &quot;user_id=${identity.userId}\n&quot; +
+        &quot;user_mode=${responseData.user_mode}\n&quot; +
+        &quot;generated_user_id=${identity.generatedUserId}\n&quot; +
+        &quot;base_url=${cfg.baseUrl}\n&quot; +
+        &quot;ws_url=${responseData.ws_url}\n&quot; +
+        &quot;agent_id=${cfg.agentId}\n&quot; +
+        &quot;model_override=${cfg.modelOverride}\n&quot; +
+        &quot;reasoning_effort=${cfg.reasoningEffort}\n&quot; +
+        &quot;stream=${cfg.stream}\n&quot; +
+        &quot;run_tag=${cfg.runTag}\n&quot; +
+        &quot;max_run_attempts=${cfg.maxRunAttempts}\n&quot; +
+        &quot;session_key=${identity.sessionKey}&quot;
+    )
+}
+
+def validateConfig = { Map cfg -&gt;
+    if (!cfg.agentId) {
+        throw new IllegalArgumentException(&quot;Set fptclaw_agent_id in User Defined Variables&quot;)
+    }
+    if (!cfg.password) {
+        throw new IllegalArgumentException(&quot;Set fptclaw_password in User Defined Variables&quot;)
+    }
+}
+
+def buildClient = { Map cfg -&gt;
+    HttpClient.newBuilder()
+        .connectTimeout(Duration.ofMillis(cfg.connectTimeoutMs))
+        .build()
+}
+
+def loginUser = { HttpClient client, Map cfg, Map identity, Map responseData -&gt;
+    String loginBody = JsonOutput.toJson([
+        user_id : identity.userId,
+        password: cfg.password,
+    ])
+
+    HttpRequest loginRequest = HttpRequest.newBuilder()
+        .uri(URI.create(trimTrailingSlash(cfg.baseUrl) + &quot;/v1/auth/login&quot;))
+        .timeout(Duration.ofMillis(cfg.connectTimeoutMs))
+        .header(&quot;Content-Type&quot;, &quot;application/json&quot;)
+        .POST(HttpRequest.BodyPublishers.ofString(loginBody, StandardCharsets.UTF_8))
+        .build()
+
+    HttpResponse&lt;String&gt; loginResponse = client.send(loginRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
+    responseData.login_status = loginResponse.statusCode()
+
+    if (loginResponse.statusCode() != 200) {
+        SampleResult.setSuccessful(false)
+        SampleResult.setResponseCode(String.valueOf(loginResponse.statusCode()))
+        SampleResult.setResponseMessage(&quot;login failed&quot;)
+        responseData.login_response = loginResponse.body()
+        return null
+    }
+
+    Map loginJson = (Map) new JsonSlurper().parseText(loginResponse.body())
+    String accessToken = String.valueOf(loginJson.token ?: &quot;&quot;)
+    String tenantId = cfg.tenantOverride ? cfg.tenantOverride : String.valueOf(loginJson.tenant_id ?: &quot;&quot;)
+    if (!accessToken) {
+        throw new IllegalStateException(&quot;login returned no token for ${identity.userId}&quot;)
+    }
+    if (!tenantId?.trim()) {
+        throw new IllegalStateException(&quot;login returned no tenant_id and no override was provided for ${identity.userId}&quot;)
+    }
+
+    responseData.tenant_id = tenantId
+    [accessToken: accessToken, tenantId: tenantId]
+}
+
+def connectWebSocket = { HttpClient client, Map cfg, Map identity, Map responseData, Map loginState -&gt;
+    String connectRequestId = &quot;connect-${identity.userId}-${System.nanoTime()}&quot;
+    CompletableFuture&lt;Map&gt; connectFuture = new CompletableFuture&lt;&gt;()
+    FlowListener listener = new FlowListener(connectRequestId, identity.userId, identity.sessionKey, connectFuture)
+
+    WebSocket webSocket = client.newWebSocketBuilder()
+        .connectTimeout(Duration.ofMillis(cfg.connectTimeoutMs))
+        .buildAsync(URI.create(responseData.ws_url), listener)
+        .get(cfg.connectTimeoutMs, TimeUnit.MILLISECONDS)
+
+    String connectPayload = JsonOutput.toJson([
+        type  : &quot;req&quot;,
+        id    : connectRequestId,
+        method: &quot;connect&quot;,
+        params: [
+            token          : loginState.accessToken,
+            user_id        : identity.userId,
+            tenant_id      : loginState.tenantId,
+            protocolVersion: 3,
+        ],
+    ])
+
+    webSocket.sendText(connectPayload, true).join()
+    connectFuture.get(cfg.connectTimeoutMs, TimeUnit.MILLISECONDS)
+    [webSocket: webSocket, listener: listener]
+}
+
+def sendChatTurn = { Map cfg, Map identity, Map wsState, int seq -&gt;
+    CompletableFuture&lt;Map&gt; runFuture = new CompletableFuture&lt;&gt;()
+    wsState.listener.expectRun(runFuture)
+
+    String requestId = &quot;chat-${identity.userId}-${seq}-${System.nanoTime()}&quot;
+    String message = buildMessage(cfg.messageTemplate, identity.userId, seq)
+    Map chatParams = [
+        agentId   : cfg.agentId,
+        sessionKey: identity.sessionKey,
+        message   : message,
+        stream    : cfg.stream,
+    ]
+    if (cfg.modelOverride) {
+        chatParams.model = cfg.modelOverride
+    }
+    if (cfg.reasoningEffort) {
+        chatParams.reasoningEffort = cfg.reasoningEffort
+    }
+
+    String chatPayload = JsonOutput.toJson([
+        type  : &quot;req&quot;,
+        id    : requestId,
+        method: &quot;chat.send&quot;,
+        params: chatParams,
+    ])
+
+    wsState.webSocket.sendText(chatPayload, true).join()
+    runFuture.get(cfg.runTimeoutMs, TimeUnit.MILLISECONDS)
+}
+
+def closeWebSocket = { WebSocket webSocket, int closeTimeoutMs -&gt;
+    if (webSocket == null) {
+        return
+    }
+    try {
+        webSocket.sendClose(WebSocket.NORMAL_CLOSURE, &quot;done&quot;).get(closeTimeoutMs, TimeUnit.MILLISECONDS)
+    } catch (Throwable ignored) {
+        try {
+            webSocket.abort()
+        } catch (Throwable ignoredAgain) {
+        }
+    }
+}
+
+def runChatTurn = { HttpClient client, Map cfg, Map identity, Map responseData, Map loginState, Map wsState, int seq -&gt;
+    for (int attempt = 1; attempt &lt;= cfg.maxRunAttempts; attempt++) {
+        responseData.chat_attempts_total = ((responseData.chat_attempts_total ?: 0) as int) + 1
+        try {
+            Map runPayload = sendChatTurn(cfg, identity, wsState, seq)
+            captureListenerState(responseData, wsState.listener)
+            responseData.messages_completed = seq
+            responseData.last_run_event = runPayload
+            return wsState
+        } catch (Throwable err) {
+            appendAttemptFailure(responseData, seq, attempt, err, wsState.listener)
+            boolean retryable = attempt &lt; cfg.maxRunAttempts &amp;&amp; isRetryableFailure(err)
+            if (!retryable) {
+                throw rootCause(err)
+            }
+            closeWebSocket(wsState.webSocket, cfg.closeTimeoutMs)
+            if (cfg.retryBackoffMs &gt; 0) {
+                Thread.sleep(cfg.retryBackoffMs as long)
+            }
+            wsState = connectWebSocket(client, cfg, identity, responseData, loginState)
+        }
+    }
+    throw new IllegalStateException(&quot;chat turn ${seq} exhausted ${cfg.maxRunAttempts} attempts&quot;)
+}
+
+Map cfg = loadConfig()
+Map identity = buildIdentity(cfg)
+Map responseData = buildResponseData(cfg, identity)
+setSampleMetadata(cfg, identity, responseData)
+
+if (!cfg.runChatFlow) {
+    SampleResult.setSuccessful(true)
+    SampleResult.setResponseCodeOK()
+    SampleResult.setResponseMessage(&quot;chat flow skipped&quot;)
+    responseData.skipped = true
+    String responseJson = JsonOutput.prettyPrint(JsonOutput.toJson(responseData))
+    SampleResult.setResponseData(responseJson, &quot;UTF-8&quot;)
+    return
+}
+
+validateConfig(cfg)
+
+HttpClient client = buildClient(cfg)
+WebSocket webSocket = null
+
+try {
+    Map loginState = loginUser(client, cfg, identity, responseData)
+    if (loginState == null) {
+        return
+    }
+
+    Map wsState = connectWebSocket(client, cfg, identity, responseData, loginState)
+    webSocket = wsState.webSocket
+
+    for (int seq = 1; seq &lt;= cfg.messagesPerConnection; seq++) {
+        wsState = runChatTurn(client, cfg, identity, responseData, loginState, wsState, seq)
+        webSocket = wsState.webSocket
+        if (seq &lt; cfg.messagesPerConnection &amp;&amp; cfg.messageIntervalMs &gt; 0) {
+            Thread.sleep(cfg.messageIntervalMs as long)
+        }
+    }
+
+    String responseSummary = &quot;ok | user=${identity.userId} | tenant=${loginState.tenantId} | agent=${cfg.agentId} | completed=${responseData.messages_completed}/${cfg.messagesPerConnection} | attempts=${responseData.chat_attempts_total}&quot;
+    responseData.result_summary = responseSummary
+    SampleResult.setSuccessful(true)
+    SampleResult.setResponseCodeOK()
+    SampleResult.setResponseMessage(abbreviate(responseSummary, 240))
+} catch (TimeoutException timeout) {
+    SampleResult.setSuccessful(false)
+    SampleResult.setResponseCode(&quot;504&quot;)
+    responseData.error_type = String.valueOf(timeout.class.name)
+    responseData.error = errorSummary(timeout)
+    responseData.result_summary = &quot;timeout | user=${identity.userId} | agent=${cfg.agentId} | completed=${responseData.messages_completed}/${cfg.messagesPerConnection} | attempts=${responseData.chat_attempts_total} | reason=${abbreviate(responseData.error, 160)}&quot;
+    SampleResult.setResponseMessage(abbreviate(responseData.result_summary, 240))
+    log.warn(&quot;jmeter ui chat timeout user=${identity.userId} reason=${responseData.error}&quot;)
+} catch (Throwable err) {
+    Throwable failure = rootCause(err)
+    SampleResult.setSuccessful(false)
+    SampleResult.setResponseCode(&quot;500&quot;)
+    responseData.error_type = String.valueOf(failure?.class?.name ?: err.class.name)
+    responseData.error = errorSummary(failure)
+    responseData.result_summary = &quot;failed | user=${identity.userId} | agent=${cfg.agentId} | completed=${responseData.messages_completed}/${cfg.messagesPerConnection} | attempts=${responseData.chat_attempts_total} | reason=${abbreviate(responseData.error, 160)}&quot;
+    SampleResult.setResponseMessage(abbreviate(responseData.result_summary, 240))
+    log.warn(&quot;jmeter ui chat failed user=${identity.userId} reason=${responseData.error}&quot;)
+} finally {
+    closeWebSocket(webSocket, cfg.closeTimeoutMs)
+    String responseJson = JsonOutput.prettyPrint(JsonOutput.toJson(responseData))
+    SampleResult.setResponseData(responseJson, &quot;UTF-8&quot;)
+}
+          </stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>true</responseData>
+              <samplerData>true</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>true</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

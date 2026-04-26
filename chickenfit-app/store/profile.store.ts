@@ -1,11 +1,12 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import type { Goal, Gender, ActivityLevel } from '../lib/profile';
 
 export interface ProfileState {
   // User data
   userId: string | null;
   email: string | null;
+  fullName: string;
   goal: Goal | null;
   gender: Gender;
   age: number;
@@ -27,6 +28,7 @@ export interface ProfileState {
 const initialState = {
   userId: null as string | null,
   email: null as string | null,
+  fullName: '' as string,
   goal: null as Goal | null,
   gender: 'male' as Gender,
   age: 0,
@@ -54,6 +56,18 @@ export const useProfileStore = create<ProfileState>()(
     }),
     {
       name: 'chickenfit-profile-store',
+      storage: createJSONStorage(() => localStorage),
+      version: 1,
+      migrate: (persistedState: any, version: number) => {
+        // Migration from version 0 to 1: add fullName field
+        if (version === 0) {
+          return {
+            ...persistedState,
+            fullName: persistedState.fullName || '',
+          };
+        }
+        return persistedState;
+      },
     }
   )
 );

@@ -56,7 +56,7 @@ export class ClawChatPage {
     // pressSequentially thay vì fill — trigger React onChange để enable send button
     await input.pressSequentially(text, { delay: 20 });
     // Chờ send button enabled sau khi React state cập nhật
-    await this.page.waitForTimeout(200);
+    while (await this.sendButton().isDisabled()) { await this.page.waitForTimeout(100); }
     await this.sendButton().click();
   }
 
@@ -66,7 +66,7 @@ export class ClawChatPage {
     const input = this.messageInput();
     await input.click();
     await input.pressSequentially(text, { delay: 20 });
-    await this.page.waitForTimeout(200);
+    while (await this.sendButton().isDisabled()) { await this.page.waitForTimeout(100); }
     await this.sendButton().click();
   }
 

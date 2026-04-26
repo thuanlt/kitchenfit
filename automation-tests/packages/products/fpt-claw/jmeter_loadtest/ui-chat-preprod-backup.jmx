@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="FPTCLAW UI Chat Pre-Prod">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="fptclaw_base_url" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_base_url</stringProp>
+            <stringProp name="Argument.value">https://dev-claw.fptcloud.net/api</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_ws_url" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_ws_url</stringProp>
+            <stringProp name="Argument.value"/>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_tenant_id" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_tenant_id</stringProp>
+            <stringProp name="Argument.value"/>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_agent_id" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_agent_id</stringProp>
+            <stringProp name="Argument.value">default-assistant</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_model" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_model</stringProp>
+            <stringProp name="Argument.value"/>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_reasoning_effort" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_reasoning_effort</stringProp>
+            <stringProp name="Argument.value"/>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_login_user_id" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_login_user_id</stringProp>
+            <stringProp name="Argument.value">DuongNT214@fpt.com</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_password" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_password</stringProp>
+            <stringProp name="Argument.value">DuongNT214@fpt.com</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_prefix" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_prefix</stringProp>
+            <stringProp name="Argument.value">lt-user-</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_suffix" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_suffix</stringProp>
+            <stringProp name="Argument.value">@preprod.local</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_start" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_start</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_user_pad" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_user_pad</stringProp>
+            <stringProp name="Argument.value">4</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_session_prefix" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_session_prefix</stringProp>
+            <stringProp name="Argument.value">lt-ui-jmeter</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_tag" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_tag</stringProp>
+            <stringProp name="Argument.value"/>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_messages_per_connection" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_messages_per_connection</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_message_interval_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_message_interval_ms</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_stream" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_stream</stringProp>
+            <stringProp name="Argument.value">true</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_max_run_attempts" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_max_run_attempts</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_retry_backoff_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_retry_backoff_ms</stringProp>
+            <stringProp name="Argument.value">1000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_threads" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_threads</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_ramp_up_seconds" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_ramp_up_seconds</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_connect_timeout_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_connect_timeout_ms</stringProp>
+            <stringProp name="Argument.value">10000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_timeout_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_timeout_ms</stringProp>
+            <stringProp name="Argument.value">120000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_socket_close_timeout_ms" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_socket_close_timeout_ms</stringProp>
+            <stringProp name="Argument.value">5000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_message_template" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_message_template</stringProp>
+            <stringProp name="Argument.value">Health-check turn {seq} from {userId} at {timestamp}. Reply with exactly OK. Do not use tools, browsing, or search.</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_agent_discovery" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_agent_discovery</stringProp>
+            <stringProp name="Argument.value">false</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="fptclaw_run_chat_flow" elementType="Argument">
+            <stringProp name="Argument.name">fptclaw_run_chat_flow</stringProp>
+            <stringProp name="Argument.value">true</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UI Chat Users" enabled="true">
+        <intProp name="ThreadGroup.num_threads">100</intProp>
+        <intProp name="ThreadGroup.ramp_time">10</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="01 Login + List Visible Agents" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"/>
+          <stringProp name="filename"/>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"/>
+        </JSR223Sampler>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="02 Login + WS Chat Flow" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"/>
+          <stringProp name="filename"/>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script"/>
+        </JSR223Sampler>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <stringProp name="filename"/>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <stringProp name="filename"/>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

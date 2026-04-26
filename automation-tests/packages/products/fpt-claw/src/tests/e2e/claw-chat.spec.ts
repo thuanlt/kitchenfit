@@ -22,8 +22,12 @@ test.describe('TC-CHAT — CLAW Chat Functionality', () => {
       console.log('✅ Step 1 PASS: Redirect khỏi trang login thành công');
 
       // STEP 3: Verify dashboard content visible
+
+      
       const dashboardVisible = await chatPage.dashboardContent().isVisible({ timeout: 10000 }).catch(() => false);
+
       // Nếu dashboard content không visible, ít nhất verify URL đã thay đổi
+
       if (!dashboardVisible) {
         await expect(page).toHaveURL(/\/overview|\/dashboard/i);
         console.log('⚠️ Step 2: Dashboard content không visible nhưng URL đã thay đổi');

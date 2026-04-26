@@ -1,0 +1,193 @@
+name: FPT CLAW E2E Tests
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - develop
+  pull_request:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  e2e-tests:
+    name: Run E2E Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: automation-tests/pnpm-lock.yaml
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      
+      - name: Install dependencies
+        working-directory: ./automation-tests
+        run: |
+          pnpm install --frozen-lockfile
+      
+      - name: Install Playwright Browsers
+        working-directory: ./automation-tests/packages/products/fpt-claw
+        run: |
+          npx playwright install --with-deps chromium
+      
+      - name: Run E2E Tests
+        working-directory: ./automation-tests/packages/products/fpt-claw
+        run: |
+          npx playwright test fptclaw_e2e.spec.ts fptclaw_workspace_e2e.spec.ts --shard=${{ matrix.shard }}/4
+        env:
+          CI: true
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.shard }}
+          path: |
+            automation-tests/packages/products/fpt-claw/playwright-report/
+            automation-tests/packages/products/fpt-claw/test-results/
+          retention-days: 14
+      
+      - name: Upload test results as artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-json-${{ matrix.shard }}
+          path: automation-tests/packages/products/fpt-claw/reports/test-results.json
+          retention-days: 14
+  
+  merge-reports:
+    name: Merge Test Reports
+    needs: e2e-tests
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      
+      - name: Install dependencies
+        working-directory: ./automation-tests/packages/products/fpt-claw
+        run: |
+          pnpm install
+      
+      - name: Merge reports
+        working-directory: ./automation-tests/packages/products/fpt-claw
+        run: |
+          npx playwright merge-reports --config=playwright.config.ts
+      
+      - name: Upload merged report
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged-playwright-report
+          path: automation-tests/packages/products/fpt-claw/playwright-report/
+          retention-days: 30
+  
+  notify-results:
+    name: Notify Test Results
+    needs: [e2e-tests, merge-reports]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Download merged report
+        uses: actions/download-artifact@v4
+        with:
+          name: merged-playwright-report
+          path: report
+      
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const reportPath = 'report/index.html';
+            
+            if (fs.existsSync(reportPath)) {
+              const reportContent = fs.readFileSync(reportPath, 'utf8');
+              
+              // Extract test results from the report
+              const passedMatches = reportContent.match(/"passed":(\d+)/g);
+              const failedMatches = reportContent.match(/"failed":(\d+)/g);
+              
+              const passed = passedMatches ? passedMatches.map(m => parseInt(m.split(':')[1])).reduce((a,b) => a+b, 0) : 0;
+              const failed = failedMatches ? failedMatches.map(m => parseInt(m.split(':')[1])).reduce((a,b) => a+b, 0) : 0;
+              const total = passed + failed;
+              const successRate = total > 0 ? ((passed / total) * 100).toFixed(1) : 0;
+              
+              const comment = `
+              ## 🧪 E2E Test Results
+              
+              **Total Tests:** ${total}
+              **✅ Passed:** ${passed}
+              **❌ Failed:** ${failed}
+              **📊 Success Rate:** ${successRate}%
+              
+              ${failed === 0 ? '🎉 All tests passed!' : '⚠️ Some tests failed. Please review the details.'}
+              
+              Full report available in the workflow artifacts.
+              `;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+  
+  deploy-report:
+    name: Deploy Test Report
+    needs: merge-reports
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Download merged report
+        uses: actions/download-artifact@v4
+        with:
+          name: merged-playwright-report
+          path: report
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./report
+          destination_dir: e2e-reports/${{ github.run_number }}
