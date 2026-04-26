@@ -6,6 +6,7 @@ stages:
   - regression
   - api
   - monitoring
+  - e2e-claw
 
 .cache_config: &cache_config
   cache:
@@ -15,6 +16,7 @@ stages:
     paths:
       - automation-tests/node_modules/
       - automation-tests/packages/products/fpt-marketplace/node_modules/
+      - automation-tests/packages/products/fpt-claw/node_modules/
       - .playwright-browsers/
     policy: pull-push
 
@@ -93,3 +95,50 @@ api-inference-vn-jp:
       - automation-tests/packages/products/fpt-marketplace/reports/test-results.json
     expire_in: 14 days
   timeout: 30 minutes
+
+# ──────────────────────────────────────────────────────────────────────────────
+# FPT CLAW E2E Tests - STG Environment
+# ──────────────────────────────────────────────────────────────────────────────
+fpt-claw-e2e-stg:
+  stage: e2e-claw
+  needs: []
+  tags:
+    - playwright
+  <<: *cache_config
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+  script:
+    - echo "=== FPT CLAW E2E Tests - STG Environment ==="
+    - echo "Target URL: https://stg-claw.fptcloud.net/"
+    - npm ci
+    - cd automation-tests && pnpm install --frozen-lockfile && cd ..
+    
+    # Run main E2E tests
+    - echo "--- Running fptclaw_e2e.spec.ts ---"
+    - cd automation-tests/packages/products/fpt-claw
+    - cross-env APP_ENV=stg FPT_CLAW_URL=https://stg-claw.fptcloud.net npx playwright test fptclaw_e2e.spec.ts --project=e2e
+    
+    # Run workspace E2E tests
+    - echo "--- Running fptclaw_workspace_e2e.spec.ts ---"
+    - cross-env APP_ENV=stg FPT_CLAW_URL=https://stg-claw.fptcloud.net npx playwright test fptclaw_workspace_e2e.spec.ts --project=e2e
+    
+    - cd ../../..
+    - echo "=== FPT CLAW E2E Tests completed ==="
+  
+  after_script:
+    - echo "=== FPT CLAW E2E done — exit code $CI_JOB_STATUS ==="
+  
+  artifacts:
+    when: always
+    paths:
+      - automation-tests/packages/products/fpt-claw/reports/playwright-report/
+      - automation-tests/packages/products/fpt-claw/reports/test-results.json
+      - automation-tests/packages/products/fpt-claw/test-results/
+    expire_in: 14 days
+    reports:
+      junit: automation-tests/packages/products/fpt-claw/test-results/*.xml
+  
+  timeout: 45 minutes
+  allow_failure: false

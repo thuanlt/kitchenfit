@@ -58,7 +58,16 @@
     "translate:vi":   "npx ts-node utils/translate.ts --to vi",
     "translate:en":   "npx ts-node utils/translate.ts --to en",
 
-    "checkly:gen-vn": "node utils/generate-checkly-checks.js"
+    "checkly:gen-vn": "node utils/generate-checkly-checks.js",
+    "pipeline:trigger": "node scripts/trigger-gitlab-pipeline.js",
+    "pipeline:trigger:stg": "node scripts/trigger-gitlab-pipeline.js --env stg",
+    "pipeline:trigger:prod": "node scripts/trigger-gitlab-pipeline.js --env prod",
+    "pipeline:trigger:regression": "node scripts/trigger-gitlab-pipeline.js --env stg --suite regression",
+    "pipeline:trigger:e2e": "node scripts/trigger-gitlab-pipeline.js --env stg --suite regression",
+    "pipeline:trigger:api": "node scripts/trigger-gitlab-pipeline.js --env prod --suite api",
+    "pipeline:trigger:smoke": "node scripts/trigger-gitlab-pipeline.js --env stg --suite smoke",
+    "pipeline:trigger:wait": "node scripts/trigger-gitlab-pipeline.js --wait",
+    "pipeline:trigger:dry-run": "node scripts/trigger-gitlab-pipeline.js --dry-run"
   },
   "keywords": [],
   "author": "",

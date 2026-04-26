@@ -1,0 +1,25 @@
+# GitLab CI/CD Pipeline Trigger Configuration
+# Copy this file to .env and fill in your values
+
+# GitLab Instance URL (default: https://gitlab.com)
+GITLAB_URL=https://gitlab.com
+
+# GitLab Project ID or Path
+# Example: 12345678 or namespace/project-name
+GITLAB_PROJECT_ID=your-project-id-or-path
+
+# Personal Access Token (for triggering with private token)
+# Create at: https://gitlab.com/-/user_settings/personal_access_tokens
+# Required scopes: api, read_repository, write_repository
+GITLAB_PRIVATE_TOKEN=glpat-xxxxxxxxxxxxxxxxxxxx
+
+# Pipeline Trigger Token (for triggering with trigger token)
+# Create at: Project Settings > CI/CD > Pipeline triggers
+GITLAB_TRIGGER_TOKEN=your-trigger-token
+
+# Optional: Default environment for pipelines
+# Values: stg, prod, jp
+DEFAULT_ENV=stg
+
+# Optional: Default branch for pipelines
+DEFAULT_BRANCH=master
