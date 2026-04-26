@@ -26,8 +26,8 @@ regression:
     - playwright
   <<: *cache_config
   rules:
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "trigger" && $RUN_CLAW_E2E_ONLY != "true"
+    - if: $CI_PIPELINE_SOURCE == "web" && $RUN_CLAW_E2E_ONLY != "true"
   script:
     - echo "=== Regression STG — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
@@ -66,9 +66,9 @@ api-inference-vn-jp:
     - playwright
   <<: *cache_config
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-    - if: $CI_PIPELINE_SOURCE == "web"
-    - if: $CI_PIPELINE_SOURCE == "trigger"
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $RUN_CLAW_E2E_ONLY != "true"
+    - if: $CI_PIPELINE_SOURCE == "web" && $RUN_CLAW_E2E_ONLY != "true"
+    - if: $CI_PIPELINE_SOURCE == "trigger" && $RUN_CLAW_E2E_ONLY != "true"
   script:
     - echo "=== API Inference VN + JP — triggered by $CI_PIPELINE_SOURCE ==="
     - npm ci
