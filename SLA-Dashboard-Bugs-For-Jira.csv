@@ -1,0 +1,4 @@
+Summary,Issue Type,Priority,Description
+[SLA-002] Missing Status Banner on Service Health page,Bug,Medium,Status banner is not displayed on Service Health page. TC-SLA-002 | Staging | https://marketplace-stg.fptcloud.net/en/my-account?tab=service-health
+[SLA-006] Year Filter UI Implementation Mismatch,Bug,Low,Year filter shows combined month/year picker instead of separate inputs. TC-SLA-006 | Staging | https://marketplace-stg.fptcloud.net/en/my-account?tab=service-health
+[SLA-001] Data Loading Behavior - Requires Manual Apply,Improvement,Low,Data does not load automatically on page load - user must click Apply. TC-SLA-001 | Staging | https://marketplace-stg.fptcloud.net/en/my-account?tab=service-health

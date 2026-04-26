@@ -62,6 +62,25 @@ function NumInput({ value, onChange, unit, min, max }: {
   );
 }
 
+function TextInput({ value, onChange, placeholder }: {
+  value: string; onChange: (v: string) => void; placeholder?: string;
+}) {
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      style={{
+        fontSize: 14, fontWeight: 700, color: "var(--text)",
+        border: "1.5px solid var(--sep)", borderRadius: 8,
+        padding: "6px 12px", background: "var(--bg)",
+        outline: "none", textAlign: "right", minWidth: 120,
+      }}
+    />
+  );
+}
+
 
 
 function MenuItem({ icon, iconBg, title, sub, href, onClick, danger }: {
@@ -122,18 +141,16 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 export default function MePage() {
   const router = useRouter();
   const store = useProfileStore();
-    const { setProfile: setStoreProfile, logout, onboardingDone,
-    goal, gender, age, weight, height, activity, tdee, accessToken, fullName } = store;
+  const { setProfile: setStoreProfile, logout, onboardingDone,
+      goal, gender, age, weight, height, activity, tdee, accessToken, fullName } = store;
 
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState<UserProfile | null>(null);
   const [saved, setSaved] = useState(false);
-  const [draftName, setDraftName] = useState(fullName || "");
 
   if (!onboardingDone) { router.replace("/onboarding"); return null; }
 
-    const profile: UserProfile = {
-    fullName: fullName || "",
+  const profile: UserProfile = {
     goal: goal!, gender, age, weight, height, activity: activity!, tdee, onboardingDone: true,
   };
 
@@ -142,13 +159,13 @@ export default function MePage() {
   const goalInfo = GOAL_OPTIONS.find(g => g.val === profile.goal)!;
   const actInfo = ACTIVITY_OPTIONS.find(a => a.val === profile.activity)!;
 
-  function startEdit() { setDraft({ ...profile }); setDraftName(fullName || ""); setEditing(true); }
+  function startEdit() { setDraft({ ...profile }); setEditing(true); }
 
-    async function save() {
+  async function save() {
     if (!draft) return;
     const newTdee = calcTDEE(draft);
     const updated = { ...draft, tdee: newTdee };
-    setStoreProfile({ ...updated, fullName: draftName.trim(), onboardingDone: true });
+    setStoreProfile({ ...updated, onboardingDone: true });
 
     if (accessToken) {
       const GOAL_TO_DB: Record<string, string> = { cut: "burn", maintain: "maintain", bulk: "build" };
@@ -158,11 +175,11 @@ export default function MePage() {
           method: "PUT",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
           body: JSON.stringify({
-            display_name: draftName.trim(),
-            goal: GOAL_TO_DB[updated.goal], gender: updated.gender,
-            age: updated.age, weight_kg: updated.weight, height_cm: updated.height,
-            activity: ACT_TO_DB[updated.activity], tdee: newTdee, onboarding_done: true,
-          }),
+                      display_name: fullName,
+                      goal: GOAL_TO_DB[updated.goal], gender: updated.gender,
+                      age: updated.age, weight_kg: updated.weight, height_cm: updated.height,
+                      activity: ACT_TO_DB[updated.activity], tdee: newTdee, onboarding_done: true,
+                    }),
         });
       } catch { /* store is source of truth */ }
     }
@@ -196,38 +213,11 @@ export default function MePage() {
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 30, border: "2px solid rgba(255,255,255,.4)", flexShrink: 0,
           }}>🐔</div>
-                    <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 12, opacity: 0.8, marginBottom: 2 }}>Hồ sơ của bạn</p>
-            {editing ? (
-              <input
-                type="text"
-                value={draftName}
-                onChange={(e) => setDraftName(e.target.value)}
-                placeholder="Nhập tên của bạn"
-                style={{
-                  fontSize: 18,
-                  fontWeight: 900,
-                  letterSpacing: "-0.3px",
-                  background: "rgba(255,255,255,0.2)",
-                  border: "1px solid rgba(255,255,255,0.4)",
-                  borderRadius: 8,
-                  padding: "4px 8px",
-                  color: "#fff",
-                  width: "100%",
-                  outline: "none",
-                  marginBottom: 4,
-                }}
-              />
-            ) : (
-              <>
-                <h1 style={{ fontSize: 20, fontWeight: 900, letterSpacing: "-0.3px" }}>
-                  {fullName || "Người dùng"}
-                </h1>
-                <p style={{ fontSize: 14, opacity: 0.9, marginTop: 2 }}>
-                  {goalInfo.icon} {goalInfo.label}
-                </p>
-              </>
-            )}
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: 12, opacity: 0.8, marginBottom: 2 }}>{fullName || "Hồ sơ của bạn"}</p>
+            <h1 style={{ fontSize: 20, fontWeight: 900, letterSpacing: "-0.3px" }}>
+              {goalInfo.icon} {goalInfo.label}
+            </h1>
             <p style={{ fontSize: 12, opacity: 0.75, marginTop: 2 }}>
               {profile.weight}kg · {profile.height}cm · {profile.age} tuổi
             </p>
@@ -303,7 +293,12 @@ export default function MePage() {
       <div style={{ padding: "16px 16px 0" }}>
         <SectionLabel>Thông số cơ thể</SectionLabel>
         <div style={{ background: "var(--card)", borderRadius: 16, border: "1px solid var(--sep)", overflow: "hidden" }}>
-          <Row label="Giới tính">
+                  <Row label="Tên">
+                    {editing
+                      ? <TextInput value={fullName || ""} onChange={v => setStoreProfile({ fullName: v })} placeholder="Nhập tên của bạn" />
+                      : fullName || "Chưa đặt tên"}
+                  </Row>
+                  <Row label="Giới tính">
             {editing ? (
               <div style={{ display: "flex", gap: 8 }}>
                 {(["male", "female"] as Gender[]).map(g => (

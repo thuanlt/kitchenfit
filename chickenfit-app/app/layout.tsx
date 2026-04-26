@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import BottomTabBar from "../components/BottomTabBar";
+import { ProfileSyncProvider } from "../components/ProfileSyncProvider";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 
@@ -106,7 +107,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             position: "relative",
           }}
         >
-          {children}
+          <ProfileSyncProvider>
+            {children}
+          </ProfileSyncProvider>
         </main>
         <BottomTabBar />
       </body>

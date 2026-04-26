@@ -27,13 +27,7 @@ const MEAL_PREP = [
 ];
 
 // ─── Greeting ─────────────────────────────────────────────────────────────────
-function getGreeting() {
-  const h = new Date().getHours();
-  if (h < 11) return "Chào buổi sáng 👋";
-  if (h < 14) return "Chào buổi trưa 🌤️";
-  if (h < 18) return "Chào buổi chiều ☀️";
-  return "Chào buổi tối 🌙";
-}
+function getGreeting(name?: string) { const h = new Date().getHours(); const timeGreeting = h < 11 ? "Chao buoi sang" : h < 14 ? "Chao buoi trua" : h < 18 ? "Chao buoi chieu" : "Chao buoi toi"; return name ? `${"{"}timeGreeting}${"{"}name}${"{"}}!` : timeGreeting; }
 
 // ─── Components ───────────────────────────────────────────────────────────────
 function SectionHead({ title, href }: { title: string; href?: string }) {
@@ -257,3 +251,4 @@ export default function HomePage() {
     </div>
   );
 }
+

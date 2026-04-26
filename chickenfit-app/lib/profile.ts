@@ -44,3 +44,32 @@ export function loadProfile(): UserProfile | null {
 export function isOnboardingDone(): boolean {
   return loadProfile()?.onboardingDone === true;
 }
+
+// Conversion helpers for store compatibility
+export const GOAL_TO_DB: Record<"burn" | "build" | "maintain", Goal> = {
+  burn: "cut",
+  build: "bulk",
+  maintain: "maintain",
+};
+
+export const GOAL_FROM_DB: Record<Goal, "burn" | "build" | "maintain"> = {
+  cut: "burn",
+  bulk: "build",
+  maintain: "maintain",
+};
+
+export const ACT_TO_DB: Record<"sedentary" | "light" | "moderate" | "active" | "very_active", ActivityLevel> = {
+  sedentary: 1.2,
+  light: 1.375,
+  moderate: 1.55,
+  active: 1.725,
+  very_active: 1.9,
+};
+
+export const ACT_FROM_DB: Record<ActivityLevel, "sedentary" | "light" | "moderate" | "active" | "very_active"> = {
+  1.2: "sedentary",
+  1.375: "light",
+  1.55: "moderate",
+  1.725: "active",
+  1.9: "very_active",
+};

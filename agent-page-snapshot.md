@@ -1,0 +1,45 @@
+- generic [ref=e5]:
+  - generic [ref=e6]:
+    - img [ref=e8]
+    - generic [ref=e13]:
+      - img [ref=e14]
+      - generic [ref=e23]: FPT CLAW
+    - generic [ref=e24]:
+      - heading "Let AI Work For You" [level=1] [ref=e25]:
+        - text: Let AI
+        - text: Work For You
+      - paragraph [ref=e26]: Build autonomous agents that handle your tasks 24/7. No code required — just describe what you need.
+      - generic [ref=e27]:
+        - generic [ref=e28]: ✦ 100+ Skills
+        - generic [ref=e29]: ✦ Unlimited Agents
+        - generic [ref=e30]: ✦ Free to Start
+    - paragraph [ref=e31]: © 2026 FPT Smart Cloud
+  - generic [ref=e33]:
+    - heading "Welcome back" [level=2] [ref=e34]
+    - paragraph [ref=e35]: Sign in to your account to continue
+    - button "Tiếp tục với FPT ID" [ref=e37]
+    - generic [ref=e38]:
+      - generic [ref=e43]: or continue with email
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - text: Email
+          - generic [ref=e46]:
+            - img [ref=e47]
+            - textbox "Email" [active] [ref=e50]:
+              - /placeholder: you@company.com
+              - text: BDS Ngọc Minh
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - generic [ref=e53]: Password
+            - link "Forgot password?" [ref=e54] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=e55]:
+            - img [ref=e56]
+            - textbox "Password" [ref=e59]:
+              - /placeholder: ••••••••
+              - text: 8661828147:AAGnTa5w1dY2hMKUSwucf11QY3wH_rbk8LU
+            - button [ref=e60]:
+              - img [ref=e61]
+        - button "Sign in" [ref=e64]:
+          - generic [ref=e65]: Sign in
+          - img [ref=e66]

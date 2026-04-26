@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FPTClaw Bug Dashboard — 2026-04-17</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; }
+  header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 24px 32px; }
+  header h1 { font-size: 22px; font-weight: 700; }
+  header p { font-size: 13px; color: #aab; margin-top: 4px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 32px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 24px; }
+  .kpi { background: white; border-radius: 10px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .kpi .num { font-size: 32px; font-weight: 800; line-height: 1; }
+  .kpi .label { font-size: 12px; color: #666; margin-top: 4px; }
+  .kpi.total .num { color: #1a1a2e; }
+  .kpi.todo .num   { color: #e07b00; }
+  .kpi.inprog .num { color: #0052cc; }
+  .kpi.review .num { color: #8b5cf6; }
+  .kpi.done .num   { color: #22c55e; }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .card { background: white; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .card h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #555; margin-bottom: 14px; }
+
+  .bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 13px; }
+  .bar-item .bar-label { width: 155px; flex-shrink: 0; }
+  .bar-track { flex: 1; background: #f0f2f5; border-radius: 4px; height: 16px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-item .bar-count { width: 28px; text-align: right; font-weight: 700; }
+
+  .p-blocker  { background: #7b0000; }
+  .p-critical { background: #c0392b; }
+  .p-highest  { background: #e74c3c; }
+  .p-high     { background: #e07b00; }
+  .p-medium   { background: #f39c12; }
+  .p-low      { background: #95a5a6; }
+  .c-chat     { background: #0052cc; }
+  .c-agent    { background: #8b5cf6; }
+  .c-security { background: #c0392b; }
+  .c-ui       { background: #ca8a04; }
+  .c-file     { background: #16a34a; }
+  .c-telegram { background: #0088cc; }
+  .c-teams    { background: #6264a7; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .s-todo   { background: #fff3cd; color: #856404; }
+  .s-inprog { background: #cfe2ff; color: #084298; }
+  .s-review { background: #e9d5ff; color: #5b21b6; }
+  .s-done   { background: #d1fae5; color: #065f46; }
+  .pr-blocker  { background: #7b0000; color: white; }
+  .pr-critical { background: #c0392b; color: white; }
+  .pr-highest  { background: #e74c3c; color: white; }
+  .pr-high     { background: #fff3cd; color: #856404; }
+  .pr-medium   { background: #e0f2fe; color: #0369a1; }
+  .pr-low      { background: #f1f5f9; color: #64748b; }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f8fafc; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 12px; color: #555; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+  tr:hover td { background: #fafbff; }
+
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .filter-btn { padding: 5px 12px; border: 1.5px solid #e2e8f0; border-radius: 20px; background: white; font-size: 12px; cursor: pointer; }
+  .filter-btn:hover, .filter-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+  .section-title { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🐛 FPTClaw — Bug Classification Dashboard</h1>
+  <p>Filter: fptclaw_bug · jira.fci.vn/issues/?filter=27367 · 2026-04-17</p>
+</header>
+
+<div class="container">
+
+  <div class="kpi-grid">
+    <div class="kpi total"><div class="num">50</div><div class="label">Total Bugs</div></div>
+    <div class="kpi todo"><div class="num">15</div><div class="label">To Do</div></div>
+    <div class="kpi inprog"><div class="num">6</div><div class="label">In Progress</div></div>
+    <div class="kpi review"><div class="num">11</div><div class="label">In Review</div></div>
+    <div class="kpi done"><div class="num">18</div><div class="label">Done (36%)</div></div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <h3>Theo Mức Độ Ưu Tiên</h3>
+      <div class="bar-item"><span class="bar-label">🚨 Blocker</span><div class="bar-track"><div class="bar-fill p-blocker" style="width:6%"></div></div><span class="bar-count">3</span></div>
+      <div class="bar-item"><span class="bar-label">🔴 Critical</span><div class="bar-track"><div class="bar-fill p-critical" style="width:2%"></div></div><span class="bar-count">1</span></div>
+      <div class="bar-item"><span class="bar-label">🔴 Highest</span><div class="bar-track"><div class="bar-fill p-highest" style="width:18%"></div></div><span class="bar-count">9</span></div>
+      <div class="bar-item"><span class="bar-label">🟠 High</span><div class="bar-track"><div class="bar-fill p-high" style="width:36%"></div></div><span class="bar-count">18</span></div>
+      <div class="bar-item"><span class="bar-label">🟡 Medium</span><div class="bar-track"><div class="bar-fill p-medium" style="width:16%"></div></div><span class="bar-count">8</span></div>
+      <div class="bar-item"><span class="bar-label">⚪ Low</span><div class="bar-track"><div class="bar-fill p-low" style="width:22%"></div></div><span class="bar-count">11</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Theo Nhóm Chức Năng</h3>
+      <div class="bar-item"><span class="bar-label">💬 Chat / Streaming</span><div class="bar-track"><div class="bar-fill c-chat" style="width:22%"></div></div><span class="bar-count">11</span></div>
+      <div class="bar-item"><span class="bar-label">🤖 Agent / Workflow</span><div class="bar-track"><div class="bar-fill c-agent" style="width:20%"></div></div><span class="bar-count">10</span></div>
+      <div class="bar-item"><span class="bar-label">🔒 Security</span><div class="bar-track"><div class="bar-fill c-security" style="width:18%"></div></div><span class="bar-count">9</span></div>
+      <div class="bar-item"><span class="bar-label">🖥️ UI / Dashboard</span><div class="bar-track"><div class="bar-fill c-ui" style="width:16%"></div></div><span class="bar-count">8</span></div>
+      <div class="bar-item"><span class="bar-label">📁 File / Model</span><div class="bar-track"><div class="bar-fill c-file" style="width:10%"></div></div><span class="bar-count">5</span></div>
+      <div class="bar-item"><span class="bar-label">📱 Telegram</span><div class="bar-track"><div class="bar-fill c-telegram" style="width:8%"></div></div><span class="bar-count">4</span></div>
+      <div class="bar-item"><span class="bar-label">👥 Teams</span><div class="bar-track"><div class="bar-fill c-teams" style="width:6%"></div></div><span class="bar-count">3</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">📋 Danh Sách Bugs</div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterTable('all',this)">Tất cả (50)</button>
+      <button class="filter-btn" onclick="filterTable('To Do',this)">To Do (15)</button>
+      <button class="filter-btn" onclick="filterTable('In Progress',this)">In Progress (6)</button>
+      <button class="filter-btn" onclick="filterTable('In Review',this)">In Review (11)</button>
+      <button class="filter-btn" onclick="filterTable('Done',this)">Done (18)</button>
+    </div>
+    <div class="table-wrap">
+      <table id="bugTable">
+        <thead>
+          <tr><th>#</th><th>Mô tả</th><th>Nhóm</th><th>Priority</th><th>Status</th><th>Assignee</th><th>Ngày tạo</th></tr>
+        </thead>
+        <tbody id="bugBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const bugs = [
+  {s:"Agent hay truy cập vào thư mục bị chặn để ghi",c:"🤖 Agent",p:"Highest",st:"In Review",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Agent không sử dụng được browser",c:"🤖 Agent",p:"High",st:"To Do",a:"Đào Khôi Nguyên",d:"17/Apr/26"},
+  {s:"Bị gửi lại câu chat nếu chat ngắn",c:"💬 Chat",p:"Highest",st:"In Progress",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Bỏ nút tạo agent manual do đã tạo bằng prompt",c:"🤖 Agent",p:"Low",st:"Done",a:"Đào Khôi Nguyên",d:"13/Apr/26"},
+  {s:"Chưa có tính năng đọc ảnh ở các model text",c:"📁 File/Model",p:"High",st:"To Do",a:"Nguyễn Thái Dương",d:"16/Apr/26"},
+  {s:"Connect Telegram qua kết nối ở khung chat không chạy được",c:"📱 Telegram",p:"Medium",st:"In Progress",a:"Nguyễn Thái Dương",d:"17/Apr/26"},
+  {s:"Cần validate loại file giới hạn (ppt/doc/excel/pdf/md)",c:"📁 File/Model",p:"High",st:"To Do",a:"Nguyễn Thái Dương",d:"14/Apr/26"},
+  {s:"Dashboard hiển thị ko đúng",c:"🖥️ UI/Dashboard",p:"Medium",st:"In Progress",a:"Đào Khôi Nguyên",d:"06/Apr/26"},
+  {s:"Di chuột vào các nút đăng nhập không có hover cursor",c:"🖥️ UI/Dashboard",p:"Low",st:"To Do",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Giao diện không đồng nhất, nút mở rộng quá bé (teams agent)",c:"👥 Teams",p:"High",st:"To Do",a:"Nguyễn Thái Dương",d:"17/Apr/26"},
+  {s:"Giao diện phần MCP trong chat bị lỗi, không kéo xuống được",c:"🖥️ UI/Dashboard",p:"High",st:"To Do",a:"Đào Khôi Nguyên",d:"17/Apr/26"},
+  {s:"Gắn link đều bị 404",c:"🖥️ UI/Dashboard",p:"Low",st:"Done",a:"Nguyễn Thái Dương",d:"14/Apr/26"},
+  {s:"Khi chạy 2 chat dài đồng thời thì nội dung bị trùng nhau",c:"💬 Chat",p:"Highest",st:"In Review",a:"Đào Khôi Nguyên",d:"16/Apr/26"},
+  {s:"Không đọc được file pdf trên telegram",c:"📱 Telegram",p:"Medium",st:"To Do",a:"Đào Khôi Nguyên",d:"16/Apr/26"},
+  {s:"Lặp lại yêu cầu cấp quyền (không tắt được)",c:"🖥️ UI/Dashboard",p:"High",st:"To Do",a:"Nguyễn Thái Dương",d:"17/Apr/26"},
+  {s:"Lệnh bị chặn hoặc chưa install",c:"🤖 Agent",p:"High",st:"Done",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Lỗi HTML streaming",c:"💬 Chat",p:"High",st:"Done",a:"Đào Khôi Nguyên",d:"16/Apr/26"},
+  {s:"Lỗi create task agent",c:"🤖 Agent",p:"Low",st:"In Review",a:"Nguyễn Thái Dương",d:"08/Apr/26"},
+  {s:"Lỗi đọc file excel",c:"📁 File/Model",p:"Low",st:"In Review",a:"Đào Khôi Nguyên",d:"14/Apr/26"},
+  {s:"Lỗi không dùng được micro để chat",c:"💬 Chat",p:"Highest",st:"To Do",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Lỗi ko cập nhật status flow trong agent teams",c:"👥 Teams",p:"High",st:"To Do",a:"Nguyễn Thái Dương",d:"14/Apr/26"},
+  {s:"Lỗi ko log lại được thông tin task",c:"🖥️ UI/Dashboard",p:"Medium",st:"In Review",a:"Nguyễn Thái Dương",d:"06/Apr/26"},
+  {s:"Lỗi quick ask ở Dashboard",c:"🖥️ UI/Dashboard",p:"Low",st:"In Review",a:"Nguyễn Thái Dương",d:"14/Apr/26"},
+  {s:"Lỗi quick ask ở New Task",c:"🖥️ UI/Dashboard",p:"Low",st:"In Review",a:"Nguyễn Thái Dương",d:"14/Apr/26"},
+  {s:"Lỗi sau khi tạo bot: show thông tin user ra file chat",c:"🤖 Agent",p:"Highest",st:"To Do",a:"Nguyễn Thái Dương",d:"16/Apr/26"},
+  {s:"Lỗi xóa mất group teams",c:"👥 Teams",p:"High",st:"To Do",a:"Nguyễn Thái Dương",d:"06/Apr/26"},
+  {s:"Lỗi đứt gãy workflow",c:"🤖 Agent",p:"High",st:"Done",a:"Nguyễn Thái Dương",d:"06/Apr/26"},
+  {s:"Lựa chọn model khi chat",c:"💬 Chat",p:"High",st:"In Progress",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"Mất lịch sử chat và tin nhắn gửi nếu chat bị dài",c:"💬 Chat",p:"High",st:"Done",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Một số model gọi tool đọc file bị lỗi",c:"📁 File/Model",p:"High",st:"In Review",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"Một số model thinking cần cấu hình reasoning phù hợp",c:"💬 Chat",p:"Medium",st:"In Progress",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"Mở chat lịch sử không bôi đậm, không có tên chat trên cùng",c:"💬 Chat",p:"High",st:"Done",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Mở tab mới / CTRL+T luôn yêu cầu đăng nhập lại",c:"💬 Chat",p:"Low",st:"Done",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Nhắn tin trên telegram không đẩy được tin nhắn về bot",c:"📱 Telegram",p:"Medium",st:"In Progress",a:"Nguyễn Thái Dương",d:"17/Apr/26"},
+  {s:"SEC: OOM — Đánh sập FPTClaw bằng python",c:"🔒 Security",p:"High",st:"To Do",a:"Đào Khôi Nguyên",d:"16/Apr/26"},
+  {s:"SEC: Đánh sập FPTClaw bằng cách lồng mã độc vào file py",c:"🔒 Security",p:"Highest",st:"Done",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Stream có vấn đề: text bị nhảy lung tung, sai vị trí",c:"💬 Chat",p:"High",st:"To Do",a:"Nguyễn Tiến Hoàng",d:"17/Apr/26"},
+  {s:"Thời gian lưu chat đang bị sai",c:"💬 Chat",p:"Medium",st:"Done",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"Trục trặc khi gọi tool để sử dụng trên telegram",c:"📱 Telegram",p:"Medium",st:"To Do",a:"Nguyễn Thái Dương",d:"16/Apr/26"},
+  {s:"Working Space bị cấu hình khác nhau giữa các role",c:"🤖 Agent",p:"High",st:"In Review",a:"Nguyễn Thái Dương",d:"16/Apr/26"},
+  {s:"Write file bị failed do không tạo được sandbox",c:"🤖 Agent",p:"Highest",st:"In Review",a:"Đào Khôi Nguyên",d:"17/Apr/26"},
+  {s:"Xóa agent ko có thông báo cho user",c:"🤖 Agent",p:"Highest",st:"In Review",a:"Nguyễn Thái Dương",d:"06/Apr/26"},
+  {s:"Xóa tính năng enhance prompt đi",c:"🤖 Agent",p:"Highest",st:"Done",a:"Đào Khôi Nguyên",d:"10/Apr/26"},
+  {s:"[PT-001] Shell Deny Bypass → Leak All Environment Secrets",c:"🔒 Security",p:"Blocker",st:"Done",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"[PT-002] SSRF — Access Internal Services via wget",c:"🔒 Security",p:"Blocker",st:"Done",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"[PT-003] Cloud Metadata Leak (OpenStack / FPT Cloud)",c:"🔒 Security",p:"Blocker",st:"Done",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"[PT-004] Gateway Token Has No Expiration (Permanent)",c:"🔒 Security",p:"Critical",st:"Done",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"[PT-005] Session Token Lifetime Too Long (7 Days)",c:"🔒 Security",p:"Low",st:"Done",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"[PT-006] Weak Passwords / Default Credentials",c:"🔒 Security",p:"Low",st:"Done",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+  {s:"[PT-007] SSRF DNS Rebinding (web_fetch)",c:"🔒 Security",p:"Low",st:"Done",a:"Đào Khôi Nguyên",d:"03/Apr/26"},
+];
+
+const SC = {s:"s-todo","In Progress":"s-inprog","In Review":"s-review","Done":"s-done"};
+const PC = {Blocker:"pr-blocker",Critical:"pr-critical",Highest:"pr-highest",High:"pr-high",Medium:"pr-medium",Low:"pr-low"};
+
+function sClass(s){ return {"To Do":"s-todo","In Progress":"s-inprog","In Review":"s-review","Done":"s-done"}[s]||""; }
+
+function renderTable(data) {
+  document.getElementById('bugBody').innerHTML = data.map((b,i) => `
+    <tr>
+      <td style="color:#999;font-size:12px">${i+1}</td>
+      <td style="max-width:360px">${b.s}</td>
+      <td style="white-space:nowrap">${b.c}</td>
+      <td><span class="badge ${PC[b.p]}">${b.p}</span></td>
+      <td><span class="badge ${sClass(b.st)}">${b.st}</span></td>
+      <td style="font-size:12px;white-space:nowrap">${b.a}</td>
+      <td style="font-size:12px;white-space:nowrap;color:#999">${b.d}</td>
+    </tr>`).join('');
+}
+
+function filterTable(status, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable(status==='all' ? bugs : bugs.filter(b=>b.st===status));
+}
+
+renderTable(bugs);
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+﻿const fs=require("fs");const p=require("path");function w(fp,c){const d=p.dirname(fp);if(!fs.existsSync(d))fs.mkdirSync(d,{recursive:true});fs.writeFileSync(fp,c,"utf8");console.log("Created:",fp);}console.log("Generator loaded. Will create files via separate commands.");process.exit(0);

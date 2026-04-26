@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grafana Manual Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .instructions { background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h2>Hướng dẫn:</h2>
+        <ol>
+            <li>Nhấn nút "Open Grafana" bên dưới</li>
+            <li>Trong tab mới mở, click vào "Sign in with Azure AD"</li>
+            <li>Login với tài khoản Microsoft của bạn</li>
+            <li>Sau khi login thành công và thấy dashboard, quay lại trang này</li>
+            <li>Mở DevTools (F12) -> Application tab -> Cookies</li>
+            <li>Copy tất cả cookies từ ncp-grafana.fci.vn</li>
+            <li>Paste vào ô bên dưới và nhấn "Save Cookies"</li>
+        </ol>
+    </div>
+    
+    <button onclick="window.open('https://ncp-grafana.fci.vn/d/658293bb-ec77-4d93-a4e9-6c7b4d13a844/sla-dashboard-stg', '_blank')">Open Grafana</button>
+    
+    <h3>Paste Cookies (JSON format):</h3>
+    <textarea id="cookies" rows="10" cols="100" placeholder='[{"name":"...","value":"...","domain":".fci.vn"}]'></textarea>
+    <br><br>
+    <button onclick="saveCookies()">Save Cookies</button>
+    
+    <script>
+        function saveCookies() {
+            const cookiesText = document.getElementById('cookies').value;
+            const cookies = JSON.parse(cookiesText);
+            const storageState = {
+                cookies: cookies,
+                origins: []
+            };
+            const blob = new Blob([JSON.stringify(storageState, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'test-grafana-user.json';
+            a.click();
+            alert('Cookies saved! Please move the file to: src/playwright/.auth/test-grafana-user.json');
+        }
+    </script>
+</body>
+</html>

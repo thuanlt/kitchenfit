@@ -1,280 +1,387 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { calcTDEE, type Goal, type Gender, type ActivityLevel } from "../../lib/profile";
-import { useProfileStore } from "../../store/profile.store";
-
-const GOALS: { id: Goal; icon: string; name: string; desc: string }[] = [
-  { id: "cut",      icon: "🔥", name: "Giảm mỡ", desc: "Giảm cân, đốt mỡ thừa" },
-  { id: "maintain", icon: "⚖️", name: "Duy trì", desc: "Giữ cân nặng hiện tại" },
-  { id: "bulk",     icon: "💪", name: "Tăng cơ", desc: "Tăng khối lượng cơ bắp" },
-];
-
-const ACTIVITIES: { level: ActivityLevel; icon: string; name: string; desc: string }[] = [
-  { level: 1.2,   icon: "🛋️", name: "Ít vận động",    desc: "Ngồi bàn giấy cả ngày" },
-  { level: 1.375, icon: "🚶", name: "Nhẹ nhàng",       desc: "Tập 1–3 buổi/tuần" },
-  { level: 1.55,  icon: "🏃", name: "Vừa phải",        desc: "Tập 3–5 buổi/tuần" },
-  { level: 1.725, icon: "🏋️", name: "Cường độ cao",   desc: "Tập 6–7 buổi/tuần" },
-  { level: 1.9,   icon: "🔱", name: "Vận động viên",   desc: "Tập nặng + công việc chân tay" },
-];
-
-const GOAL_TO_DB: Record<Goal, string> = { cut: "burn", maintain: "maintain", bulk: "build" };
-const ACTIVITY_TO_DB: Record<number, string> = {
-  1.2: "sedentary", 1.375: "light", 1.55: "moderate", 1.725: "active", 1.9: "very_active",
-};
-
-interface FormState {
-  goal: Goal | null;
-  gender: Gender;
-  age: string;
-  weight: string;
-  height: string;
-  activity: ActivityLevel | null;
-}
-
-function ProgressDots({ current, total }: { current: number; total: number }) {
-  return (
-    <div style={{ display: "flex", gap: "6px", alignItems: "center", justifyContent: "center" }}>
-      {Array.from({ length: total }).map((_, i) => (
-        <div key={i} style={{
-          height: "6px", borderRadius: "3px", transition: "all 0.3s ease",
-          width: i === current ? "22px" : "6px",
-          background: i === current ? "var(--primary)" : i < current ? "var(--primary)" : "#C7C7CC",
-          opacity: i < current ? 0.35 : 1,
-        }} />
-      ))}
-    </div>
-  );
-}
+import { useProfileStore } from "../store/profile.store";
+import { calcTDEE, type UserProfile } from "../lib/profile";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
 
 export default function OnboardingPage() {
   const router = useRouter();
   const { setProfile, accessToken } = useProfileStore();
-  const [step, setStep] = useState(0);
-  const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState<FormState>({
-    goal: null, gender: "male", age: "", weight: "", height: "", activity: null,
-  });
+  
+  const [step, setStep] = useState(1);
+  const [fullName, setFullName] = useState("");
+  const [gender, setGender] = useState<"male" | "female" | null>(null);
+  const [age, setAge] = useState<number | null>(null);
+  const [weight, setWeight] = useState<number | null>(null);
+  const [height, setHeight] = useState<number | null>(null);
+  const [activity, setActivity] = useState<"sedentary" | "light" | "moderate" | "active" | "very_active" | null>(null);
+  const [goal, setGoal] = useState<"burn" | "build" | "maintain" | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const TOTAL = 4;
-
-  function canNext(): boolean {
-    if (step === 0) return true;
-    if (step === 1) return form.goal !== null;
-    if (step === 2) {
-      const age = Number(form.age), weight = Number(form.weight), height = Number(form.height);
-      return age >= 15 && age <= 80 && weight >= 30 && weight <= 200 && height >= 100 && height <= 230;
+  const handleNext = () => {
+    if (step === 1 && !fullName.trim()) {
+      setError("Vui lòng nhập tên của bạn");
+      return;
     }
-    if (step === 3) return form.activity !== null;
-    return false;
-  }
+    if (step === 2 && !gender) {
+      setError("Vui lòng chọn giới tính");
+      return;
+    }
+    if (step === 3 && !age) {
+      setError("Vui lòng nhập tuổi");
+      return;
+    }
+    if (step === 4 && !weight) {
+      setError("Vui lòng nhập cân nặng");
+      return;
+    }
+    if (step === 5 && !height) {
+      setError("Vui lòng nhập chiều cao");
+      return;
+    }
+    if (step === 6 && !activity) {
+      setError("Vui lòng chọn mức độ hoạt động");
+      return;
+    }
+    if (step === 7 && !goal) {
+      setError("Vui lòng chọn mục tiêu");
+      return;
+    }
+    
+    setError("");
+    if (step < 7) {
+      setStep(step + 1);
+    } else {
+      handleSubmit();
+    }
+  };
 
-  async function handleNext() {
-    if (step < TOTAL - 1) { setStep(step + 1); return; }
+  const handleSubmit = async () => {
+    if (!gender || !age || !weight || !height || !activity || !goal) return;
 
-    setSaving(true);
-    const tdee = calcTDEE({
-      goal: form.goal!, gender: form.gender,
-      age: Number(form.age), weight: Number(form.weight),
-      height: Number(form.height), activity: form.activity!,
-    });
+    setIsLoading(true);
+    setError("");
 
-    // Save to Zustand store (persisted via localStorage)
-    setProfile({
-      goal: form.goal!, gender: form.gender,
-      age: Number(form.age), weight: Number(form.weight),
-      height: Number(form.height), activity: form.activity!,
-      tdee, onboardingDone: true,
-    });
+    try {
+      const profile: Omit<UserProfile, "tdee" | "onboardingDone"> = {
+        gender,
+        age,
+        weight,
+        height,
+        activity,
+        goal,
+      };
 
-    // Sync to API if authenticated
-    if (accessToken) {
-      try {
-        await fetch("/api/profile", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
+      const tdee = calcTDEE(profile);
+
+      // Update local store
+      setProfile({
+        ...profile,
+        tdee,
+        onboardingDone: true,
+        fullName,
+      });
+
+      // Update server if logged in
+      if (accessToken) {
+        const response = await fetch("/api/profile", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
           body: JSON.stringify({
-            goal: GOAL_TO_DB[form.goal!],
-            gender: form.gender,
-            age: Number(form.age),
-            weight_kg: Number(form.weight),
-            height_cm: Number(form.height),
-            activity: ACTIVITY_TO_DB[form.activity!],
+            display_name: fullName,
+            gender,
+            age,
+            weight_kg: weight,
+            height_cm: height,
+            activity,
+            goal,
             tdee,
             onboarding_done: true,
           }),
         });
-      } catch { /* store is source of truth */ }
+
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error?.message || "Cập nhật hồ sơ thất bại");
+        }
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Có lỗi xảy ra");
+    } finally {
+      setIsLoading(false);
     }
-
-    setSaving(false);
-    router.push("/");
-  }
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100dvh", background: "var(--bg)", overflow: "hidden" }}>
-      {/* Header */}
-      <div style={{ padding: "16px 20px 8px", flexShrink: 0 }}>
-        <ProgressDots current={step} total={TOTAL} />
-      </div>
-
-      {/* Content */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 20px 12px" }}>
-        {step === 0 && <StepWelcome />}
-        {step === 1 && <StepGoal form={form} setForm={setForm} />}
-        {step === 2 && <StepBody form={form} setForm={setForm} />}
-        {step === 3 && <StepActivity form={form} setForm={setForm} />}
-      </div>
-
-      {/* Footer */}
-      <div style={{ padding: "12px 20px 28px", display: "flex", gap: "12px", flexShrink: 0, background: "var(--bg)" }}>
-        {step > 0 && (
-          <button onClick={() => setStep(step - 1)} style={{
-            width: "48px", height: "52px", borderRadius: "14px",
-            border: "1.5px solid var(--sep)", background: "var(--card)",
-            fontSize: "20px", cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-          }}>←</button>
-        )}
-        <button onClick={handleNext} disabled={!canNext() || saving} style={{
-          flex: 1, height: "52px", borderRadius: "14px", border: "none",
-          background: canNext() && !saving ? "var(--primary)" : "#C7C7CC",
-          color: "#fff", fontSize: "16px", fontWeight: 700,
-          cursor: canNext() && !saving ? "pointer" : "not-allowed",
-          transition: "background 0.2s",
-        }}>
-          {saving ? "Đang lưu..." : step === TOTAL - 1 ? "Bắt đầu 🚀" : "Tiếp theo →"}
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function StepWelcome() {
-  return (
-    <div style={{ paddingTop: "32px", textAlign: "center" }}>
-      <div style={{ fontSize: "80px", marginBottom: "20px" }}>🍗</div>
-      <h1 style={{ fontSize: "28px", fontWeight: 900, color: "var(--text)", letterSpacing: "-0.5px", marginBottom: "8px" }}>ChickenFit</h1>
-      <p style={{ fontSize: "15px", color: "var(--text2)", lineHeight: 1.6, marginBottom: "36px" }}>
-        Ăn đúng — Tập đủ — Cân bằng cuộc sống
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: "14px", textAlign: "left" }}>
-        {[
-          { icon: "🥗", title: "99 công thức ức gà",    desc: "Đa dạng, dễ nấu, ngon miệng" },
-          { icon: "🤖", title: "AI tính TDEE cho bạn",  desc: "Calo phù hợp với mục tiêu cá nhân" },
-          { icon: "📅", title: "Meal plan 7 ngày",       desc: "Lên kế hoạch ăn uống thông minh" },
-          { icon: "📊", title: "Theo dõi tiến trình",   desc: "Nhật ký cân nặng & bữa ăn hàng ngày" },
-        ].map((f) => (
-          <div key={f.icon} style={{
-            background: "var(--card)", borderRadius: "14px", padding: "14px 16px",
-            display: "flex", gap: "14px", alignItems: "center", border: "1px solid var(--sep)",
-          }}>
-            <span style={{ fontSize: "28px" }}>{f.icon}</span>
-            <div>
-              <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>{f.title}</p>
-              <p style={{ fontSize: "12px", color: "var(--text2)" }}>{f.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function StepGoal({ form, setForm }: { form: FormState; setForm: React.Dispatch<React.SetStateAction<FormState>> }) {
-  return (
-    <div style={{ paddingTop: "28px" }}>
-      <h2 style={{ fontSize: "22px", fontWeight: 900, color: "var(--text)", marginBottom: "6px" }}>Mục tiêu của bạn?</h2>
-      <p style={{ fontSize: "14px", color: "var(--text2)", marginBottom: "24px" }}>Chúng tôi sẽ tính calo phù hợp cho bạn.</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        {GOALS.map((g) => {
-          const selected = form.goal === g.id;
-          return (
-            <button key={g.id} onClick={() => setForm((f) => ({ ...f, goal: g.id }))} style={{
-              display: "flex", alignItems: "center", gap: "16px", padding: "16px",
-              borderRadius: "16px", border: selected ? "2px solid var(--primary)" : "1.5px solid var(--sep)",
-              background: selected ? "#FFF5F0" : "var(--card)", cursor: "pointer", textAlign: "left", transition: "all 0.15s",
-            }}>
-              <span style={{ fontSize: "32px" }}>{g.icon}</span>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>{g.name}</p>
-                <p style={{ fontSize: "13px", color: "var(--text2)" }}>{g.desc}</p>
-              </div>
-              <div style={{ width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0, transition: "all 0.15s", border: selected ? "6px solid var(--primary)" : "1.5px solid #C7C7CC" }} />
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function StepBody({ form, setForm }: { form: FormState; setForm: React.Dispatch<React.SetStateAction<FormState>> }) {
-  const fieldStyle = (val: string, min: number, max: number): React.CSSProperties => {
-    const num = Number(val);
-    const invalid = val !== "" && (isNaN(num) || num < min || num > max);
-    return {
-      width: "100%", height: "52px", borderRadius: "12px",
-      border: invalid ? "1.5px solid #FF3B30" : "1.5px solid var(--sep)",
-      background: "var(--card)", padding: "0 14px", fontSize: "16px",
-      color: "var(--text)", outline: "none", boxSizing: "border-box",
-    };
   };
-  return (
-    <div style={{ paddingTop: "28px" }}>
-      <h2 style={{ fontSize: "22px", fontWeight: 900, color: "var(--text)", marginBottom: "6px" }}>Thể trạng của bạn</h2>
-      <p style={{ fontSize: "14px", color: "var(--text2)", marginBottom: "24px" }}>Để tính chính xác chỉ số TDEE.</p>
-      <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text2)", marginBottom: "8px" }}>Giới tính</p>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "20px" }}>
-        {(["male", "female"] as Gender[]).map((g) => (
-          <button key={g} onClick={() => setForm((f) => ({ ...f, gender: g }))} style={{
-            height: "52px", borderRadius: "12px",
-            border: form.gender === g ? "2px solid var(--primary)" : "1.5px solid var(--sep)",
-            background: form.gender === g ? "#FFF5F0" : "var(--card)",
-            fontSize: "15px", fontWeight: 700,
-            color: form.gender === g ? "var(--primary)" : "var(--text2)", cursor: "pointer", transition: "all 0.15s",
-          }}>{g === "male" ? "👨 Nam" : "👩 Nữ"}</button>
-        ))}
-      </div>
-      <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text2)", marginBottom: "8px" }}>Tuổi (15–80)</p>
-      <input type="number" placeholder="Nhập tuổi" value={form.age}
-        onChange={(e) => setForm((f) => ({ ...f, age: e.target.value }))}
-        style={{ ...fieldStyle(form.age, 15, 80), marginBottom: "16px" }} />
-      <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text2)", marginBottom: "8px" }}>Cân nặng (30–200 kg)</p>
-      <input type="number" placeholder="Nhập cân nặng" value={form.weight}
-        onChange={(e) => setForm((f) => ({ ...f, weight: e.target.value }))}
-        style={{ ...fieldStyle(form.weight, 30, 200), marginBottom: "16px" }} />
-      <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text2)", marginBottom: "8px" }}>Chiều cao (100–230 cm)</p>
-      <input type="number" placeholder="Nhập chiều cao" value={form.height}
-        onChange={(e) => setForm((f) => ({ ...f, height: e.target.value }))}
-        style={{ ...fieldStyle(form.height, 100, 230), marginBottom: "8px" }} />
-    </div>
-  );
-}
 
-function StepActivity({ form, setForm }: { form: FormState; setForm: React.Dispatch<React.SetStateAction<FormState>> }) {
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+      setError("");
+    }
+  };
+
   return (
-    <div style={{ paddingTop: "28px" }}>
-      <h2 style={{ fontSize: "22px", fontWeight: 900, color: "var(--text)", marginBottom: "6px" }}>Mức độ vận động</h2>
-      <p style={{ fontSize: "14px", color: "var(--text2)", marginBottom: "24px" }}>Trung bình mỗi tuần bạn tập thế nào?</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {ACTIVITIES.map((a) => {
-          const selected = form.activity === a.level;
-          return (
-            <button key={a.level} onClick={() => setForm((f) => ({ ...f, activity: a.level }))} style={{
-              display: "flex", alignItems: "center", gap: "14px", padding: "14px 16px",
-              borderRadius: "14px", border: selected ? "2px solid var(--primary)" : "1.5px solid var(--sep)",
-              background: selected ? "#FFF5F0" : "var(--card)", cursor: "pointer", textAlign: "left", transition: "all 0.15s",
-            }}>
-              <span style={{ fontSize: "26px" }}>{a.icon}</span>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>{a.name}</p>
-                <p style={{ fontSize: "12px", color: "var(--text2)" }}>{a.desc}</p>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* Progress bar */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-medium text-gray-600">Bước {step}/7</span>
+            <span className="text-sm font-medium text-orange-500">{Math.round((step / 7) * 100)}%</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${(step / 7) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Card */}
+        <div className="bg-white rounded-2xl shadow-xl p-8">
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+              {error}
+            </div>
+          )}
+
+          {/* Step 1: Full Name */}
+          {step === 1 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+                  <span className="text-3xl">👋</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Xin chào!</h2>
+                <p className="text-gray-600 mt-2">Chúng ta nên gọi bạn là gì?</p>
               </div>
-              <div style={{ width: "20px", height: "20px", borderRadius: "50%", flexShrink: 0, transition: "all 0.15s", border: selected ? "6px solid var(--primary)" : "1.5px solid #C7C7CC" }} />
-            </button>
-          );
-        })}
+              <Input
+                label="Họ và tên"
+                type="text"
+                placeholder="Nguyễn Văn A"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                autoFocus
+              />
+            </div>
+          )}
+
+          {/* Step 2: Gender */}
+          {step === 2 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                  <span className="text-3xl">👤</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Giới tính</h2>
+                <p className="text-gray-600 mt-2">Chọn giới tính của bạn</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  onClick={() => setGender("male")}
+                  className={`p-6 rounded-xl border-2 transition-all ${
+                    gender === "male"
+                      ? "border-orange-500 bg-orange-50"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                >
+                  <div className="text-4xl mb-2">👨</div>
+                  <div className="font-semibold text-gray-900">Nam</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGender("female")}
+                  className={`p-6 rounded-xl border-2 transition-all ${
+                    gender === "female"
+                      ? "border-orange-500 bg-orange-50"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                >
+                  <div className="text-4xl mb-2">👩</div>
+                  <div className="font-semibold text-gray-900">Nữ</div>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Age */}
+          {step === 3 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                  <span className="text-3xl">🎂</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Tuổi của bạn</h2>
+                <p className="text-gray-600 mt-2">Nhập số tuổi</p>
+              </div>
+              <Input
+                label="Tuổi"
+                type="number"
+                placeholder="25"
+                value={age || ""}
+                onChange={(e) => setAge(parseInt(e.target.value) || null)}
+                min="10"
+                max="100"
+                autoFocus
+              />
+            </div>
+          )}
+
+          {/* Step 4: Weight */}
+          {step === 4 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                  <span className="text-3xl">⚖️</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Cân nặng</h2>
+                <p className="text-gray-600 mt-2">Nhập cân nặng hiện tại của bạn</p>
+              </div>
+              <Input
+                label="Cân nặng (kg)"
+                type="number"
+                placeholder="70"
+                value={weight || ""}
+                onChange={(e) => setWeight(parseFloat(e.target.value) || null)}
+                min="30"
+                max="200"
+                step="0.1"
+                autoFocus
+              />
+            </div>
+          )}
+
+          {/* Step 5: Height */}
+          {step === 5 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-100 rounded-full mb-4">
+                  <span className="text-3xl">📏</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Chiều cao</h2>
+                <p className="text-gray-600 mt-2">Nhập chiều cao của bạn</p>
+              </div>
+              <Input
+                label="Chiều cao (cm)"
+                type="number"
+                placeholder="170"
+                value={height || ""}
+                onChange={(e) => setHeight(parseFloat(e.target.value) || null)}
+                min="100"
+                max="250"
+                autoFocus
+              />
+            </div>
+          )}
+
+          {/* Step 6: Activity Level */}
+          {step === 6 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+                  <span className="text-3xl">🏃</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Mức độ hoạt động</h2>
+                <p className="text-gray-600 mt-2">Bạn tập luyện như thế nào?</p>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { value: "sedentary", label: "Ít vận động", desc: "Không tập luyện, công việc văn phòng" },
+                  { value: "light", label: "Nhẹ nhàng", desc: "Tập 1-3 ngày/tuần" },
+                  { value: "moderate", label: "Trung bình", desc: "Tập 3-5 ngày/tuần" },
+                  { value: "active", label: "Năng động", desc: "Tập 6-7 ngày/tuần" },
+                  { value: "very_active", label: "Rất năng động", desc: "Tập hàng ngày + công việc vất vả" },
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setActivity(option.value as any)}
+                    className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
+                      activity === option.value
+                        ? "border-orange-500 bg-orange-50"
+                        : "border-gray-200 hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="font-semibold text-gray-900">{option.label}</div>
+                    <div className="text-sm text-gray-600">{option.desc}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 7: Goal */}
+          {step === 7 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+                  <span className="text-3xl">🎯</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Mục tiêu của bạn</h2>
+                <p className="text-gray-600 mt-2">Bạn muốn đạt được gì?</p>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { value: "burn", label: "Giảm mỡ", desc: "Tạo thâm hụt calo để giảm cân", emoji: "🔥" },
+                  { value: "build", label: "Tăng cơ", desc: "Tăng calo để xây dựng cơ bắp", emoji: "💪" },
+                  { value: "maintain", label: "Duy trì", desc: "Giữ cân nặng hiện tại", emoji: "⚖️" },
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setGoal(option.value as any)}
+                    className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
+                      goal === option.value
+                        ? "border-orange-500 bg-orange-50"
+                        : "border-gray-200 hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{option.emoji}</span>
+                      <div>
+                        <div className="font-semibold text-gray-900">{option.label}</div>
+                        <div className="text-sm text-gray-600">{option.desc}</div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Navigation buttons */}
+          <div className="flex gap-3 mt-8">
+            {step > 1 && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleBack}
+                disabled={isLoading}
+                className="flex-1"
+              >
+                Quay lại
+              </Button>
+            )}
+            <Button
+              type="button"
+              onClick={handleNext}
+              loading={isLoading}
+              className="flex-1"
+            >
+              {step === 7 ? "Hoàn thành" : "Tiếp tục"}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
