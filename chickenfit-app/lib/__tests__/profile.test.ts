@@ -12,13 +12,14 @@ describe('Profile Helpers', () => {
   describe('calcTDEE', () => {
     it('should calculate TDEE correctly for male', () => {
       const profile: Omit<UserProfile, 'tdee' | 'onboardingDone'> = {
-        gender: 'male',
-        age: 30,
-        weight: 75,
-        height: 175,
-        activity: 1.55,
-        goal: 'maintain'
-      }
+              fullName: '',
+              gender: 'male',
+              age: 30,
+              weight: 75,
+              height: 175,
+              activity: 1.55,
+              goal: 'maintain'
+            }
       
       const tdee = calcTDEE(profile)
       expect(tdee).toBeGreaterThan(0)
@@ -27,13 +28,14 @@ describe('Profile Helpers', () => {
 
     it('should calculate TDEE correctly for female', () => {
       const profile: Omit<UserProfile, 'tdee' | 'onboardingDone'> = {
-        gender: 'female',
-        age: 28,
-        weight: 60,
-        height: 165,
-        activity: 1.375,
-        goal: 'maintain'
-      }
+              fullName: '',
+              gender: 'female',
+              age: 28,
+              weight: 60,
+              height: 165,
+              activity: 1.375,
+              goal: 'maintain'
+            }
       
       const tdee = calcTDEE(profile)
       expect(tdee).toBeGreaterThan(0)
@@ -42,13 +44,14 @@ describe('Profile Helpers', () => {
 
     it('should adjust TDEE based on goal', () => {
       const baseProfile: Omit<UserProfile, 'tdee' | 'onboardingDone'> = {
-        gender: 'male',
-        age: 30,
-        weight: 75,
-        height: 175,
-        activity: 1.55,
-        goal: 'maintain'
-      }
+              fullName: '',
+              gender: 'male',
+              age: 30,
+              weight: 75,
+              height: 175,
+              activity: 1.55,
+              goal: 'maintain'
+            }
       
       const maintainTDEE = calcTDEE(baseProfile)
       const cutTDEE = calcTDEE({ ...baseProfile, goal: 'cut' })

@@ -1,4 +1,22 @@
 "use client";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -151,6 +169,7 @@ export default function MePage() {
   if (!onboardingDone) { router.replace("/onboarding"); return null; }
 
   const profile: UserProfile = {
+    fullName: fullName || "",
     goal: goal!, gender, age, weight, height, activity: activity!, tdee, onboardingDone: true,
   };
 
@@ -159,7 +178,7 @@ export default function MePage() {
   const goalInfo = GOAL_OPTIONS.find(g => g.val === profile.goal)!;
   const actInfo = ACTIVITY_OPTIONS.find(a => a.val === profile.activity)!;
 
-  function startEdit() { setDraft({ ...profile }); setEditing(true); }
+  function startEdit() { setDraft({ ...profile, fullName: fullName || "" }); setEditing(true); }
 
   async function save() {
     if (!draft) return;
@@ -175,7 +194,7 @@ export default function MePage() {
           method: "PUT",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
           body: JSON.stringify({
-                      display_name: fullName,
+                      display_name: updated.fullName,
                       goal: GOAL_TO_DB[updated.goal], gender: updated.gender,
                       age: updated.age, weight_kg: updated.weight, height_cm: updated.height,
                       activity: ACT_TO_DB[updated.activity], tdee: newTdee, onboarding_done: true,
@@ -295,7 +314,7 @@ export default function MePage() {
         <div style={{ background: "var(--card)", borderRadius: 16, border: "1px solid var(--sep)", overflow: "hidden" }}>
                   <Row label="Tên">
                     {editing
-                      ? <TextInput value={fullName || ""} onChange={v => setStoreProfile({ fullName: v })} placeholder="Nhập tên của bạn" />
+                      ? <TextInput value={editDraft.fullName || ""} onChange={v => setDraft(d => ({ ...(d ?? profile), fullName: v }))} placeholder="Nhập tên của bạn" />
                       : fullName || "Chưa đặt tên"}
                   </Row>
                   <Row label="Giới tính">

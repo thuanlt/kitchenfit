@@ -89,7 +89,7 @@ export default function HomePage() {
       return;
     }
     if (goal && age && weight && height && activity) {
-      const p: UserProfile = { goal, gender, age, weight, height, activity, tdee: tdee ?? 0, onboardingDone: true };
+      const p: UserProfile = { fullName: "", goal, gender, age, weight, height, activity, tdee: tdee ?? 0, onboardingDone: true };
       setProfile(p);
       setMacros(calcMacros(p));
     }
