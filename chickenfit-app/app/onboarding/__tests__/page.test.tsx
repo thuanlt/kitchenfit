@@ -41,7 +41,9 @@ describe('Onboarding Page', () => {
       setTokens: vi.fn(),
     })
 
-    vi.mocked(vi.importActual('next/navigation')).useRouter.mockReturnValue(mockRouter)
+    // Simple mock without complex type casting
+    const useRouter = require('next/navigation').useRouter
+    vi.mocked(useRouter).mockReturnValue(mockRouter)
   })
 
   describe('Step 0: Full Name Input', () => {
