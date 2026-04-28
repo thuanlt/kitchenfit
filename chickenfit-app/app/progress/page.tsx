@@ -6,6 +6,9 @@ import {
 } from "recharts";
 import { useProgressStore } from "../../store/progress.store";
 import { useProfileStore } from "../../store/profile.store";
+import WaterTracker from "../../components/WaterTracker";
+import MacroAnalysis from "../../components/MacroAnalysis";
+import BarcodeScanner from "../../components/BarcodeScanner";
 
 function dateKey(d = new Date()) {
   return d.toISOString().slice(0, 10);
@@ -37,7 +40,6 @@ function WeightChart({ entries }: { entries: { date: string; weight: number }[] 
     fill: i === lastIdx ? PRIMARY : SEP,
   }));
 
-  // Custom bar shape reads `fill` from each data entry
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ColoredBar = (props: any) => {
     const { x, y, width, height, fill } = props;
@@ -86,8 +88,9 @@ export default function ProgressPage() {
   const today = dateKey();
   const [weightInput, setWeightInput] = useState("");
   const [saving, setSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState<"overview" | "water" | "macros" | "scanner">("overview");
 
-  const { weightLog, addWeight, removeDiaryEntry, getDiaryForDate, getDiaryTotals } = useProgressStore();
+  const { weightLog, addWeight, removeDiaryEntry, getDiaryForDate, getDiaryTotals, addDiaryEntry } = useProgressStore();
   const { tdee, accessToken } = useProfileStore();
 
   const calTarget = tdee || 2000;
@@ -137,6 +140,22 @@ export default function ProgressPage() {
     }
   }
 
+  const handleProductFound = (product: any) => {
+    // Add scanned product to diary
+    addDiaryEntry({
+      date: today,
+      meal_type: "snack",
+      recipe_id: 0,
+      recipe_name: product.name,
+      recipe_emoji: "📦",
+      amount_g: product.serving_size_g,
+      calories: product.calories,
+      protein_g: product.protein_g,
+      carbs_g: product.carbs_g,
+      fat_g: product.fat_g,
+    });
+  };
+
   return (
     <div style={{ overflowY: "auto", paddingBottom: 24 }}>
       {/* ── Header ── */}
@@ -145,136 +164,188 @@ export default function ProgressPage() {
         <p style={{ fontSize: 13, color: "var(--text2)", marginTop: 2 }}>Cân nặng & nhật ký</p>
       </div>
 
-      <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
-
-        {/* ── Log cân nặng ── */}
-        <div style={{ background: "var(--card)", borderRadius: 16, padding: "16px", border: "1px solid var(--sep)" }}>
-          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--text2)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 10 }}>
-            Log cân nặng hôm nay
-          </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <input
-              type="number"
-              placeholder="70.5"
-              value={weightInput}
-              onChange={(e) => setWeightInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && logWeight()}
-              step="0.1"
-              style={{
-                flex: 1, minWidth: 0, background: "var(--bg)", border: "1.5px solid var(--sep)",
-                borderRadius: 12, padding: "12px 16px", fontSize: 20, fontWeight: 800,
-                color: "var(--text)", outline: "none", textAlign: "center",
-              }}
-            />
-            <span style={{ fontSize: 14, color: "var(--text2)", fontWeight: 600, flexShrink: 0 }}>kg</span>
-          </div>
+      {/* ── Tabs ── */}
+      <div style={{ 
+        display: "flex", 
+        gap: 8, 
+        padding: "12px 16px", 
+        overflowX: "auto",
+        background: "var(--card)",
+        borderBottom: "1px solid var(--sep)"
+      }}>
+        {[
+          { id: "overview", label: "Tổng quan", emoji: "📊" },
+          { id: "water", label: "Nước", emoji: "💧" },
+          { id: "macros", label: "Dinh dưỡng", emoji: "🥗" },
+          { id: "scanner", label: "Quét mã", emoji: "📷" },
+        ].map((tab) => (
           <button
-            onClick={logWeight}
-            disabled={saving}
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
             style={{
-              width: "100%", background: "var(--primary)", color: "#fff", border: "none",
-              borderRadius: 12, padding: "13px", fontSize: 15, fontWeight: 700, cursor: "pointer",
-              opacity: saving ? 0.7 : 1,
+              flex: 1,
+              minWidth: "fit-content",
+              padding: "8px 16px",
+              background: activeTab === tab.id ? "var(--primary)" : "var(--bg)",
+              color: activeTab === tab.id ? "#fff" : "var(--text)",
+              border: activeTab === tab.id ? "none" : "1.5px solid var(--sep)",
+              borderRadius: 20,
+              fontSize: 13,
+              fontWeight: 700,
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s",
             }}
           >
-            {saving ? "Đang lưu..." : "Lưu cân nặng"}
+            {tab.emoji} {tab.label}
           </button>
-        </div>
+        ))}
+      </div>
 
-        {/* ── Chart ── */}
-        <div style={{ background: "var(--card)", borderRadius: 16, padding: 16, border: "1px solid var(--sep)" }}>
-          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--text2)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 14 }}>
-            7 ngày gần nhất
-          </p>
-          <WeightChart entries={last7} />
-        </div>
+      <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
 
-        {/* ── Stats grid ── */}
-        {last7.length > 0 && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10 }}>
-            {[
-              { val: `${vals[vals.length - 1]} kg`, label: "Hiện tại", color: "var(--primary)" },
-              {
-                val: diff ? `${diffNum > 0 ? "+" : ""}${diff} kg` : "—",
-                label: "7 ngày",
-                color: diffNum <= 0 ? "var(--green)" : "var(--primary)",
-              },
-              { val: `${last7.length} 🔥`, label: "Ngày log", color: "var(--gold)" },
-            ].map((s) => (
-              <div key={s.label} style={{ background: "var(--card)", borderRadius: 14, padding: "14px 8px", textAlign: "center", border: "1px solid var(--sep)" }}>
-                <div style={{ fontSize: 18, fontWeight: 800, color: s.color }}>{s.val}</div>
-                <div style={{ fontSize: 11, color: "var(--text2)", fontWeight: 600, marginTop: 3 }}>{s.label}</div>
+        {/* ── Overview Tab ── */}
+        {activeTab === "overview" && (
+          <>
+            {/* ── Log cân nặng ── */}
+            <div style={{ background: "var(--card)", borderRadius: 16, padding: "16px", border: "1px solid var(--sep)" }}>
+              <p style={{ fontSize: 12, fontWeight: 700, color: "var(--text2)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 10 }}>
+                Log cân nặng hôm nay
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                <input
+                  type="number"
+                  placeholder="70.5"
+                  value={weightInput}
+                  onChange={(e) => setWeightInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && logWeight()}
+                  step="0.1"
+                  style={{
+                    flex: 1, minWidth: 0, background: "var(--bg)", border: "1.5px solid var(--sep)",
+                    borderRadius: 12, padding: "12px 16px", fontSize: 20, fontWeight: 800,
+                    color: "var(--text)", outline: "none", textAlign: "center",
+                  }}
+                />
+                <span style={{ fontSize: 14, color: "var(--text2)", fontWeight: 600, flexShrink: 0 }}>kg</span>
               </div>
-            ))}
-          </div>
+              <button
+                onClick={logWeight}
+                disabled={saving}
+                style={{
+                  width: "100%", background: "var(--primary)", color: "#fff", border: "none",
+                  borderRadius: 12, padding: "13px", fontSize: 15, fontWeight: 700, cursor: "pointer",
+                  opacity: saving ? 0.7 : 1,
+                }}
+              >
+                {saving ? "Đang lưu..." : "Lưu cân nặng"}
+              </button>
+            </div>
+
+            {/* ── Chart ── */}
+            <div style={{ background: "var(--card)", borderRadius: 16, padding: 16, border: "1px solid var(--sep)" }}>
+              <p style={{ fontSize: 12, fontWeight: 700, color: "var(--text2)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 14 }}>
+                7 ngày gần nhất
+              </p>
+              <WeightChart entries={last7} />
+            </div>
+
+            {/* ── Stats grid ── */}
+            {last7.length > 0 && (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10 }}>
+                {[
+                  { val: `${vals[vals.length - 1]} kg`, label: "Hiện tại", color: "var(--primary)" },
+                  {
+                    val: diff ? `${diffNum > 0 ? "+" : ""}${diff} kg` : "—",
+                    label: "7 ngày",
+                    color: diffNum <= 0 ? "var(--green)" : "var(--primary)",
+                  },
+                  { val: `${last7.length} 🔥`, label: "Ngày log", color: "var(--gold)" },
+                ].map((s) => (
+                  <div key={s.label} style={{ background: "var(--card)", borderRadius: 14, padding: "14px 8px", textAlign: "center", border: "1px solid var(--sep)" }}>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: s.color }}>{s.val}</div>
+                    <div style={{ fontSize: 11, color: "var(--text2)", fontWeight: 600, marginTop: 3 }}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* ── Diary ── */}
+            <div style={{ background: "var(--card)", borderRadius: 16, padding: 16, border: "1px solid var(--sep)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                <span style={{ fontSize: 14, fontWeight: 800, color: "var(--text)" }}>Bữa ăn hôm nay</span>
+                <Link href="/recipes" style={{ fontSize: 13, color: "var(--primary)", fontWeight: 700, textDecoration: "none" }}>
+                  + Thêm bữa
+                </Link>
+              </div>
+
+              {todayDiary.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "20px 0", color: "var(--text2)", fontSize: 13, lineHeight: 1.7 }}>
+                  Chưa có bữa nào hôm nay<br />
+                  <span style={{ fontSize: 12 }}>Xem công thức → nhấn &quot;Thêm vào nhật ký&quot;</span>
+                </div>
+              ) : (
+                <>
+                  {todayDiary.map((entry, i) => (
+                    <div key={entry.id ?? i} style={{
+                      display: "flex", alignItems: "center", gap: 10,
+                      paddingBottom: 10, marginBottom: 10,
+                      borderBottom: i < todayDiary.length - 1 ? "0.5px solid var(--sep)" : "none",
+                    }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 12, background: "#FAF0E2", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>
+                        {entry.recipe_emoji}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {entry.recipe_name}
+                        </p>
+                        <p style={{ fontSize: 12, color: "var(--text2)", marginTop: 2 }}>
+                          {entry.calories} kcal · P {entry.protein_g}g
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => removeDiaryItem(entry.id, today)}
+                        style={{ background: "none", border: "none", fontSize: 18, color: "#ccc", cursor: "pointer", padding: 4 }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+
+                  {/* Summary */}
+                  <div style={{
+                    background: "linear-gradient(135deg,#F5EDDC,#EEE0C8)",
+                    border: "1.5px solid #D4B896", borderRadius: 12,
+                    padding: "10px 14px", marginTop: 4,
+                  }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                      <span style={{ fontSize: 12, color: "var(--text2)", fontWeight: 600 }}>Tổng hôm nay</span>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: "var(--primary)" }}>
+                        {totals.calories} / {calTarget} kcal
+                      </span>
+                    </div>
+                    <div style={{ height: 6, background: "rgba(0,0,0,.08)", borderRadius: 3, overflow: "hidden" }}>
+                      <div style={{ height: "100%", borderRadius: 3, background: "var(--primary)", width: `${diaryPct}%`, transition: "width .5s" }} />
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: "var(--text2)", fontWeight: 600 }}>
+                      <span>P {totals.protein_g}g</span>
+                      <span>C {totals.carbs_g}g</span>
+                      <span>F {totals.fat_g}g</span>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
         )}
 
-        {/* ── Diary ── */}
-        <div style={{ background: "var(--card)", borderRadius: 16, padding: 16, border: "1px solid var(--sep)" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <span style={{ fontSize: 14, fontWeight: 800, color: "var(--text)" }}>Bữa ăn hôm nay</span>
-            <Link href="/recipes" style={{ fontSize: 13, color: "var(--primary)", fontWeight: 700, textDecoration: "none" }}>
-              + Thêm bữa
-            </Link>
-          </div>
+        {/* ── Water Tab ── */}
+        {activeTab === "water" && <WaterTracker />}
 
-          {todayDiary.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "20px 0", color: "var(--text2)", fontSize: 13, lineHeight: 1.7 }}>
-              Chưa có bữa nào hôm nay<br />
-              <span style={{ fontSize: 12 }}>Xem công thức → nhấn &quot;Thêm vào nhật ký&quot;</span>
-            </div>
-          ) : (
-            <>
-              {todayDiary.map((entry, i) => (
-                <div key={entry.id ?? i} style={{
-                  display: "flex", alignItems: "center", gap: 10,
-                  paddingBottom: 10, marginBottom: 10,
-                  borderBottom: i < todayDiary.length - 1 ? "0.5px solid var(--sep)" : "none",
-                }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 12, background: "#FAF0E2", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>
-                    {entry.recipe_emoji}
-                  </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      {entry.recipe_name}
-                    </p>
-                    <p style={{ fontSize: 12, color: "var(--text2)", marginTop: 2 }}>
-                      {entry.calories} kcal · P {entry.protein_g}g
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => removeDiaryItem(entry.id, today)}
-                    style={{ background: "none", border: "none", fontSize: 18, color: "#ccc", cursor: "pointer", padding: 4 }}
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
+        {/* ── Macros Tab ── */}
+        {activeTab === "macros" && <MacroAnalysis />}
 
-              {/* Summary */}
-              <div style={{
-                background: "linear-gradient(135deg,#F5EDDC,#EEE0C8)",
-                border: "1.5px solid #D4B896", borderRadius: 12,
-                padding: "10px 14px", marginTop: 4,
-              }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <span style={{ fontSize: 12, color: "var(--text2)", fontWeight: 600 }}>Tổng hôm nay</span>
-                  <span style={{ fontSize: 14, fontWeight: 800, color: "var(--primary)" }}>
-                    {totals.calories} / {calTarget} kcal
-                  </span>
-                </div>
-                <div style={{ height: 6, background: "rgba(0,0,0,.08)", borderRadius: 3, overflow: "hidden" }}>
-                  <div style={{ height: "100%", borderRadius: 3, background: "var(--primary)", width: `${diaryPct}%`, transition: "width .5s" }} />
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: "var(--text2)", fontWeight: 600 }}>
-                  <span>P {totals.protein_g}g</span>
-                  <span>C {totals.carbs_g}g</span>
-                  <span>F {totals.fat_g}g</span>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
+        {/* ── Barcode Scanner Tab ── */}
+        {activeTab === "scanner" && <BarcodeScanner onProductFound={handleProductFound} />}
 
       </div>
     </div>

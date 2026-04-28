@@ -50,6 +50,30 @@ const tabs = [
     ),
   },
   {
+    href: "/shopping",
+    label: "Mua sắm",
+    icon: (active: boolean) => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M9 20a1 1 0 100 2 1 1 0 000-2z"
+          fill={active ? "var(--primary)" : "#8E8E93"}
+        />
+        <path
+          d="M20 20a1 1 0 100 2 1 1 0 000-2z"
+          fill={active ? "var(--primary)" : "#8E8E93"}
+        />
+        <path
+          d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+          stroke={active ? "var(--primary)" : "#8E8E93"}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </svg>
+    ),
+  },
+  {
     href: "/progress",
     label: "Tiến trình",
     icon: (active: boolean) => (
