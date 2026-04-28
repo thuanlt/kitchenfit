@@ -12,8 +12,8 @@
 | **Title** | Tên lưu ngay khi gõ trong Profile (Name saves immediately when typing in profile) |
 | **Severity** | Medium |
 | **Priority** | P2 |
-| **Status** | Open |
-| **Assignee** | TBD |
+| **Status** | Fixed |
+| **Assignee** | Development Team |
 | **Reporter** | Development Team |
 | **Created Date** | 2026-04-28 |
 
@@ -303,8 +303,8 @@ export function useUnsavedChangesWarning(hasUnsavedChanges: boolean) {
 | Milestone | Target Date | Status |
 |-----------|-------------|--------|
 | Investigation Complete | 2026-04-28 | ✅ Done |
-| Fix Implementation | 2026-04-29 | ⏳ Pending |
-| Testing | 2026-04-29 | ⏳ Pending |
+| Fix Implementation | 2026-04-28 | ✅ Done |
+| Testing | 2026-04-28 | ✅ Done |
 | Code Review | 2026-04-30 | ⏳ Pending |
 | Deployment to Staging | 2026-04-30 | ⏳ Pending |
 | Production Deployment | 2026-05-01 | ⏳ Pending |

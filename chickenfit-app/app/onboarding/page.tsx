@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useProfileStore } from "../store/profile.store";
-import { calcTDEE, type UserProfile } from "../lib/profile";
+import { useProfileStore } from "../../store/profile.store";
+import { calcTDEE, type UserProfile, ACT_TO_DB, GOAL_TO_DB } from "../../lib/profile";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 
@@ -68,13 +68,14 @@ export default function OnboardingPage() {
 
     try {
       const profile: Omit<UserProfile, "tdee" | "onboardingDone"> = {
-        gender,
-        age,
-        weight,
-        height,
-        activity,
-        goal,
-      };
+              fullName,
+              gender,
+              age,
+              weight,
+              height,
+              activity: ACT_TO_DB[activity as keyof typeof ACT_TO_DB],
+              goal: GOAL_TO_DB[goal as keyof typeof GOAL_TO_DB],
+            };
 
       const tdee = calcTDEE(profile);
 
@@ -95,16 +96,16 @@ export default function OnboardingPage() {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            display_name: fullName,
-            gender,
-            age,
-            weight_kg: weight,
-            height_cm: height,
-            activity,
-            goal,
-            tdee,
-            onboarding_done: true,
-          }),
+                      display_name: fullName,
+                      gender,
+                      age,
+                      weight_kg: weight,
+                      height_cm: height,
+                      activity: ACT_TO_DB[activity as keyof typeof ACT_TO_DB],
+                      goal: GOAL_TO_DB[goal as keyof typeof GOAL_TO_DB],
+                      tdee,
+                      onboarding_done: true,
+                    }),
         });
 
         if (!response.ok) {
