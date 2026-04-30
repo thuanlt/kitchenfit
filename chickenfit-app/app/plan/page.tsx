@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { DB } from "../../lib/recipes";
 import { usePlanStore, type PlanDay, type PlanMeal } from "../../store/plan.store";
@@ -82,7 +82,7 @@ export default function PlanPage() {
   const [generating, setGenerating] = useState(false);
   const [swapTarget, setSwapTarget] = useState<SwapTarget>(null);
 
-  const { weekStart, days, setPlan, swapMeal } = usePlanStore();
+  const { weekStart, days, setPlan, swapMeal, loadPlanFromDB, isLoading } = usePlanStore();
   const { tdee, goal, accessToken } = useProfileStore();
   const calTarget = tdee || 2000;
 
@@ -96,6 +96,21 @@ export default function PlanPage() {
     : `${weekOffset} tuần tới`;
 
   const today = dateKey(new Date());
+
+  // Load plan from DB on mount
+  useEffect(() => {
+    if (accessToken && !weekStart) {
+      loadPlanFromDB(currentWeekStart);
+    }
+  }, [accessToken, weekStart, currentWeekStart]);
+
+  // Load plan when week changes
+  useEffect(() => {
+    if (accessToken && weekOffset !== 0) {
+      const targetWeekStart = dateKey(getMonday(weekOffset));
+      loadPlanFromDB(targetWeekStart);
+    }
+  }, [weekOffset, accessToken]);
 
   function shiftWeek(dir: number) {
     const newOffset = weekOffset + dir;
@@ -202,7 +217,13 @@ export default function PlanPage() {
 
       {/* ── Plan body ── */}
       <div style={{ flex: 1, overflowY: "auto", padding: "12px 16px 16px" }}>
-        {!dayPlan ? (
+        {isLoading ? (
+          <div style={{ textAlign: "center", padding: "40px 24px", color: "var(--text2)" }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>⏳</div>
+            <p style={{ fontSize: 15, fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>Đang tải kế hoạch...</p>
+            <p style={{ fontSize: 13, lineHeight: 1.6 }}>Đang lấy dữ liệu từ máy chủ</p>
+          </div>
+        ) : !dayPlan ? (
           <div style={{ textAlign: "center", padding: "40px 24px", color: "var(--text2)" }}>
             <div style={{ fontSize: 48, marginBottom: 12 }}>📅</div>
             <p style={{ fontSize: 15, fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>Chưa có kế hoạch</p>

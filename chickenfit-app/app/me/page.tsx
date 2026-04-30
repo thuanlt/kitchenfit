@@ -160,7 +160,7 @@ export default function MePage() {
   const router = useRouter();
   const store = useProfileStore();
   const { setProfile: setStoreProfile, logout, onboardingDone,
-      goal, gender, age, weight, height, activity, tdee, accessToken, fullName } = store;
+        goal, gender, age, weight, height, activity, tdee, accessToken, fullName, calculateMacroGoals } = store;
 
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState<UserProfile | null>(null);
@@ -184,7 +184,10 @@ export default function MePage() {
     if (!draft) return;
     const newTdee = calcTDEE(draft);
     const updated = { ...draft, tdee: newTdee };
-    setStoreProfile({ ...updated, onboardingDone: true });
+        setStoreProfile({ ...updated, onboardingDone: true });
+    
+    // Auto-calculate macro goals when profile is saved
+    calculateMacroGoals();
 
     if (accessToken) {
       const GOAL_TO_DB: Record<string, string> = { cut: "burn", maintain: "maintain", bulk: "build" };
