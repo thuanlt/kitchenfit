@@ -1,6 +1,6 @@
 "use client";
 
-"import { useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProfileStore } from "../../store/profile.store";
 import { calcTDEE, type UserProfile, ACT_TO_DB, GOAL_TO_DB } from "../../lib/profile";
@@ -77,7 +77,7 @@ export default function OnboardingPage() {
               goal: GOAL_TO_DB[goal as keyof typeof GOAL_TO_DB],
             };
 
-      "      const tdee = calcTDEE(profile);
+            const tdee = calcTDEE(profile);
 
       // Update local store
       setProfile({
